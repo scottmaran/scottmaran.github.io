@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NHL '93 Rink Preview</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <div id="app" class="app">
+    <canvas id="rinkCanvas" aria-label="NHL rink preview" role="img"></canvas>
+    <div id="hud" class="hud">
+      <span>Arrow keys pan • Resize window to test viewport scaling</span>
+    </div>
+    <div id="loading" class="loading" aria-live="polite">Loading rink…</div>
+  </div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

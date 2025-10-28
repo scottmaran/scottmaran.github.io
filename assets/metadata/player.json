@@ -1,0 +1,22 @@
+{
+  "sprites": {
+    "idle": {
+      "image": "assets/sprites/player_idle.png",
+      "frameWidth": 57,
+      "frameHeight": 110,
+      "frames": 1,
+      "anchorX": 28,
+      "anchorY": 104
+    },
+    "skate": {
+      "image": "assets/sprites/player_skate.png",
+      "frameWidth": 57,
+      "frameHeight": 110,
+      "frames": 8,
+      "frameRate": 14,
+      "directions": 1,
+      "anchorX": 28,
+      "anchorY": 104
+    }
+  }
+}

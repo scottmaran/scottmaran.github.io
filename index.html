@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NHL '93 Personal Site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#fallback-nav">Skip interactive rink</a>
+  <header class="site-header" aria-label="Primary">
+    <a class="site-title" href="index.html">NHL '93</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="audio-toggle" type="button" aria-pressed="false" aria-label="Toggle crowd audio" hidden>
+      🔇
+    </button>
+  </header>
+
+  <main class="main-layout">
+    <section class="hero">
+      <h1 class="hero-title">Skate Your Story</h1>
+      <p class="hero-text">Use the arrow keys to skate around the rink. When you reach a labeled zone, press <kbd>Enter</kbd> to jump to that section.</p>
+      <p class="hero-text secondary">Press <kbd>Esc</kbd> anytime to free your keyboard focus.</p>
+      <p class="hero-text secondary">Tap the speaker icon after jumping onto the ice if you want the crowd and rink sounds.</p>
+    </section>
+
+    <section class="rink-wrapper" aria-label="Interactive rink">
+      <canvas id="rink-canvas" width="960" height="600" role="application" aria-label="NHL '93 inspired skating interface"></canvas>
+      <div class="hud" aria-hidden="true">
+        <div class="hud-status" id="hud-status">Skate to a section.</div>
+        <div class="hud-instructions">Arrow Keys: Skate &bull; Enter: Open Section &bull; Esc: Release focus</div>
+      </div>
+      <div class="focus-indicator" id="focus-indicator" hidden>Focus locked. Press Esc to release.</div>
+    </section>
+
+    <section class="fallback" id="fallback-nav" aria-label="Fallback navigation">
+      <h2>Quick Links</h2>
+      <p>If you prefer, jump straight to a section:</p>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <noscript>
+    <section class="no-script">
+      <h2>JavaScript Disabled</h2>
+      <p>The skating experience needs JavaScript. Use the links above to navigate.</p>
+    </section>
+  </noscript>
+
+  <script type="module" src="js/rink.js"></script>
+</body>
+</html>

@@ -45,7 +45,7 @@ const GOAL_ZONES = [
 const MAX_NPC_COUNT = 6;
 const GOAL_RESPAWN_DELAY = 1000; // ms pause before resetting after a goal
 
-// Hard-coded ice bounds derived from `assets/rink_map_template.png`. The rink
+// Hard-coded ice bounds derived from `assets/rink_map_template_no_lines.png`. The rink
 // image includes benches/crowd art outside the boards, but we want the player
 // confined to the actual playable ice surface.
 const ICE_BOUNDS = {
@@ -143,6 +143,26 @@ function loadImage(src) {
     img.onerror = () => reject(new Error(`Failed to load image ${src}`));
     img.src = src;
   });
+}
+
+function alignRinkImageToWorld(image, world) {
+  if (!image || !world) return image;
+  if (image.width === world.width && image.height === world.height) {
+    return image;
+  }
+  const buffer = document.createElement('canvas');
+  buffer.width = world.width;
+  buffer.height = world.height;
+  const ctx2d = buffer.getContext('2d');
+  if (!ctx2d) return image;
+  ctx2d.imageSmoothingEnabled = false;
+  ctx2d.drawImage(image, 0, 0, world.width, world.height);
+  if (typeof console !== 'undefined') {
+    console.info(
+      `Scaled rink image from ${image.width}x${image.height} to ${world.width}x${world.height} to match hotspot coordinates.`
+    );
+  }
+  return buffer;
 }
 
 let statusHideTimer = null;
@@ -1587,7 +1607,7 @@ async function bootstrap() {
     ]);
 
     const [rinkImage, puckImage] = await Promise.all([
-      loadImage('assets/rink_map_template.png'),
+      loadImage('assets/rink_map_template_no_lines.png'),
       loadImage(puckConfig.sprite),
     ]);
 
@@ -1612,7 +1632,7 @@ async function bootstrap() {
     hotspotManager.setHotspots(hotspotsConfig.hotspots);
     game.hotspotManager = hotspotManager;
     game.world = world;
-    game.rinkImage = rinkImage;
+    game.rinkImage = alignRinkImageToWorld(rinkImage, world);
     game.spriteSheet = spriteSheet;
     game.spriteVariant = initialVariant;
     game.puckConfig = puckConfig;

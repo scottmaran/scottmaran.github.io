@@ -11,7 +11,7 @@
 
 ### Hotspot Config Reference (`assets/config/hotspots.json`)
 - `version`: Schema version for future migrations.
-- `canvas`: Native size of `rink_map_template.png`. The runtime uses this to scale coordinates.
+- `canvas`: Native size of `rink_map_template_no_lines.png`. The runtime uses this to scale coordinates.
 - `hotspots`: Array of definitions, each with:
   - `id`: Stable identifier (used for debugging/analytics).
   - `label`: Text shown in the HUD and prompts.
@@ -25,7 +25,7 @@
 - `about.html`, `projects.html`, `contact.html` – Simple placeholders that share the header/skip-link scaffolding.
 - `styles.css` – Retro theme, canvas wrapper styling, HUD look-and-feel, instructions, and fallback link styles.
 - `assets/` – Art, sprites, and configuration.
-  - `rink_map_template.png` – Native rink graphic (3939×5600) used for world coordinates.
+  - `rink_map_template_no_lines.png` – Native rink graphic (3939×5600) used for world coordinates.
   - `sprites/` – Packed player spritesheets for general skating.
   - `puck_sprites/` – Matching sprite sheets that include puck-on-stick art, swapped in automatically when you possess the puck.
 - `config/` – JSON files (`sprites.json`, `hotspots.json`, `puck.json`, `npcs.json`) that drive rendering/interaction.
@@ -48,7 +48,7 @@
 - `eslint.config.js` / `.prettierrc` – Keep the vanilla ES module codebase consistent.
 
 ### Adding or Editing Hotspots
-1. Update `assets/config/hotspots.json` with the new `rect`, `label`, and `destination`. The `canvas.width/height` values should stay aligned with `rink_map_template.png`.
+1. Update `assets/config/hotspots.json` with the new `rect`, `label`, and `destination`. The `canvas.width/height` values should stay aligned with `rink_map_template_no_lines.png`.
 2. No JS changes are required—`HotspotManager` ingests the JSON at load time and the HUD adapts automatically.
 3. If you adjust colors or background styles, the HUD will pick them up via `labelStyle`.
 

@@ -9,7 +9,7 @@
 ## Page Structure & Layout
 - **Global Header Bar**: Fixed at top with standard links (`Home`, `About`, `Projects`, `Contact`, etc.); mirrors GitHub Pages nav for mouse users.
 - **Main Rink Canvas**: Full-width section beneath header containing an ice rink graphic rendered on an HTML `<canvas>` (preferred for smooth animation control).
-- **Hotspot Labels**: Overlay markers tied to canvas coordinates (e.g., penalty box = `About`, bench = `Projects`, goal crease = `Contact`). MVP ships with these three fixed hotspots, positioned relative to `assets/rink_map_template.png` so we can tune coordinates as we refine layout. Because these regions may start off screen while the camera tracks the skater, HUD cues should help players orient toward them. Hotspot visuals rely entirely on the underlying rink art (e.g., goal net), so UI labels only appear once the skater overlaps the zone.
+- **Hotspot Labels**: Overlay markers tied to canvas coordinates (e.g., penalty box = `About`, bench = `Projects`, goal crease = `Contact`). MVP ships with these three fixed hotspots, positioned relative to `assets/rink_map_template_no_lines.png` so we can tune coordinates as we refine layout. Because these regions may start off screen while the camera tracks the skater, HUD cues should help players orient toward them. Hotspot visuals rely entirely on the underlying rink art (e.g., goal net), so UI labels only appear once the skater overlaps the zone.
 - **Fallback Navigation**: Plain-text list of the same links below the rink for screen readers / non-JS support; the canvas should continue rendering while prompts steer users toward the static link list when keyboard input is unavailable.
 
 ## Visual Assets
@@ -68,7 +68,7 @@
 
 ## Data Schemas
 - Store config JSON under `assets/config/` so GitHub Pages serves it statically but outside the JS bundle.
-- All coordinates reference the native resolution of `assets/rink_map_template.png`; the camera and integer scaling math derive from this canonical size.
+- All coordinates reference the native resolution of `assets/rink_map_template_no_lines.png`; the camera and integer scaling math derive from this canonical size.
 
 ### Sprite Atlas (`assets/config/sprites.json`)
 ```json

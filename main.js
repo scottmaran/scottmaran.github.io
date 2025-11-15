@@ -22,6 +22,8 @@ const hudAction = document.querySelector('.hud__action');
 const hudBeacons = document.querySelector('.hud__beacons');
 const instructionsOverlay = document.getElementById('instructions-overlay');
 const spriteSelect = document.getElementById('sprite-select');
+const npcCountSelect = document.getElementById('npc-count');
+const npcSpriteSelect = document.getElementById('npc-sprite-select');
 
 // --- Simulation constants ---------------------------------------------------
 const FIXED_TIME_STEP = 1000 / 60; // target 60 FPS update cadence (in ms)
@@ -34,6 +36,7 @@ const PUCK_STICK_OFFSET = 50; // distance (px) from player center to stick blade
 const PUCK_RELEASE_SPEED = 900; // px / s impulse when casually dropping the puck
 const PUCK_SHOT_SPEED = 1850; // px / s impulse when firing a shot
 const PUCK_HINT_COLOR = '#FFA851';
+const MAX_NPC_COUNT = 6;
 
 // Hard-coded ice bounds derived from `assets/rink_map_template.png`. The rink
 // image includes benches/crowd art outside the boards, but we want the player
@@ -107,7 +110,10 @@ const game = {
   puckConfig: null,
   npcConfig: null,
   puck: null,
+  allNpcs: [],
   npcs: [],
+  spriteVariantsById: {},
+  currentNpcVariantId: null,
 };
 
 // --- Asset helpers ----------------------------------------------------------
@@ -456,9 +462,41 @@ function populateSpriteSelect(variants) {
   });
 }
 
+function populateNpcCountSelect(totalNpcCount) {
+  if (!npcCountSelect) return;
+  const initialValue = parseInt(npcCountSelect.value, 10);
+  if (Number.isNaN(initialValue)) {
+    npcCountSelect.value = String(Math.min(totalNpcCount, MAX_NPC_COUNT));
+  }
+  const handler = () => {
+    const count = parseInt(npcCountSelect.value, 10);
+    applyNpcLimit(count);
+  };
+  if (!npcCountSelect.dataset.bound) {
+    npcCountSelect.dataset.bound = 'true';
+    npcCountSelect.addEventListener('change', handler);
+  }
+  handler();
+}
+
+function populateNpcSpriteSelect(variants) {
+  if (!npcSpriteSelect || !variants) return;
+  npcSpriteSelect.innerHTML = '';
+  variants.forEach((variant) => {
+    const option = document.createElement('option');
+    option.value = variant.id;
+    option.textContent = variant.label;
+    npcSpriteSelect.appendChild(option);
+  });
+  npcSpriteSelect.addEventListener('change', () => {
+    const variantId = npcSpriteSelect.value;
+    updateNpcSprites(variantId);
+  });
+}
+
 async function setSpriteVariantById(variantId) {
   if (!game.spriteVariants || game.spriteVariants.length === 0) return;
-  const variant = game.spriteVariants.find((entry) => entry.id === variantId);
+    const variant = game.spriteVariants.find((entry) => entry.id === variantId);
   if (!variant || game.spriteVariant?.id === variant.id) return;
 
   const requestId = ++spriteVariantLoadToken;
@@ -471,6 +509,16 @@ async function setSpriteVariantById(variantId) {
       game.player.spriteSheet = base;
       game.player.puckSpriteSheet = puck;
       resetSkaterAnimation(game.player, game.spriteSheet);
+    }
+    if (game.npcs && game.npcs.length) {
+      game.npcs.forEach((npc) => {
+        const npcVariant = variant.id === npc.variantId ? variant : game.spriteVariantsById?.[npc.variantId];
+        if (!npcVariant) return;
+        getVariantSpriteSheets(npcVariant).then((sheets) => {
+          npc.spriteSheet = sheets.base;
+          resetSkaterAnimation(npc, npc.spriteSheet);
+        });
+      });
     }
   } catch (error) {
     console.error(error);
@@ -493,6 +541,7 @@ function createSkater({
   scale = PLAYER_SCALE_FACTOR,
   behavior = 'player',
   hitbox = null,
+  bounds = ICE_BOUNDS,
 }) {
   const skater = {
     id,
@@ -525,6 +574,7 @@ function createSkater({
     }
   }
 
+  clampEntityToBounds(skater, bounds);
   return skater;
 }
 
@@ -542,7 +592,7 @@ function resolveSkaterSpriteSheet(skater) {
   return skater.spriteSheet;
 }
 
-async function loadNpcSkaters(npcConfig, variantIndex, world) {
+async function loadNpcSkaters(npcConfig, variantIndex, world, bounds) {
   if (!npcConfig || !Array.isArray(npcConfig.players)) return [];
   const skaters = [];
   for (const npcDef of npcConfig.players) {
@@ -557,15 +607,19 @@ async function loadNpcSkaters(npcConfig, variantIndex, world) {
         id: npcDef.id,
         world,
         spriteSheet: sheets.base,
+        puckSpriteSheet: null,
         controlSource: () => ZERO_VECTOR,
         radius: npcDef.hitbox?.radius ?? PLAYER_COLLISION_RADIUS,
         behavior: 'npc-static',
         hitbox: npcDef.hitbox || null,
+        bounds,
       });
       npc.position.x = npcDef.position?.x ?? npc.position.x;
       npc.position.y = npcDef.position?.y ?? npc.position.y;
       npc.state = npcDef.state || npc.state;
       npc.direction = npcDef.direction || npc.direction;
+      npc.variantId = npcDef.spriteVariant;
+      clampEntityToBounds(npc, bounds || ICE_BOUNDS);
       resetSkaterAnimation(npc, npc.spriteSheet);
       skaters.push(npc);
     } catch (error) {
@@ -614,6 +668,13 @@ function clampSkaterToBounds(skater, bounds) {
 
   skater.position.x = clamp(skater.position.x, leftLimit, rightLimit);
   skater.position.y = clamp(skater.position.y, topLimit, bottomLimit);
+}
+
+function clampEntityToBounds(entity, bounds) {
+  if (!entity || !bounds) return;
+  const radius = entity.radius ?? PLAYER_COLLISION_RADIUS;
+  entity.position.x = clamp(entity.position.x, bounds.left + radius, bounds.right - radius);
+  entity.position.y = clamp(entity.position.y, bounds.top + radius, bounds.bottom - radius);
 }
 
 // --- Physics & animation ----------------------------------------------------
@@ -862,6 +923,24 @@ function resolvePlayerNpcCollisions(player, npcs) {
   });
 }
 
+async function updateNpcSprites(variantId) {
+  if (!variantId || !game.allNpcs) return;
+  game.currentNpcVariantId = variantId;
+  const variant = game.spriteVariantsById?.[variantId];
+  if (!variant) return;
+  try {
+    const sheets = await getVariantSpriteSheets(variant);
+    game.allNpcs.forEach((npc) => {
+      npc.spriteSheet = sheets.base;
+      npc.variantId = variantId;
+      resetSkaterAnimation(npc, npc.spriteSheet);
+    });
+    applyNpcLimit(parseInt(npcCountSelect?.value, 10) || game.npcs.length);
+  } catch (error) {
+    console.error('Failed to update NPC sprite variant:', error);
+  }
+}
+
 function resolvePuckNpcCollisions(puck, npcs) {
   if (!puck || !Array.isArray(npcs)) return;
   npcs.forEach((npc) => {
@@ -891,6 +970,29 @@ function getNpcCollisionRadius(npc) {
     return Math.max(npc.hitbox.width, npc.hitbox.height) / 2;
   }
   return npc?.radius || PLAYER_COLLISION_RADIUS;
+}
+
+function cloneNpc(template, duplicateIndex = 0) {
+  if (!template || !game.world) return null;
+  const npc = createSkater({
+    id: `${template.id}__${duplicateIndex}`,
+    world: game.world,
+    spriteSheet: template.spriteSheet,
+    controlSource: () => ZERO_VECTOR,
+    radius: template.radius,
+    scale: template.scale,
+    behavior: 'npc-static',
+    hitbox: template.hitbox,
+    bounds: game.iceBounds,
+  });
+  npc.variantId = template.variantId;
+  npc.state = template.state;
+  npc.direction = template.direction;
+  npc.position.x = template.position.x + duplicateIndex * 30 * (duplicateIndex % 2 === 0 ? 1 : -1);
+  npc.position.y = template.position.y + duplicateIndex * 45;
+  clampSkaterToBounds(npc, game.iceBounds);
+  resetSkaterAnimation(npc, npc.spriteSheet);
+  return npc;
 }
 
 // --- Hotspot system ---------------------------------------------------------
@@ -1049,6 +1151,31 @@ function handlePuckShot() {
   const heading = speedVectorLength > PLAYER_PHYSICS.MIN_SPEED ? Math.atan2(player.velocity.y, player.velocity.x) : player.heading;
   releasePuck(game.puck, player, PUCK_SHOT_SPEED, heading);
   flashStatus('Shot fired!', 1000, { emphasize: true });
+}
+
+function applyNpcLimit(count) {
+  if (!Array.isArray(game.allNpcs)) {
+    game.npcs = [];
+    game.skaters = [game.player];
+    return;
+  }
+  const base = game.allNpcs;
+  if (!base.length || !game.world) {
+    game.npcs = [];
+    game.skaters = [game.player];
+    return;
+  }
+  const requestedRaw = Number.isFinite(count) ? count : base.length;
+  const requested = clamp(Math.round(requestedRaw), 0, MAX_NPC_COUNT);
+  const clones = [];
+  for (let i = 0; i < requested; i += 1) {
+    const template = base[i % base.length];
+    const duplicateIndex = Math.floor(i / base.length);
+    const clone = cloneNpc(template, duplicateIndex);
+    if (clone) clones.push(clone);
+  }
+  game.npcs = clones;
+  game.skaters = [game.player, ...clones];
 }
 
 const hotspotManager = new HotspotManager();
@@ -1327,14 +1454,14 @@ async function bootstrap() {
       controlSource: () => inputState.vector,
     });
     game.player = player;
-    let npcs = [];
+    let allNpcs = [];
     try {
-      npcs = await loadNpcSkaters(npcConfig, variantIndex, world);
+      allNpcs = await loadNpcSkaters(npcConfig, variantIndex, world, ICE_BOUNDS);
     } catch (error) {
       console.error('Failed to load NPC skaters:', error);
     }
-    game.npcs = npcs;
-    game.skaters = [player, ...npcs];
+    game.allNpcs = allNpcs;
+    applyNpcLimit(parseInt(npcCountSelect?.value, 10) || allNpcs.length);
     const puck = createPuck(puckConfig, puckImage, world);
     game.puck = puck;
     game.camera = createCamera(world);
@@ -1346,6 +1473,14 @@ async function bootstrap() {
     if (spriteSelect) {
       populateSpriteSelect(spriteVariants);
       spriteSelect.value = initialVariant.id;
+    }
+    if (npcCountSelect) {
+      populateNpcCountSelect(game.allNpcs.length || 0);
+    }
+    if (npcSpriteSelect) {
+      populateNpcSpriteSelect(spriteVariants);
+      npcSpriteSelect.value = game.allNpcs[0]?.variantId || initialVariant.id;
+      updateNpcSprites(npcSpriteSelect.value);
     }
 
     window.__NHL93_CONFIG__ = {

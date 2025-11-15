@@ -635,11 +635,11 @@ function render() {
     const color = labelStyle?.color || '#ffffff';
     const screenX = (rect.x - camera.view.left) * scale + offsetX;
     const screenY = (rect.y - camera.view.top) * scale + offsetY;
+    ctx.fillStyle = `${color}33`;
+    ctx.fillRect(screenX, screenY, rect.width * scale, rect.height * scale);
     ctx.strokeStyle = color;
     ctx.lineWidth = 2;
-    ctx.setLineDash([6, 6]);
     ctx.strokeRect(screenX, screenY, rect.width * scale, rect.height * scale);
-    ctx.setLineDash([]);
   }
 
   if (spriteSheet && player) {

@@ -6,7 +6,8 @@ const navLinks = document.querySelectorAll('.site-header nav a');
 
 const FIXED_TIME_STEP = 1000 / 60;
 const MAX_UPDATES_PER_FRAME = 5;
-const CAMERA_VIEW = { width: 1024, height: 576 };
+const CAMERA_VIEW = { width: 1536, height: 1152 };
+const PLAYER_SCALE_FACTOR = 3; // manual knob to keep skater readable regardless of camera zoom
 
 let lastTime = 0;
 let accumulator = 0;
@@ -206,8 +207,9 @@ function render() {
     const { sx, sy, sw, sh } = spriteSheet.getFrameRect(frameIndex);
     const screenX = (player.position.x - camera.view.left) * scale + offsetX;
     const screenY = (player.position.y - camera.view.top) * scale + offsetY;
-    const drawX = screenX - spriteSheet.origin.x * scale;
-    const drawY = screenY - spriteSheet.origin.y * scale;
+    const playerScale = scale * PLAYER_SCALE_FACTOR;
+    const drawX = screenX - spriteSheet.origin.x * playerScale;
+    const drawY = screenY - spriteSheet.origin.y * playerScale;
     ctx.drawImage(
       spriteSheet.image,
       sx,
@@ -216,8 +218,8 @@ function render() {
       sh,
       drawX,
       drawY,
-      sw * scale,
-      sh * scale
+      sw * playerScale,
+      sh * playerScale
     );
   }
 

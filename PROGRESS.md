@@ -37,3 +37,12 @@
 - Instantiate NPC skaters from `assets/config/npcs.json`, ensuring each entry reuses the existing sprite variants and clamps to the rink.
 - Render NPCs alongside the player (with painter’s-order sorting already in place) and block the player/puck from clipping through their hitboxes.
 - Add subtle HUD cues or labels for NPC proximity to prepare for future interactions.
+
+## Phase 3 – Static Computer Players
+### Completed
+- **NPC Instancing**: Parsed `assets/config/npcs.json`, loaded the referenced sprite variants (with caching), and spawned those skaters as static entities. They show up immediately (bench players + goalie) and draw in the same painter’s-order stack as the human player.
+- **Collision Handling**: Player and free puck now respect each NPC’s hitbox (circular or rectangular). When you skate into a bench skater, the runtime nudges you around them, and free pucks bounce off their bodies with light damping.
+- **Rendering/Loop Integration**: NPCs sit inside `game.skaters`, receive animation ticks even though they don’t move, and render automatically with the rest of the drawables. Direction hints still appear above them so the rink feels populated while hotspots remain functional.
+
+### Next Up
+- Polish NPC presentation (nameplates, subtle glow) and explore interactive behaviors (coach tips, simple patrol routes) in a future roadmap iteration.

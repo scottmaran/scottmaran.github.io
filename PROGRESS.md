@@ -36,6 +36,7 @@
 - `main.js` now computes directional deltas to each hotspot, uses `Enter` to trigger navigation (with a status announcement for assistive tech), and keeps prompts synced with control focus.
 - Added a dedicated `.hud` subtree in `index.html`/`styles.css` for the overlay, ensuring it remains pointer-agnostic and accessible via ARIA live regions.
 - Enter actions respect the active hotspot bounds, preventing accidental navigation while still letting the instructions fallback handle touch users.
+- Refactored hotspot logic into `HotspotManager` + `HotspotHud` helpers, so adding/editing hotspots is now a pure JSON/CSS change.
 - Confirmed lint passes and manual QA shows the player constrained to the boards with visual cues guiding the next destination.
 
 ## Next Up – Phase 5

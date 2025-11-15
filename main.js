@@ -77,13 +77,14 @@ let accumulator = 0;
 const game = {
   ready: false,
   world: null,
-  hotspots: [],
+  hotspotHints: [],
   activeHotspot: null,
   camera: null,
   player: null,
   rinkImage: null,
   spriteSheet: null,
   iceBounds: ICE_BOUNDS,
+  hotspotManager: null,
 };
 
 // --- Asset helpers ----------------------------------------------------------
@@ -367,66 +368,103 @@ function updatePlayerAnimation(player, spriteSheet, deltaMs) {
   }
 }
 
-// --- Hotspot scaffolding ----------------------------------------------------
-function detectActiveHotspot(player, hotspots) {
-  if (!hotspots || hotspots.length === 0) return null;
-  const px = player.position.x;
-  const py = player.position.y;
-  return hotspots.find((spot) => {
-    const rect = spot.rect;
-    return px >= rect.x && px <= rect.x + rect.width && py >= rect.y && py <= rect.y + rect.height;
-  }) || null;
+// --- Hotspot system ---------------------------------------------------------
+function radiansToEmoji(angleRad) {
+  const angleDeg = ((angleRad * 180) / Math.PI + 360) % 360;
+  if (angleDeg >= 315 || angleDeg < 45) return '→';
+  if (angleDeg >= 45 && angleDeg < 135) return '↑';
+  if (angleDeg >= 135 && angleDeg < 225) return '←';
+  return '↓';
 }
 
-function computeDirectionToHotspot(player, hotspot) {
-  if (!hotspot) return null;
-  const cx = hotspot.rect.x + hotspot.rect.width / 2;
-  const cy = hotspot.rect.y + hotspot.rect.height / 2;
-  const dx = cx - player.position.x;
-  const dy = cy - player.position.y;
-  const distance = Math.hypot(dx, dy);
-  if (distance < 1) return null;
-  return {
-    angle: Math.atan2(dy, dx),
-    label: hotspot.label,
-    color: hotspot.labelStyle?.color || '#fff',
-  };
+class HotspotManager {
+  constructor(initialHotspots = []) {
+    this.hotspots = [];
+    this.active = null;
+    this.setHotspots(initialHotspots);
+  }
+
+  setHotspots(hotspots = []) {
+    this.hotspots = hotspots.map((spot) => ({
+      ...spot,
+      rect: { ...spot.rect },
+      labelStyle: {
+        background: 'rgba(0,0,0,0.7)',
+        color: '#ffffff',
+        ...(spot.labelStyle || {}),
+      },
+    }));
+  }
+
+  update(player) {
+    if (!player) {
+      this.active = null;
+      return null;
+    }
+    const px = player.position.x;
+    const py = player.position.y;
+    this.active = this.hotspots.find((spot) => {
+      const rect = spot.rect;
+      return px >= rect.x && px <= rect.x + rect.width && py >= rect.y && py <= rect.y + rect.height;
+    }) || null;
+    return this.active;
+  }
+
+  getDirectionHints(player) {
+    if (!player) return [];
+    const hints = [];
+    this.hotspots.forEach((spot) => {
+      if (spot === this.active) return;
+      const cx = spot.rect.x + spot.rect.width / 2;
+      const cy = spot.rect.y + spot.rect.height / 2;
+      const dx = cx - player.position.x;
+      const dy = cy - player.position.y;
+      const distance = Math.hypot(dx, dy);
+      if (distance < 1) return;
+      const angle = Math.atan2(dy, dx);
+      hints.push({
+        id: spot.id,
+        label: spot.label,
+        color: spot.labelStyle.color,
+        emoji: radiansToEmoji(angle),
+        distance,
+      });
+    });
+    return hints.sort((a, b) => a.distance - b.distance);
+  }
 }
 
-function updateHud() {
-  if (!hudRoot || !hudPrompt || !hudBeacons) return;
-
-  const active = game.activeHotspot;
-  if (active) {
-    hudLabel.textContent = active.label;
-    hudLabel.style.color = active.labelStyle?.color || '#fff';
-    hudPrompt.style.borderColor = active.labelStyle?.color || 'rgba(255,255,255,0.2)';
-    hudPrompt.hidden = false;
-  } else {
-    hudPrompt.hidden = true;
+class HotspotHud {
+  constructor({ root, prompt, label, beacons }) {
+    this.root = root;
+    this.promptEl = prompt;
+    this.labelEl = label;
+    this.beaconsEl = beacons;
   }
 
-  if (!game.hotspots || game.hotspots.length === 0) {
-    hudBeacons.innerHTML = '';
-    return;
+  update(activeHotspot, hints) {
+    if (!this.promptEl || !this.labelEl || !this.beaconsEl) return;
+
+    if (activeHotspot) {
+      this.labelEl.textContent = activeHotspot.label;
+      this.labelEl.style.color = activeHotspot.labelStyle.color;
+      this.promptEl.style.borderColor = activeHotspot.labelStyle.color;
+      this.promptEl.hidden = false;
+    } else {
+      this.promptEl.hidden = true;
+    }
+
+    const fragment = document.createDocumentFragment();
+    (hints || []).forEach((hint) => {
+      const beacon = document.createElement('div');
+      beacon.className = 'hud__beacon';
+      beacon.style.color = hint.color;
+      beacon.textContent = `${hint.label} ${hint.emoji}`;
+      fragment.appendChild(beacon);
+    });
+    this.beaconsEl.innerHTML = '';
+    this.beaconsEl.appendChild(fragment);
   }
-
-  const fragments = document.createDocumentFragment();
-  game.hotspots.forEach((spot) => {
-    if (spot === active) return;
-    const direction = computeDirectionToHotspot(game.player, spot);
-    if (!direction) return;
-    const beacon = document.createElement('div');
-    beacon.className = 'hud__beacon';
-    beacon.style.color = direction.color;
-    const degrees = Math.round((direction.angle * 180) / Math.PI);
-    const arrow = degreesToEmoji(degrees);
-    beacon.textContent = `${spot.label} ${arrow}`;
-    fragments.appendChild(beacon);
-  });
-
-  hudBeacons.innerHTML = '';
-  hudBeacons.appendChild(fragments);
 }
 
 function handleHotspotActivation() {
@@ -443,13 +481,13 @@ function handleHotspotActivation() {
   window.location.href = destination;
 }
 
-function degreesToEmoji(angleDeg) {
-  const normalized = ((angleDeg % 360) + 360) % 360;
-  if (normalized >= 315 || normalized < 45) return '→';
-  if (normalized >= 45 && normalized < 135) return '↑';
-  if (normalized >= 135 && normalized < 225) return '←';
-  return '↓';
-}
+const hotspotManager = new HotspotManager();
+const hotspotHud = new HotspotHud({
+  root: hudRoot,
+  prompt: hudPrompt,
+  label: hudLabel,
+  beacons: hudBeacons,
+});
 
 // --- Rendering --------------------------------------------------------------
 function render() {
@@ -515,8 +553,7 @@ function render() {
   }
 
   ctx.restore();
-
-  updateHud();
+  hotspotHud.update(game.activeHotspot, game.hotspotHints);
 }
 
 // --- Update loop ------------------------------------------------------------
@@ -532,7 +569,13 @@ function update(deltaMs) {
   game.camera.position.y = game.player.position.y;
   clampCamera(game.camera, game.world);
 
-  game.activeHotspot = detectActiveHotspot(game.player, game.hotspots);
+  if (game.hotspotManager) {
+    game.activeHotspot = game.hotspotManager.update(game.player);
+    game.hotspotHints = game.hotspotManager.getDirectionHints(game.player);
+  } else {
+    game.activeHotspot = null;
+    game.hotspotHints = [];
+  }
 
   if (inputState.actions.enterPressed) {
     inputState.actions.enterPressed = false;
@@ -614,8 +657,9 @@ async function bootstrap() {
       height: hotspotsConfig.canvas.height,
     };
 
+    hotspotManager.setHotspots(hotspotsConfig.hotspots);
+    game.hotspotManager = hotspotManager;
     game.world = world;
-    game.hotspots = hotspotsConfig.hotspots;
     game.rinkImage = rinkImage;
     game.spriteSheet = spriteSheet;
     game.player = createPlayer(world, spriteSheet);

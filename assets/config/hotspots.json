@@ -6,7 +6,7 @@
       "id": "penalty_box",
       "label": "About",
       "destination": "/about.html",
-      "rect": { "x": 360, "y": 2500, "width": 420, "height": 520 },
+      "rect": { "x": 520, "y": 2480, "width": 520, "height": 540 },
       "labelStyle": { "color": "#F4E04D", "background": "rgba(0,0,0,0.72)" }
     },
     {

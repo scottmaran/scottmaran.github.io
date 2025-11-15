@@ -23,6 +23,16 @@ const CAMERA_VIEW = { width: 1536, height: 1152 }; // slice of the rink we show
 const PLAYER_SCALE_FACTOR = 3; // manual knob to keep skater readable
 const PLAYER_COLLISION_RADIUS = 42; // rough hit area around the sprite torso
 
+// Hard-coded ice bounds derived from `assets/rink_map_template.png`. The rink
+// image includes benches/crowd art outside the boards, but we want the player
+// confined to the actual playable ice surface.
+const ICE_BOUNDS = {
+  left: 850,
+  right: 3275,
+  top: 600,
+  bottom: 5350,
+};
+
 // Physics numbers are tuned by hand while watching NHL '93 footage.
 const PLAYER_PHYSICS = {
   ACCELERATION: 1400, // px / s^2 when pressing a direction
@@ -68,6 +78,7 @@ const game = {
   player: null,
   rinkImage: null,
   spriteSheet: null,
+  iceBounds: ICE_BOUNDS,
 };
 
 // --- Asset helpers ----------------------------------------------------------
@@ -275,9 +286,14 @@ function clampCamera(camera, world) {
   }
 }
 
-function clampPlayerToWorld(player, world) {
-  player.position.x = clamp(player.position.x, player.radius, world.width - player.radius);
-  player.position.y = clamp(player.position.y, player.radius, world.height - player.radius);
+function clampPlayerToIce(player, bounds) {
+  const leftLimit = bounds.left + player.radius;
+  const rightLimit = bounds.right - player.radius;
+  const topLimit = bounds.top + player.radius;
+  const bottomLimit = bounds.bottom - player.radius;
+
+  player.position.x = clamp(player.position.x, leftLimit, rightLimit);
+  player.position.y = clamp(player.position.y, topLimit, bottomLimit);
 }
 
 // --- Physics & animation ----------------------------------------------------
@@ -416,7 +432,7 @@ function update(deltaMs) {
   if (!game.ready) return;
   const deltaSeconds = deltaMs / 1000;
   updatePlayerPhysics(game.player, inputState.vector, deltaSeconds);
-  clampPlayerToWorld(game.player, game.world);
+  clampPlayerToIce(game.player, game.iceBounds);
   updatePlayerState(game.player, inputState.vector);
   updatePlayerAnimation(game.player, game.spriteSheet, deltaMs);
 

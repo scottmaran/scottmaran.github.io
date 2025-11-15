@@ -31,3 +31,18 @@
 2. Wire in the config loaders (already returning data) to create sprite/animation managers and ensure the rink background renders at native resolution with integer scaling.
 3. Implement the camera scaffold that tracks the player position (even if movement is stubbed for now) while clamping inside the rink bounds.
 4. Keep verifying lint/format + basic manual walkthroughs so each phase remains stable before layering on physics.
+
+---
+
+## Phase 2 – Rendering Engine & Asset Loading ✅
+- Added a GIF-to-spritesheet build step (Python/Pillow) and now source skater art from `assets/sprites/skater.png`, keeping JSON metadata untouched while enabling deterministic frame sampling.
+- Rebuilt `main.js` around a fixed-timestep `requestAnimationFrame` loop with accumulator protection, plus lightweight `SpriteSheet`, `player`, and `camera` helpers.
+- The camera tracks the player’s world coordinates (native rink pixels), clamps to rink bounds, and renders only a 1024×576 slice to the canvas with pixel-perfect scaling.
+- Sprite animation advances using the JSON-defined frame durations, and the rink plus placeholder skater render once assets + configs finish loading; `window.__NHL93_CONFIG__` still exposes raw config data for debugging.
+- Toolchain check: `npm run lint` remains green after the refactor, confirming the new modules meet our vanilla-JS conventions.
+
+## Next Up – Phase 3
+1. Implement keyboard input plumbing to capture arrow keys/Esc/Enter without interfering with page scroll.
+2. Flesh out the movement model (acceleration, friction, capped velocity) using the gameplay footage as tuning reference.
+3. Layer on turning inertia + state transitions so animation states/directions line up with the physics vectors.
+4. Begin prepping hotspot collision scaffolding so Phase 4 can focus on HUD + navigation rather than core physics.

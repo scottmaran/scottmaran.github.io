@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "sheet": "assets/nhlpa93_94_sprites/players/ANA.gif",
+  "sheet": "assets/sprites/skater.png",
   "frameSize": { "width": 57, "height": 110 },
   "origin": { "x": 28, "y": 102 },
   "states": {

@@ -44,6 +44,11 @@ const GOAL_ZONES = [
 ];
 const MAX_NPC_COUNT = 6;
 const GOAL_RESPAWN_DELAY = 1000; // ms pause before resetting after a goal
+const NPC_HIT_MIN_SPEED = 260; // px / s before a collision counts as a body check
+const NPC_HIT_IMPULSE_SCALE = 0.85; // converts player speed into NPC knockback speed
+const NPC_HIT_FRICTION = 950; // px / s^2 slowdown applied to knocked NPCs
+const NPC_HIT_MIN_VELOCITY = 8; // below this NPCs snap back to their idle pose
+const NPC_SEPARATION_RATIO = 0.4; // share of the overlap distance applied to NPC displacement
 
 // Hard-coded ice bounds derived from `assets/rink_map_template_no_lines.png`. The rink
 // image includes benches/crowd art outside the boards, but we want the player
@@ -600,6 +605,7 @@ function createSkater({
     physics,
     behavior,
     hitbox,
+    bounds,
     animation: {
       frameIndex: 0,
       elapsed: 0,
@@ -658,6 +664,8 @@ async function loadNpcSkaters(npcConfig, variantIndex, world, bounds) {
       npc.position.y = npcDef.position?.y ?? npc.position.y;
       npc.state = npcDef.state || npc.state;
       npc.direction = npcDef.direction || npc.direction;
+      npc.baseState = npc.state;
+      npc.baseDirection = npc.direction;
       npc.variantId = npcDef.spriteVariant;
       clampEntityToBounds(npc, bounds || ICE_BOUNDS);
       resetSkaterAnimation(npc, npc.spriteSheet);
@@ -831,6 +839,44 @@ function updateSkaterAnimation(skater, deltaMs) {
     skater.animation.frameIndex = (skater.animation.frameIndex + 1) % dir.frames.length;
     skater.animation.currentFrame = dir.frames[skater.animation.frameIndex];
   }
+}
+
+function updateStaticNpc(npc, deltaSeconds, deltaMs) {
+  if (!npc) return;
+  const speed = vectorMagnitude(npc.velocity);
+  if (speed > NPC_HIT_MIN_VELOCITY) {
+    npc.position.x += npc.velocity.x * deltaSeconds;
+    npc.position.y += npc.velocity.y * deltaSeconds;
+    const drag = NPC_HIT_FRICTION * deltaSeconds;
+    const newSpeed = Math.max(0, speed - drag);
+    const ratio = newSpeed / speed;
+    npc.velocity.x *= ratio;
+    npc.velocity.y *= ratio;
+    clampSkaterToBounds(npc, npc.bounds || game.iceBounds);
+    npc.state = 'skating';
+    npc.direction = quantizeDirection(Math.atan2(npc.velocity.y, npc.velocity.x));
+  } else {
+    npc.velocity.x = 0;
+    npc.velocity.y = 0;
+    npc.state = npc.baseState || npc.state;
+    npc.direction = npc.baseDirection || npc.direction;
+    resetSkaterAnimation(npc, npc.spriteSheet);
+  }
+  updateSkaterAnimation(npc, deltaMs);
+}
+
+function applyNpcHitFromPlayer(npc, player) {
+  if (!npc || !player) return;
+  const speed = vectorMagnitude(player.velocity);
+  if (speed < NPC_HIT_MIN_SPEED) return;
+  const impulse = Math.min(speed, PLAYER_PHYSICS.MAX_SPEED) * NPC_HIT_IMPULSE_SCALE;
+  if (impulse <= 0) return;
+  const dirX = player.velocity.x / speed;
+  const dirY = player.velocity.y / speed;
+  npc.velocity.x = dirX * impulse;
+  npc.velocity.y = dirY * impulse;
+  npc.state = 'skating';
+  npc.direction = quantizeDirection(Math.atan2(dirY, dirX));
 }
 
 // --- Puck system ------------------------------------------------------------
@@ -1036,6 +1082,13 @@ function resolvePlayerNpcCollisions(player, npcs) {
         player.velocity.x -= velocityDot * nx;
         player.velocity.y -= velocityDot * ny;
       }
+      if (overlap > 0) {
+        const npcPush = overlap * NPC_SEPARATION_RATIO;
+        npc.position.x -= nx * npcPush;
+        npc.position.y -= ny * npcPush;
+        clampSkaterToBounds(npc, npc.bounds || game.iceBounds);
+      }
+      applyNpcHitFromPlayer(npc, player);
     }
   });
 }
@@ -1105,6 +1158,8 @@ function cloneNpc(template, duplicateIndex = 0) {
   npc.variantId = template.variantId;
   npc.state = template.state;
   npc.direction = template.direction;
+  npc.baseState = template.baseState || template.state;
+  npc.baseDirection = template.baseDirection || template.direction;
   npc.position.x = template.position.x + duplicateIndex * 30 * (duplicateIndex % 2 === 0 ? 1 : -1);
   npc.position.y = template.position.y + duplicateIndex * 45;
   clampSkaterToBounds(npc, game.iceBounds);
@@ -1489,7 +1544,7 @@ function update(deltaMs) {
 
   game.skaters.forEach((skater) => {
     if (skater.behavior === 'npc-static') {
-      updateSkaterAnimation(skater, deltaMs);
+      updateStaticNpc(skater, deltaSeconds, deltaMs);
       return;
     }
     const controlVector = skater.controlSource ? skater.controlSource() : ZERO_VECTOR;

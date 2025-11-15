@@ -31,8 +31,15 @@
 - Camera still follows the player, but we now clamp the skater to rink bounds and detect which hotspot rectangle the player occupies—Phase 4 can hook into this for HUD/navigation prompts.
 - Manual sniff test: keyboard focus stays trapped on the canvas while engaged, Esc releases control, and `npm run lint` remains clean after the large rewrite.
 
-## Next Up – Phase 4
-1. Build HUD overlays that display hotspot labels/directional cues even when targets sit off screen.
-2. Highlight the currently occupied hotspot region and show a contextual prompt so users know when pressing Enter will navigate.
-3. Wire `Enter` to trigger real navigation/focus management while keeping ARIA messaging up to date.
-4. Keep iterating on hotspot rectangles + instructions as we tighten the experience.
+## Phase 4 – Hotspots, HUD & Navigation ✅
+- Layered a canvas HUD: active hotspot gets an on-rink dashed outline plus a textual prompt, while off-screen goals show directional beacons with color-coded dots.
+- `main.js` now computes directional deltas to each hotspot, uses `Enter` to trigger navigation (with a status announcement for assistive tech), and keeps prompts synced with control focus.
+- Added a dedicated `.hud` subtree in `index.html`/`styles.css` for the overlay, ensuring it remains pointer-agnostic and accessible via ARIA live regions.
+- Enter actions respect the active hotspot bounds, preventing accidental navigation while still letting the instructions fallback handle touch users.
+- Confirmed lint passes and manual QA shows the player constrained to the boards with visual cues guiding the next destination.
+
+## Next Up – Phase 5
+1. Introduce ARIA live messaging for hotspot entry/exit plus better announcements for control changes.
+2. Flesh out non-JS fallback (static rink image) and skip-link behavior for accessibility audits.
+3. Add mobile/touch detection to disable controls gracefully and ensure fallback navigation is obvious.
+4. Begin drafting accessibility test notes ahead of the Phase 6 QA push.

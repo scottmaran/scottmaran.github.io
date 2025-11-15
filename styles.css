@@ -173,6 +173,64 @@ main {
   display: none;
 }
 
+.hud {
+  position: absolute;
+  inset: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.hud__prompt {
+  align-self: flex-start;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: rgba(3, 7, 18, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text);
+}
+
+.hud__label {
+  display: block;
+  font-size: 1.1rem;
+}
+
+.hud__action {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.hud__beacons {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: right;
+}
+
+.hud__beacon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: rgba(3, 7, 18, 0.6);
+}
+
+.hud__beacon::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
 .fallback-links {
   background: rgba(3, 7, 18, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);

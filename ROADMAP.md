@@ -42,32 +42,13 @@
 
 ## Phase 5 – Progressive Enhancement & Accessibility Polish
 1. **Announcements**: Provide ARIA live region for instructions/results (e.g., "Skate to the bench for Projects").
-2. **Tab management**: Use `tabindex` and focus traps so keyboard users can enter/exit the rink interaction predictably (`Esc` relinquishes control).
-3. **Non-JS fallback**: Serve static rink image plus link list when scripts fail; confirm skip link bypasses canvas.
-4. **Mobile behavior**: Detect touch-only devices and offer read-only rink view with CTA to fallback navigation.
+2. **Non-JS fallback**: Serve static rink image plus link list when scripts fail; confirm skip link bypasses canvas.
+3. **Mobile behavior**: Detect touch-only devices and offer read-only rink view with CTA to fallback navigation.
+4. **Content tweaks**: Refine instructions, HUD styling, and retro fonts; ensure color contrast meets WCAG.
 5. **Success criteria**: Screen reader smoke tests pass; keyboard-only users can navigate without traps; mobile shows graceful fallback.
 
-## Phase 6 – Testing, Performance & Polish
-1. **Cross-browser QA**: Test Chrome, Firefox, Safari for frame pacing, input handling, and canvas rendering fidelity.
-2. **Performance tuning**: Profile update/render loop; ensure stable 60 FPS on target laptops. Optimize sprite atlases if drops occur.
-3. **Content tweaks**: Refine instructions, HUD styling, and retro fonts; ensure color contrast meets WCAG.
-4. **Deployment**: Configure GitHub Pages, set custom domain (if any), and add checklist for future asset updates.
-5. **Success criteria**: Automated checks + manual QA complete; site deployed publicly with documented release notes.
-
-## Phase 7 – Post-MVP Enhancements (Backlog)
+## Phase 6 – Post-MVP Enhancements (Backlog)
 1. **Audio system**: Layer in AudioContext loader, ambient crowd loop, skate SFX tied to speed, confirmation chime, and header mute toggle.
 2. **Atmosphere**: Optional AI skaters, puck pickup mini-goals, scoreboard overlay tracking progress.
 3. **Gamepad support**: Investigate Gamepad API mapping to replicate Genesis controller feel.
-4. **Analytics & telemetry**: Measure which hotspots/users interact with to guide future content.
 
-## Dependencies & Open Items
-- Decide on asset optimization pipeline (e.g., automated spritesheet packing vs. manual curation) once MVP needs exceed current `assets/` contents.
-
-## Verification Checklist by Phase
-- [ ] Static layout & fallback nav rendered
-- [ ] Canvas + asset loader running with idle skater
-- [ ] Physics tuned against gameplay footage
-- [ ] Hotspot HUD & navigation wired up
-- [ ] Accessibility polish + fallback confirmed
-- [ ] Cross-browser QA complete
-- [ ] Audio & stretch features (post-MVP)

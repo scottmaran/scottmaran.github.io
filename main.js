@@ -15,6 +15,10 @@ const ctx = canvas ? canvas.getContext('2d', { alpha: false }) : null;
 const statusEl = document.querySelector('.canvas-status');
 const touchNotice = document.querySelector('.no-keyboard');
 const navLinks = document.querySelectorAll('.site-header nav a');
+const hudRoot = document.querySelector('.hud');
+const hudPrompt = document.querySelector('.hud__prompt');
+const hudLabel = document.querySelector('.hud__label');
+const hudBeacons = document.querySelector('.hud__beacons');
 
 // --- Simulation constants ---------------------------------------------------
 const FIXED_TIME_STEP = 1000 / 60; // target 60 FPS update cadence (in ms)
@@ -62,6 +66,7 @@ const inputState = {
   vector: { x: 0, y: 0 },
   actions: {
     enterPressed: false,
+    enterTriggered: false,
   },
 };
 
@@ -373,6 +378,79 @@ function detectActiveHotspot(player, hotspots) {
   }) || null;
 }
 
+function computeDirectionToHotspot(player, hotspot) {
+  if (!hotspot) return null;
+  const cx = hotspot.rect.x + hotspot.rect.width / 2;
+  const cy = hotspot.rect.y + hotspot.rect.height / 2;
+  const dx = cx - player.position.x;
+  const dy = cy - player.position.y;
+  const distance = Math.hypot(dx, dy);
+  if (distance < 1) return null;
+  return {
+    angle: Math.atan2(dy, dx),
+    label: hotspot.label,
+    color: hotspot.labelStyle?.color || '#fff',
+  };
+}
+
+function updateHud() {
+  if (!hudRoot || !hudPrompt || !hudBeacons) return;
+
+  const active = game.activeHotspot;
+  if (active) {
+    hudLabel.textContent = active.label;
+    hudLabel.style.color = active.labelStyle?.color || '#fff';
+    hudPrompt.style.borderColor = active.labelStyle?.color || 'rgba(255,255,255,0.2)';
+    hudPrompt.hidden = false;
+  } else {
+    hudPrompt.hidden = true;
+  }
+
+  if (!game.hotspots || game.hotspots.length === 0) {
+    hudBeacons.innerHTML = '';
+    return;
+  }
+
+  const fragments = document.createDocumentFragment();
+  game.hotspots.forEach((spot) => {
+    if (spot === active) return;
+    const direction = computeDirectionToHotspot(game.player, spot);
+    if (!direction) return;
+    const beacon = document.createElement('div');
+    beacon.className = 'hud__beacon';
+    beacon.style.color = direction.color;
+    const degrees = Math.round((direction.angle * 180) / Math.PI);
+    const arrow = degreesToEmoji(degrees);
+    beacon.textContent = `${spot.label} ${arrow}`;
+    fragments.appendChild(beacon);
+  });
+
+  hudBeacons.innerHTML = '';
+  hudBeacons.appendChild(fragments);
+}
+
+function handleHotspotActivation() {
+  if (!inputState.actions.enterTriggered || !game.activeHotspot) return;
+  inputState.actions.enterTriggered = false;
+  const destination = game.activeHotspot.destination;
+  if (!destination) return;
+
+  if (statusEl) {
+    statusEl.textContent = `Opening ${game.activeHotspot.label}`;
+    statusEl.removeAttribute('hidden');
+  }
+
+  window.location.href = destination;
+}
+
+function degreesToEmoji(angleDeg) {
+  const normalized = ((angleDeg % 360) + 360) % 360;
+  if (normalized >= 315 || normalized < 45) return '→';
+  if (normalized >= 45 && normalized < 135) return '↑';
+  if (normalized >= 135 && normalized < 225) return '←';
+  return '↓';
+}
+
 // --- Rendering --------------------------------------------------------------
 function render() {
   if (!game.ready || !canvas || !ctx) return;
@@ -402,6 +480,18 @@ function render() {
     drawHeight
   );
 
+  if (game.activeHotspot) {
+    const { rect, labelStyle } = game.activeHotspot;
+    const color = labelStyle?.color || '#ffffff';
+    const screenX = (rect.x - camera.view.left) * scale + offsetX;
+    const screenY = (rect.y - camera.view.top) * scale + offsetY;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.setLineDash([6, 6]);
+    ctx.strokeRect(screenX, screenY, rect.width * scale, rect.height * scale);
+    ctx.setLineDash([]);
+  }
+
   if (spriteSheet && player) {
     const dir = spriteSheet.getDirection(player.state, player.direction);
     const frameIndex = player.animation.currentFrame ?? dir?.frames?.[0] ?? 0;
@@ -425,6 +515,8 @@ function render() {
   }
 
   ctx.restore();
+
+  updateHud();
 }
 
 // --- Update loop ------------------------------------------------------------
@@ -441,7 +533,13 @@ function update(deltaMs) {
   clampCamera(game.camera, game.world);
 
   game.activeHotspot = detectActiveHotspot(game.player, game.hotspots);
-  inputState.actions.enterPressed = false; // Phase 4 will consume this signal
+
+  if (inputState.actions.enterPressed) {
+    inputState.actions.enterPressed = false;
+    inputState.actions.enterTriggered = true;
+  }
+
+  handleHotspotActivation();
 }
 
 function gameLoop(timestamp) {

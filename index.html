@@ -21,21 +21,6 @@
     </header>
 
     <main>
-      <details class="instructions" open>
-        <summary>How to control the rink</summary>
-        <div id="canvas-instructions" aria-live="polite">
-          <p>
-            Click the rink or press <kbd>Tab</kbd> to focus, then skate with the
-            arrow keys. When you enter a hotspot, press <kbd>Enter</kbd> to visit
-            it. Press <kbd>Esc</kbd> to release the controls at any time.
-          </p>
-          <p class="no-keyboard" hidden>
-            Looks like you might be on touch or without a keyboard. Use the
-            links below to explore the site.
-          </p>
-        </div>
-      </details>
-
       <section class="rink-wrapper">
         <canvas
           id="rink-canvas"
@@ -55,6 +40,22 @@
             <span class="hud__action">Press Enter to open</span>
           </div>
           <div class="hud__beacons"></div>
+        </div>
+        <div class="instructions-overlay" id="instructions-overlay" aria-live="polite">
+          <button class="instructions-overlay__close" type="button" aria-label="Hide instructions">
+            ×
+          </button>
+          <div id="canvas-instructions">
+            <p>
+              Click the rink or press <kbd>Tab</kbd> to focus, then skate with the
+              arrow keys. When you enter a hotspot, press <kbd>Enter</kbd> to visit
+              it. Press <kbd>Esc</kbd> to release the controls at any time.
+            </p>
+            <p class="no-keyboard" hidden>
+              Looks like you might be on touch or without a keyboard. Use the
+              links below to explore the site.
+            </p>
+          </div>
         </div>
       </section>
 

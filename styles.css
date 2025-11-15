@@ -161,12 +161,13 @@ main {
   border-radius: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: clamp(0.5rem, 2vw, 1.5rem);
+  display: flex;
+  align-items: center;
 }
 
 #rink-canvas {
   width: 100%;
   height: auto;
-  /* max-height: 420px; */
   display: block;
   border-radius: 0.8rem;
   background: #04203d;
@@ -202,6 +203,48 @@ main {
   flex-direction: column;
   justify-content: space-between;
   pointer-events: none;
+}
+
+.instructions-overlay {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: rgba(8, 10, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem 1rem 1rem;
+  max-width: 360px;
+  pointer-events: auto;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.instructions-overlay.minimized {
+  top: -0.75rem;
+  left: -0.75rem;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.instructions-overlay.minimized #canvas-instructions,
+.instructions-overlay.minimized .no-keyboard {
+  display: none;
+}
+
+.instructions-overlay__close {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .hud__prompt {
@@ -279,13 +322,12 @@ main {
   font-weight: 500;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .site-header nav ul {
     width: 100%;
     justify-content: space-around;
   }
 
-  .instructions,
   .fallback-links {
     font-size: 0.95rem;
   }

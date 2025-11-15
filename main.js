@@ -19,6 +19,7 @@ const hudRoot = document.querySelector('.hud');
 const hudPrompt = document.querySelector('.hud__prompt');
 const hudLabel = document.querySelector('.hud__label');
 const hudBeacons = document.querySelector('.hud__beacons');
+const instructionsOverlay = document.getElementById('instructions-overlay');
 
 // --- Simulation constants ---------------------------------------------------
 const FIXED_TIME_STEP = 1000 / 60; // target 60 FPS update cadence (in ms)
@@ -247,6 +248,31 @@ if (document.readyState === 'complete') {
   primeCanvasFocus();
 } else {
   window.addEventListener('load', primeCanvasFocus, { once: true });
+}
+
+function toggleInstructionsOverlay(forceState) {
+  if (!instructionsOverlay) return;
+  const shouldMinimize =
+    typeof forceState === 'boolean'
+      ? forceState
+      : !instructionsOverlay.classList.contains('minimized');
+  instructionsOverlay.classList.toggle('minimized', shouldMinimize);
+}
+
+if (instructionsOverlay) {
+  instructionsOverlay.addEventListener('click', (event) => {
+    const isClose = event.target.classList.contains('instructions-overlay__close');
+    if (instructionsOverlay.classList.contains('minimized')) {
+      toggleInstructionsOverlay(false);
+      return;
+    }
+    if (isClose) {
+      toggleInstructionsOverlay(true);
+      event.stopPropagation();
+    } else {
+      toggleInstructionsOverlay(true);
+    }
+  });
 }
 
 // --- Runtime object factories ----------------------------------------------

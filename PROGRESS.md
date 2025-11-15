@@ -30,6 +30,7 @@
 ### Completed
 - **Puck Runtime**: Added `createPuck`, `updatePuck`, and `renderPuck` helpers so the puck spawns from `assets/config/puck.json`, glides with its own physics, snaps to the player when collected, and draws beneath the skater layer. The puck’s sprite is now loaded alongside other assets during bootstrap and stored on `game.puck`.
 - **Interaction Gating**: Hotspots only activate when the puck is possessed. Players must tap <kbd>Space</kbd> to pick up or drop the puck; attempting to press `Enter` without possession triggers an ARIA live message (`.canvas-status`), and the HUD action text flips between “Press Enter to open” and “Grab the puck to activate.”
+- **Shoot Action**: Added a dedicated <kbd>P</kbd> input so once the puck is captured the user can fire it in their current skating direction. Shots launch with a faster impulse than standard drops and emit their own status message.
 - **Accessibility/HUD Copy**: Instructions, README, and HUD messaging now mention the puck requirement so users know to pick it up before navigating. The status overlay also announces when the puck is collected, and the HUD beacons persist while showing the new action hint.
 
 ### Next Up (Phase 3 Preview)

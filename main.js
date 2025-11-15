@@ -31,7 +31,8 @@ const PLAYER_SCALE_FACTOR = 3; // manual knob to keep skater readable
 const PLAYER_COLLISION_RADIUS = 42; // rough hit area around the sprite torso
 const PUCK_DEFAULT_SCALE = 0.35; // eyeballed so the puck feels proportional to skaters
 const PUCK_STICK_OFFSET = 50; // distance (px) from player center to stick blade
-const PUCK_RELEASE_SPEED = 900; // px / s impulse when throwing the puck forward
+const PUCK_RELEASE_SPEED = 900; // px / s impulse when casually dropping the puck
+const PUCK_SHOT_SPEED = 1850; // px / s impulse when firing a shot
 const PUCK_HINT_COLOR = '#FFA851';
 
 // Hard-coded ice bounds derived from `assets/rink_map_template.png`. The rink
@@ -76,6 +77,8 @@ const inputState = {
     enterTriggered: false,
     spacePressed: false,
     spaceTriggered: false,
+    shootPressed: false,
+    shootTriggered: false,
   },
 };
 
@@ -361,6 +364,9 @@ function handleKeyDown(event) {
   } else if (key === ' ' || key === 'space') {
     inputState.actions.spacePressed = true;
     handled = true;
+  } else if (key === 'p') {
+    inputState.actions.shootPressed = true;
+    handled = true;
   } else {
     handled = handleDirectionalKey(key, true);
   }
@@ -373,7 +379,7 @@ function handleKeyDown(event) {
 function handleKeyUp(event) {
   const key = event.key.toLowerCase();
   if (!inputState.engaged) return;
-  if (key === 'enter' || key === ' ' || key === 'space') return; // handled on keydown only
+  if (key === 'enter' || key === ' ' || key === 'space' || key === 'p') return; // handled on keydown only
   if (handleDirectionalKey(key, false)) {
     event.preventDefault();
   }
@@ -676,7 +682,7 @@ function possessPuck(puck, owner, { announce = true } = {}) {
   }
 }
 
-function releasePuck(puck, owner) {
+function releasePuck(puck, owner, speed = PUCK_RELEASE_SPEED, headingOverride = null) {
   if (!puck) return;
   const hasOwner = Boolean(owner);
   puck.state = 'free';
@@ -685,8 +691,9 @@ function releasePuck(puck, owner) {
     const anchor = getStickAnchorPosition(owner, puck);
     puck.position.x = anchor.x;
     puck.position.y = anchor.y;
-    puck.velocity.x = Math.cos(owner.heading) * PUCK_RELEASE_SPEED;
-    puck.velocity.y = Math.sin(owner.heading) * PUCK_RELEASE_SPEED;
+    const heading = headingOverride ?? owner.heading;
+    puck.velocity.x = Math.cos(heading) * speed;
+    puck.velocity.y = Math.sin(heading) * speed;
     if (owner.spriteSheet) {
       resetSkaterAnimation(owner, owner.spriteSheet);
     }
@@ -913,7 +920,7 @@ function handlePuckControl() {
   if (!game.puck || !game.player) return;
 
   if (game.puck.state === 'possessed') {
-    releasePuck(game.puck, game.player);
+    releasePuck(game.puck, game.player, PUCK_RELEASE_SPEED);
     flashStatus('Puck released.', 900);
     return;
   }
@@ -923,6 +930,22 @@ function handlePuckControl() {
   } else {
     flashStatus('Skate closer to grab the puck.', 1200);
   }
+}
+
+function handlePuckShot() {
+  if (!inputState.actions.shootTriggered) return;
+  inputState.actions.shootTriggered = false;
+  if (!game.puck || !game.player) return;
+  if (game.puck.state !== 'possessed') {
+    flashStatus('Grab the puck before shooting.', 1200);
+    return;
+  }
+
+  const player = game.player;
+  const speedVectorLength = vectorMagnitude(player.velocity);
+  const heading = speedVectorLength > PLAYER_PHYSICS.MIN_SPEED ? Math.atan2(player.velocity.y, player.velocity.x) : player.heading;
+  releasePuck(game.puck, player, PUCK_SHOT_SPEED, heading);
+  flashStatus('Shot fired!', 1000, { emphasize: true });
 }
 
 const hotspotManager = new HotspotManager();
@@ -1077,8 +1100,14 @@ function update(deltaMs) {
     inputState.actions.spaceTriggered = true;
   }
 
+  if (inputState.actions.shootPressed) {
+    inputState.actions.shootPressed = false;
+    inputState.actions.shootTriggered = true;
+  }
+
   handleHotspotActivation();
   handlePuckControl();
+  handlePuckShot();
 }
 
 function gameLoop(timestamp) {

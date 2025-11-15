@@ -93,6 +93,8 @@ const game = {
   spriteVariants: [],
   spriteVariant: null,
   skaters: [],
+  puckConfig: null,
+  npcConfig: null,
 };
 
 // --- Asset helpers ----------------------------------------------------------
@@ -195,6 +197,20 @@ function normalizeSpriteVariants(config) {
       states: config.states,
     },
   ];
+}
+
+function reportMissingNpcVariants(npcConfig, spriteVariants) {
+  if (!npcConfig || !Array.isArray(npcConfig.players) || !spriteVariants) {
+    return [];
+  }
+  const available = new Set(spriteVariants.map((variant) => variant.id));
+  const missing = npcConfig.players
+    .filter((npc) => npc.spriteVariant && !available.has(npc.spriteVariant))
+    .map((npc) => ({ id: npc.id, spriteVariant: npc.spriteVariant }));
+  if (missing.length > 0) {
+    console.warn('NPC config references sprite variants that do not exist:', missing);
+  }
+  return missing;
 }
 
 function resetSkaterAnimation(skater, spriteSheetOverride) {
@@ -792,9 +808,11 @@ async function bootstrap() {
   }
 
   try {
-    const [spritesConfig, hotspotsConfig, rinkImage] = await Promise.all([
+    const [spritesConfig, hotspotsConfig, puckConfig, npcConfig, rinkImage] = await Promise.all([
       loadJSON('assets/config/sprites.json'),
       loadJSON('assets/config/hotspots.json'),
+      loadJSON('assets/config/puck.json'),
+      loadJSON('assets/config/npcs.json'),
       loadImage('assets/rink_map_template.png'),
     ]);
 
@@ -817,6 +835,8 @@ async function bootstrap() {
     game.rinkImage = rinkImage;
     game.spriteSheet = spriteSheet;
     game.spriteVariant = initialVariant;
+    game.puckConfig = puckConfig;
+    game.npcConfig = npcConfig;
     const player = createSkater({
       world,
       spriteSheet,
@@ -828,12 +848,19 @@ async function bootstrap() {
     clampCamera(game.camera, world);
     game.ready = true;
 
+    reportMissingNpcVariants(npcConfig, spriteVariants);
+
     if (spriteSelect) {
       populateSpriteSelect(spriteVariants);
       spriteSelect.value = initialVariant.id;
     }
 
-    window.__NHL93_CONFIG__ = { sprites: spritesConfig, hotspots: hotspotsConfig };
+    window.__NHL93_CONFIG__ = {
+      sprites: spritesConfig,
+      hotspots: hotspotsConfig,
+      puck: puckConfig,
+      npcs: npcConfig,
+    };
 
     statusEl.textContent = 'Ready to skate';
     statusEl.classList.add('is-ready');

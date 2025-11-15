@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "sprite": "assets/general_puck.png",
+  "frameSize": { "width": 111, "height": 79 },
+  "origin": { "x": 55, "y": 39 },
+  "radius": 20,
+  "spawn": { "x": 1969, "y": 2810 },
+  "physics": {
+    "friction": 650,
+    "maxSpeed": 1400,
+    "stickMagnet": 420,
+    "elasticity": 0.35
+  }
+}

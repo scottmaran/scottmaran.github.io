@@ -14,3 +14,14 @@
 - Add `assets/config/puck.json` + `assets/config/npcs.json` files using the schemas from the design doc.
 - Teach `bootstrap()` to load/validate the new configs so runtime state includes puck/NPC definitions and exposes them under `window.__NHL93_CONFIG__`.
 - Wire friendly logging/guards if a referenced sprite variant is missing, keeping tweaker UX predictable.
+
+## Phase 1 – Data & Asset Plumbing
+### Completed
+- **Config Files**: Authored `assets/config/puck.json` (points at `assets/general_puck.png`, defines spawn, radius, and physics) and `assets/config/npcs.json` (three seed NPCs with bench + goalie placements). These track the schemas laid out in the design doc so later phases can consume them directly.
+- **Bootstrap Loading**: `main.js` now fetches the puck + NPC configs alongside sprites/hotspots, storing them on `game.puckConfig` / `game.npcConfig` and exposing everything via `window.__NHL93_CONFIG__` for quick inspection.
+- **Validation Guardrail**: Added a `reportMissingNpcVariants` helper that logs any NPC entries referencing absent sprite variants, giving instant feedback if authors mistype an ID.
+
+### Next Up (Phase 2 Preview)
+- Instantiate a `game.puck` object that uses the newly loaded config for sprite/physics values, then wire it into the update/render loops.
+- Use the puck state to gate hotspot activations (e.g., require possession) and surface HUD / ARIA messages when pickup/drop events occur.
+- Begin scaffolding NPC instantiation so static players can start showing up in Phase 3 without additional loader work.

@@ -2,165 +2,7935 @@
   "version": 1,
   "variants": [
     {
-      "id": "classic-ducks",
-      "label": "Classic Mighty Ducks",
-      "sheet": "assets/sprites/skater.png",
-      "frameSize": { "width": 57, "height": 110 },
-      "origin": { "x": 28, "y": 102 },
+      "id": "ana",
+      "label": "Ana",
+      "sheet": "assets/sprites/ana.png",
+      "frameSize": {
+        "width": 57,
+        "height": 110
+      },
+      "origin": {
+        "x": 28,
+        "y": 106
+      },
       "states": {
         "idle": {
           "directions": {
-            "N": { "frames": [0], "frameDurationMs": 250 },
-            "NE": { "frames": [0], "frameDurationMs": 250 },
-            "E": { "frames": [0], "frameDurationMs": 250 },
-            "SE": { "frames": [0], "frameDurationMs": 250 }
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
           }
         },
         "skating": {
           "directions": {
-            "N": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 },
-            "NE": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 },
-            "E": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 },
-            "SE": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 }
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
           }
         },
         "turning": {
           "directions": {
-            "N": { "frames": [5, 6], "frameDurationMs": 110 },
-            "NE": { "frames": [5, 6], "frameDurationMs": 110 },
-            "E": { "frames": [5, 6], "frameDurationMs": 110 },
-            "SE": { "frames": [5, 6], "frameDurationMs": 110 }
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
           }
         },
         "coasting": {
           "directions": {
-            "N": { "frames": [7], "frameDurationMs": 140 },
-            "NE": { "frames": [7], "frameDurationMs": 140 },
-            "E": { "frames": [7], "frameDurationMs": 140 },
-            "SE": { "frames": [7], "frameDurationMs": 140 }
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
           }
         }
       }
     },
     {
-      "id": "ducks-alt",
-      "label": "Anaheim Ducks (Alt)",
-      "sheet": "assets/sprites/skater_ana2.png",
-      "frameSize": { "width": 90, "height": 80 },
-      "origin": { "x": 45, "y": 76 },
+      "id": "ana2",
+      "label": "Ana2",
+      "sheet": "assets/sprites/ana2.png",
+      "frameSize": {
+        "width": 90,
+        "height": 80
+      },
+      "origin": {
+        "x": 45,
+        "y": 76
+      },
       "states": {
         "idle": {
           "directions": {
-            "N": { "frames": [0], "frameDurationMs": 250 },
-            "NE": { "frames": [0], "frameDurationMs": 250 },
-            "E": { "frames": [0], "frameDurationMs": 250 },
-            "SE": { "frames": [0], "frameDurationMs": 250 }
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
           }
         },
         "skating": {
           "directions": {
-            "N": { "frames": [1, 2, 3], "frameDurationMs": 100 },
-            "NE": { "frames": [1, 2, 3], "frameDurationMs": 100 },
-            "E": { "frames": [1, 2, 3], "frameDurationMs": 100 },
-            "SE": { "frames": [1, 2, 3], "frameDurationMs": 100 }
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
           }
         },
         "turning": {
           "directions": {
-            "N": { "frames": [3, 4], "frameDurationMs": 120 },
-            "NE": { "frames": [3, 4], "frameDurationMs": 120 },
-            "E": { "frames": [3, 4], "frameDurationMs": 120 },
-            "SE": { "frames": [3, 4], "frameDurationMs": 120 }
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
           }
         },
         "coasting": {
           "directions": {
-            "N": { "frames": [5], "frameDurationMs": 160 },
-            "NE": { "frames": [5], "frameDurationMs": 160 },
-            "E": { "frames": [5], "frameDurationMs": 160 },
-            "SE": { "frames": [5], "frameDurationMs": 160 }
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
           }
         }
       }
     },
     {
-      "id": "rangers-home",
-      "label": "New York Rangers",
-      "sheet": "assets/sprites/skater_nyr.png",
-      "frameSize": { "width": 70, "height": 80 },
-      "origin": { "x": 35, "y": 76 },
+      "id": "bhgs",
+      "label": "Bhgs",
+      "sheet": "assets/sprites/bhgs.png",
+      "frameSize": {
+        "width": 70,
+        "height": 70
+      },
+      "origin": {
+        "x": 35,
+        "y": 66
+      },
       "states": {
         "idle": {
           "directions": {
-            "N": { "frames": [0], "frameDurationMs": 250 },
-            "NE": { "frames": [0], "frameDurationMs": 250 },
-            "E": { "frames": [0], "frameDurationMs": 250 },
-            "SE": { "frames": [0], "frameDurationMs": 250 }
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
           }
         },
         "skating": {
           "directions": {
-            "N": { "frames": [1, 2], "frameDurationMs": 110 },
-            "NE": { "frames": [1, 2], "frameDurationMs": 110 },
-            "E": { "frames": [1, 2], "frameDurationMs": 110 },
-            "SE": { "frames": [1, 2], "frameDurationMs": 110 }
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
           }
         },
         "turning": {
           "directions": {
-            "N": { "frames": [2], "frameDurationMs": 140 },
-            "NE": { "frames": [2], "frameDurationMs": 140 },
-            "E": { "frames": [2], "frameDurationMs": 140 },
-            "SE": { "frames": [2], "frameDurationMs": 140 }
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
           }
         },
         "coasting": {
           "directions": {
-            "N": { "frames": [3], "frameDurationMs": 160 },
-            "NE": { "frames": [3], "frameDurationMs": 160 },
-            "E": { "frames": [3], "frameDurationMs": 160 },
-            "SE": { "frames": [3], "frameDurationMs": 160 }
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
           }
         }
       }
     },
     {
-      "id": "rangers-alt",
-      "label": "New York Rangers (Alt)",
-      "sheet": "assets/sprites/skater_nyr2.png",
-      "frameSize": { "width": 70, "height": 70 },
-      "origin": { "x": 35, "y": 66 },
+      "id": "bhgs2",
+      "label": "Bhgs2",
+      "sheet": "assets/sprites/bhgs2.png",
+      "frameSize": {
+        "width": 70,
+        "height": 70
+      },
+      "origin": {
+        "x": 35,
+        "y": 66
+      },
       "states": {
         "idle": {
           "directions": {
-            "N": { "frames": [0], "frameDurationMs": 250 },
-            "NE": { "frames": [0], "frameDurationMs": 250 },
-            "E": { "frames": [0], "frameDurationMs": 250 },
-            "SE": { "frames": [0], "frameDurationMs": 250 }
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
           }
         },
         "skating": {
           "directions": {
-            "N": { "frames": [1, 2, 3], "frameDurationMs": 110 },
-            "NE": { "frames": [1, 2, 3], "frameDurationMs": 110 },
-            "E": { "frames": [1, 2, 3], "frameDurationMs": 110 },
-            "SE": { "frames": [1, 2, 3], "frameDurationMs": 110 }
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
           }
         },
         "turning": {
           "directions": {
-            "N": { "frames": [3, 4], "frameDurationMs": 130 },
-            "NE": { "frames": [3, 4], "frameDurationMs": 130 },
-            "E": { "frames": [3, 4], "frameDurationMs": 130 },
-            "SE": { "frames": [3, 4], "frameDurationMs": 130 }
+            "N": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 140
+            }
           }
         },
         "coasting": {
           "directions": {
-            "N": { "frames": [5], "frameDurationMs": 160 },
-            "NE": { "frames": [5], "frameDurationMs": 160 },
-            "E": { "frames": [5], "frameDurationMs": 160 },
-            "SE": { "frames": [5], "frameDurationMs": 160 }
+            "N": {
+              "frames": [
+                9
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                9
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                9
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                9
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "bhgs3",
+      "label": "Bhgs3",
+      "sheet": "assets/sprites/bhgs3.png",
+      "frameSize": {
+        "width": 70,
+        "height": 70
+      },
+      "origin": {
+        "x": 35,
+        "y": 66
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "bos",
+      "label": "Bos",
+      "sheet": "assets/sprites/bos.png",
+      "frameSize": {
+        "width": 57,
+        "height": 110
+      },
+      "origin": {
+        "x": 28,
+        "y": 106
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "bos2",
+      "label": "Bos2",
+      "sheet": "assets/sprites/bos2.png",
+      "frameSize": {
+        "width": 90,
+        "height": 80
+      },
+      "origin": {
+        "x": 45,
+        "y": 76
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "buf",
+      "label": "Buf",
+      "sheet": "assets/sprites/buf.png",
+      "frameSize": {
+        "width": 70,
+        "height": 145
+      },
+      "origin": {
+        "x": 35,
+        "y": 141
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "buf2",
+      "label": "Buf2",
+      "sheet": "assets/sprites/buf2.png",
+      "frameSize": {
+        "width": 130,
+        "height": 90
+      },
+      "origin": {
+        "x": 65,
+        "y": 86
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "cal",
+      "label": "Cal",
+      "sheet": "assets/sprites/cal.png",
+      "frameSize": {
+        "width": 55,
+        "height": 75
+      },
+      "origin": {
+        "x": 27,
+        "y": 71
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "cal2",
+      "label": "Cal2",
+      "sheet": "assets/sprites/cal2.png",
+      "frameSize": {
+        "width": 70,
+        "height": 115
+      },
+      "origin": {
+        "x": 35,
+        "y": 111
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "chi",
+      "label": "Chi",
+      "sheet": "assets/sprites/chi.png",
+      "frameSize": {
+        "width": 57,
+        "height": 110
+      },
+      "origin": {
+        "x": 28,
+        "y": 106
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "chi2",
+      "label": "Chi2",
+      "sheet": "assets/sprites/chi2.png",
+      "frameSize": {
+        "width": 100,
+        "height": 100
+      },
+      "origin": {
+        "x": 50,
+        "y": 96
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "dal",
+      "label": "Dal",
+      "sheet": "assets/sprites/dal.png",
+      "frameSize": {
+        "width": 57,
+        "height": 110
+      },
+      "origin": {
+        "x": 28,
+        "y": 106
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "dal2",
+      "label": "Dal2",
+      "sheet": "assets/sprites/dal2.png",
+      "frameSize": {
+        "width": 70,
+        "height": 115
+      },
+      "origin": {
+        "x": 35,
+        "y": 111
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "det",
+      "label": "Det",
+      "sheet": "assets/sprites/det.png",
+      "frameSize": {
+        "width": 70,
+        "height": 135
+      },
+      "origin": {
+        "x": 35,
+        "y": 131
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "det2",
+      "label": "Det2",
+      "sheet": "assets/sprites/det2.png",
+      "frameSize": {
+        "width": 90,
+        "height": 80
+      },
+      "origin": {
+        "x": 45,
+        "y": 76
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "edm",
+      "label": "Edm",
+      "sheet": "assets/sprites/edm.png",
+      "frameSize": {
+        "width": 70,
+        "height": 145
+      },
+      "origin": {
+        "x": 35,
+        "y": 141
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "edm2",
+      "label": "Edm2",
+      "sheet": "assets/sprites/edm2.png",
+      "frameSize": {
+        "width": 90,
+        "height": 80
+      },
+      "origin": {
+        "x": 45,
+        "y": 76
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "fla",
+      "label": "Fla",
+      "sheet": "assets/sprites/fla.png",
+      "frameSize": {
+        "width": 60,
+        "height": 70
+      },
+      "origin": {
+        "x": 30,
+        "y": 66
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "fla2",
+      "label": "Fla2",
+      "sheet": "assets/sprites/fla2.png",
+      "frameSize": {
+        "width": 70,
+        "height": 115
+      },
+      "origin": {
+        "x": 35,
+        "y": 111
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "har",
+      "label": "Har",
+      "sheet": "assets/sprites/har.png",
+      "frameSize": {
+        "width": 140,
+        "height": 90
+      },
+      "origin": {
+        "x": 70,
+        "y": 86
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "har2",
+      "label": "Har2",
+      "sheet": "assets/sprites/har2.png",
+      "frameSize": {
+        "width": 100,
+        "height": 100
+      },
+      "origin": {
+        "x": 50,
+        "y": 96
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "la",
+      "label": "La",
+      "sheet": "assets/sprites/la.png",
+      "frameSize": {
+        "width": 60,
+        "height": 90
+      },
+      "origin": {
+        "x": 30,
+        "y": 86
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "la2",
+      "label": "La2",
+      "sheet": "assets/sprites/la2.png",
+      "frameSize": {
+        "width": 90,
+        "height": 80
+      },
+      "origin": {
+        "x": 45,
+        "y": 76
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "la3",
+      "label": "La3",
+      "sheet": "assets/sprites/la3.png",
+      "frameSize": {
+        "width": 71,
+        "height": 123
+      },
+      "origin": {
+        "x": 35,
+        "y": 119
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "mon",
+      "label": "Mon",
+      "sheet": "assets/sprites/mon.png",
+      "frameSize": {
+        "width": 70,
+        "height": 70
+      },
+      "origin": {
+        "x": 35,
+        "y": 66
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "mtl2",
+      "label": "Mtl2",
+      "sheet": "assets/sprites/mtl2.png",
+      "frameSize": {
+        "width": 90,
+        "height": 100
+      },
+      "origin": {
+        "x": 45,
+        "y": 96
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "nj",
+      "label": "Nj",
+      "sheet": "assets/sprites/nj.png",
+      "frameSize": {
+        "width": 70,
+        "height": 70
+      },
+      "origin": {
+        "x": 35,
+        "y": 66
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "nj2",
+      "label": "Nj2",
+      "sheet": "assets/sprites/nj2.png",
+      "frameSize": {
+        "width": 75,
+        "height": 75
+      },
+      "origin": {
+        "x": 37,
+        "y": 71
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "nyi",
+      "label": "Nyi",
+      "sheet": "assets/sprites/nyi.png",
+      "frameSize": {
+        "width": 57,
+        "height": 109
+      },
+      "origin": {
+        "x": 28,
+        "y": 105
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "nyi2",
+      "label": "Nyi2",
+      "sheet": "assets/sprites/nyi2.png",
+      "frameSize": {
+        "width": 70,
+        "height": 70
+      },
+      "origin": {
+        "x": 35,
+        "y": 66
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "nyr",
+      "label": "Nyr",
+      "sheet": "assets/sprites/nyr.png",
+      "frameSize": {
+        "width": 70,
+        "height": 80
+      },
+      "origin": {
+        "x": 35,
+        "y": 76
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "nyr2",
+      "label": "Nyr2",
+      "sheet": "assets/sprites/nyr2.png",
+      "frameSize": {
+        "width": 70,
+        "height": 70
+      },
+      "origin": {
+        "x": 35,
+        "y": 66
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ott",
+      "label": "Ott",
+      "sheet": "assets/sprites/ott.png",
+      "frameSize": {
+        "width": 70,
+        "height": 75
+      },
+      "origin": {
+        "x": 35,
+        "y": 71
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "ott2",
+      "label": "Ott2",
+      "sheet": "assets/sprites/ott2.png",
+      "frameSize": {
+        "width": 90,
+        "height": 90
+      },
+      "origin": {
+        "x": 45,
+        "y": 86
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "phi",
+      "label": "Phi",
+      "sheet": "assets/sprites/phi.png",
+      "frameSize": {
+        "width": 57,
+        "height": 110
+      },
+      "origin": {
+        "x": 28,
+        "y": 106
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "phi2",
+      "label": "Phi2",
+      "sheet": "assets/sprites/phi2.png",
+      "frameSize": {
+        "width": 100,
+        "height": 90
+      },
+      "origin": {
+        "x": 50,
+        "y": 86
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pit",
+      "label": "Pit",
+      "sheet": "assets/sprites/pit.png",
+      "frameSize": {
+        "width": 60,
+        "height": 100
+      },
+      "origin": {
+        "x": 30,
+        "y": 96
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "pit2",
+      "label": "Pit2",
+      "sheet": "assets/sprites/pit2.png",
+      "frameSize": {
+        "width": 70,
+        "height": 115
+      },
+      "origin": {
+        "x": 35,
+        "y": 111
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "que",
+      "label": "Que",
+      "sheet": "assets/sprites/que.png",
+      "frameSize": {
+        "width": 70,
+        "height": 135
+      },
+      "origin": {
+        "x": 35,
+        "y": 131
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "que2",
+      "label": "Que2",
+      "sheet": "assets/sprites/que2.png",
+      "frameSize": {
+        "width": 90,
+        "height": 80
+      },
+      "origin": {
+        "x": 45,
+        "y": 76
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "sj",
+      "label": "Sj",
+      "sheet": "assets/sprites/sj.png",
+      "frameSize": {
+        "width": 70,
+        "height": 70
+      },
+      "origin": {
+        "x": 35,
+        "y": 66
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "sj2",
+      "label": "Sj2",
+      "sheet": "assets/sprites/sj2.png",
+      "frameSize": {
+        "width": 80,
+        "height": 80
+      },
+      "origin": {
+        "x": 40,
+        "y": 76
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "stl",
+      "label": "Stl",
+      "sheet": "assets/sprites/stl.png",
+      "frameSize": {
+        "width": 57,
+        "height": 109
+      },
+      "origin": {
+        "x": 28,
+        "y": 105
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "stl2",
+      "label": "Stl2",
+      "sheet": "assets/sprites/stl2.png",
+      "frameSize": {
+        "width": 70,
+        "height": 70
+      },
+      "origin": {
+        "x": 35,
+        "y": 66
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "stl3",
+      "label": "Stl3",
+      "sheet": "assets/sprites/stl3.png",
+      "frameSize": {
+        "width": 104,
+        "height": 99
+      },
+      "origin": {
+        "x": 52,
+        "y": 95
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "tb",
+      "label": "Tb",
+      "sheet": "assets/sprites/tb.png",
+      "frameSize": {
+        "width": 70,
+        "height": 70
+      },
+      "origin": {
+        "x": 35,
+        "y": 66
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "tb2",
+      "label": "Tb2",
+      "sheet": "assets/sprites/tb2.png",
+      "frameSize": {
+        "width": 100,
+        "height": 95
+      },
+      "origin": {
+        "x": 50,
+        "y": 91
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                8
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                9
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                9
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                9
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                9
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "tor",
+      "label": "Tor",
+      "sheet": "assets/sprites/tor.png",
+      "frameSize": {
+        "width": 55,
+        "height": 75
+      },
+      "origin": {
+        "x": 27,
+        "y": 71
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "tor2",
+      "label": "Tor2",
+      "sheet": "assets/sprites/tor2.png",
+      "frameSize": {
+        "width": 100,
+        "height": 100
+      },
+      "origin": {
+        "x": 50,
+        "y": 96
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "van",
+      "label": "Van",
+      "sheet": "assets/sprites/van.png",
+      "frameSize": {
+        "width": 68,
+        "height": 64
+      },
+      "origin": {
+        "x": 34,
+        "y": 60
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "van2",
+      "label": "Van2",
+      "sheet": "assets/sprites/van2.png",
+      "frameSize": {
+        "width": 100,
+        "height": 100
+      },
+      "origin": {
+        "x": 50,
+        "y": 96
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "van3",
+      "label": "Van3",
+      "sheet": "assets/sprites/van3.png",
+      "frameSize": {
+        "width": 68,
+        "height": 100
+      },
+      "origin": {
+        "x": 34,
+        "y": 96
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                1
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                1
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                1
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                1
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "was",
+      "label": "Was",
+      "sheet": "assets/sprites/was.png",
+      "frameSize": {
+        "width": 52,
+        "height": 110
+      },
+      "origin": {
+        "x": 26,
+        "y": 106
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                2
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                3
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "was2",
+      "label": "Was2",
+      "sheet": "assets/sprites/was2.png",
+      "frameSize": {
+        "width": 90,
+        "height": 80
+      },
+      "origin": {
+        "x": 45,
+        "y": 76
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "wpg",
+      "label": "Wpg",
+      "sheet": "assets/sprites/wpg.png",
+      "frameSize": {
+        "width": 57,
+        "height": 110
+      },
+      "origin": {
+        "x": 28,
+        "y": 106
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                6
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                7
+              ],
+              "frameDurationMs": 160
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "wpg2",
+      "label": "Wpg2",
+      "sheet": "assets/sprites/wpg2.png",
+      "frameSize": {
+        "width": 90,
+        "height": 80
+      },
+      "origin": {
+        "x": 45,
+        "y": 76
+      },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "NE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "E": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            },
+            "SE": {
+              "frames": [
+                0
+              ],
+              "frameDurationMs": 250
+            }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "NE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "E": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            },
+            "SE": {
+              "frames": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "frameDurationMs": 110
+            }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "NE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "E": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            },
+            "SE": {
+              "frames": [
+                4
+              ],
+              "frameDurationMs": 140
+            }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "NE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "E": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            },
+            "SE": {
+              "frames": [
+                5
+              ],
+              "frameDurationMs": 160
+            }
           }
         }
       }

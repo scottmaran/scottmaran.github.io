@@ -32,6 +32,7 @@ const PLAYER_COLLISION_RADIUS = 42; // rough hit area around the sprite torso
 const PUCK_DEFAULT_SCALE = 0.35; // eyeballed so the puck feels proportional to skaters
 const PUCK_STICK_OFFSET = 50; // distance (px) from player center to stick blade
 const PUCK_RELEASE_SPEED = 900; // px / s impulse when throwing the puck forward
+const PUCK_HINT_COLOR = '#FFA851';
 
 // Hard-coded ice bounds derived from `assets/rink_map_template.png`. The rink
 // image includes benches/crowd art outside the boards, but we want the player
@@ -765,6 +766,23 @@ function playerCanCatchPuck(puck, player) {
   return distance <= pickupRadius;
 }
 
+function buildPuckDirectionHint(player, puck) {
+  if (!puck || !player) return null;
+  if (puck.state === 'possessed' && puck.owner === player) return null;
+  const dx = puck.position.x - player.position.x;
+  const dy = puck.position.y - player.position.y;
+  const distance = Math.hypot(dx, dy);
+  if (distance < 5) return null;
+  const angle = Math.atan2(dy, dx);
+  return {
+    id: 'puck-direction',
+    label: 'Puck',
+    color: PUCK_HINT_COLOR,
+    emoji: radiansToEmoji(angle),
+    distance,
+  };
+}
+
 // --- Hotspot system ---------------------------------------------------------
 function radiansToEmoji(angleRad) {
   const angleDeg = ((angleRad * 180) / Math.PI + 360) % 360;
@@ -1042,6 +1060,11 @@ function update(deltaMs) {
   } else {
     game.activeHotspot = null;
     game.hotspotHints = [];
+  }
+
+  const puckHint = buildPuckDirectionHint(game.player, game.puck);
+  if (puckHint) {
+    game.hotspotHints = [puckHint, ...(game.hotspotHints || [])];
   }
 
   if (inputState.actions.enterPressed) {

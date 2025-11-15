@@ -2,7 +2,7 @@
 
 ## Using the Site
 1. **Engage controls**: Click the rink (or press `Tab` until the canvas is focused). The HUD will display which hotspot you are near.
-2. **Grab the puck**: Skate to center ice and press <kbd>Space</kbd> to pick up the puck. Hotspots only unlock when you have possession; tap <kbd>Space</kbd> again to drop it. The HUD/status banner will tell you when it’s ready.
+2. **Grab the puck**: Skate to center ice and press <kbd>Space</kbd> to pick up the puck. Hotspots only unlock when you have possession; tap <kbd>Space</kbd> again to drop it. The HUD’s helper arrows now include a “Puck” direction hint whenever you don’t have it, so you can chase it down quickly.
 3. **Skate**: Use the arrow keys (or WASD) to build momentum around the ice. Turning has inertia—just like NHL '93.
 4. **Navigate**: When the dashed outline and HUD prompt show a hotspot (About, Projects, Contact), press `Enter` to open that section. Press `Esc` to release the controls and return to normal page navigation.
 5. **Fallback**: If you are on a touch device or prefer standard navigation, use the fallback links under the rink—they always point to the same destinations.

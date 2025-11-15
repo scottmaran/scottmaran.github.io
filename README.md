@@ -6,7 +6,7 @@
 3. **Skate**: Use the arrow keys (or WASD) to build momentum around the ice. Turning has inertia—just like NHL '93.
 4. **Thread the bench**: Static computer players line the benches and crease. You can’t skate or shoot through them, so weave around those hitboxes like you would in NHL '93.
 5. **Navigate**: When the dashed outline and HUD prompt show a hotspot (About, Projects, Contact), press `Enter` to open that section. Press `Esc` to release the controls and return to normal page navigation.
-6. **Customize NPCs**: Use the Customize drawer to change your jersey and tweak the NPC count (0–6) or sprite theme. Want only the goalie on the ice? Drop the count to 1. Want a full bench of a specific team? Pick their sprite and bump it back up. The live scoreboard beneath the controls tracks goals scored when you fire pucks into the net with <kbd>P</kbd>.
+6. **Customize NPCs**: Use the Customize drawer to change your jersey and tweak the NPC count (0–6) or sprite theme. Want only the goalie on the ice? Drop the count to 1. Want a full bench of a specific team? Pick their sprite and bump it back up. The live scoreboard beneath the controls tracks goals scored when you fire pucks into the net with <kbd>P</kbd>, and after each goal the action pauses for a second while the puck and player reset to center ice.
 7. **Fallback**: If you are on a touch device or prefer standard navigation, use the fallback links under the rink—they always point to the same destinations.
 
 ### Hotspot Config Reference (`assets/config/hotspots.json`)

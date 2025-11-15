@@ -43,6 +43,7 @@ const GOAL_ZONES = [
   { id: 'south', rect: { x: 1700, y: 4730, width: 600, height: 220 }, scorer: 'opponent' },
 ];
 const MAX_NPC_COUNT = 6;
+const GOAL_RESPAWN_DELAY = 1000; // ms pause before resetting after a goal
 
 // Hard-coded ice bounds derived from `assets/rink_map_template.png`. The rink
 // image includes benches/crowd art outside the boards, but we want the player
@@ -122,6 +123,8 @@ const game = {
   currentNpcVariantId: null,
   score: { player: 0, opponent: 0 },
   lastPuckShooter: null,
+  celebratingGoal: false,
+  goalCelebrationTimer: 0,
 };
 
 // --- Asset helpers ----------------------------------------------------------
@@ -1091,6 +1094,7 @@ function cloneNpc(template, duplicateIndex = 0) {
 
 function detectGoal(puck) {
   if (!puck) return;
+  if (game.celebratingGoal) return;
   const { x, y } = puck.position;
   const zone = GOAL_ZONES.find((entry) => pointInRect(x, y, entry.rect));
   if (!zone) return;
@@ -1109,8 +1113,49 @@ function handleGoal(team) {
   game.score[team] += 1;
   updateScoreboard();
   flashStatus('GOAL!', 2000, { emphasize: true });
+  startGoalCelebration();
+}
+
+function startGoalCelebration() {
+  if (game.celebratingGoal) return;
+  game.celebratingGoal = true;
+  game.goalCelebrationTimer = GOAL_RESPAWN_DELAY;
+  if (game.player) {
+    game.player.velocity.x = 0;
+    game.player.velocity.y = 0;
+    game.player.state = 'idle';
+    resetSkaterAnimation(game.player, resolveSkaterSpriteSheet(game.player));
+  }
+  if (game.puck) {
+    game.puck.velocity.x = 0;
+    game.puck.velocity.y = 0;
+  }
+}
+
+function updateGoalCelebration(deltaMs) {
+  if (!game.celebratingGoal) return;
+  game.goalCelebrationTimer -= deltaMs;
+  if (game.goalCelebrationTimer <= 0) {
+    finishGoalCelebration();
+  }
+}
+
+function finishGoalCelebration() {
+  game.celebratingGoal = false;
+  game.goalCelebrationTimer = 0;
   resetPuckToCenter();
   resetPlayerToCenter();
+}
+
+function drainActionQueue() {
+  const actions = inputState.actions;
+  if (!actions) return;
+  actions.enterPressed = false;
+  actions.enterTriggered = false;
+  actions.spacePressed = false;
+  actions.spaceTriggered = false;
+  actions.shootPressed = false;
+  actions.shootTriggered = false;
 }
 
 // --- Hotspot system ---------------------------------------------------------
@@ -1408,6 +1453,12 @@ function renderPuck(ctx, puck, camera, scale, offsetX, offsetY) {
 function update(deltaMs) {
   if (!game.ready) return;
   const deltaSeconds = deltaMs / 1000;
+
+  if (game.celebratingGoal) {
+    updateGoalCelebration(deltaMs);
+    drainActionQueue();
+    return;
+  }
 
   game.skaters.forEach((skater) => {
     if (skater.behavior === 'npc-static') {

@@ -72,6 +72,8 @@ const inputState = {
   },
 };
 
+const ZERO_VECTOR = Object.freeze({ x: 0, y: 0 });
+
 let lastTime = 0;
 let accumulator = 0;
 let spriteVariantLoadToken = 0;
@@ -90,6 +92,7 @@ const game = {
   hotspotManager: null,
   spriteVariants: [],
   spriteVariant: null,
+  skaters: [],
 };
 
 // --- Asset helpers ----------------------------------------------------------
@@ -194,13 +197,15 @@ function normalizeSpriteVariants(config) {
   ];
 }
 
-function resetPlayerAnimation(player, spriteSheet) {
-  if (!player || !spriteSheet) return;
-  player.animation.frameIndex = 0;
-  player.animation.elapsed = 0;
-  const dir = spriteSheet.getDirection(player.state, player.direction);
+function resetSkaterAnimation(skater, spriteSheetOverride) {
+  if (!skater) return;
+  const sheet = spriteSheetOverride || skater.spriteSheet;
+  if (!sheet) return;
+  skater.animation.frameIndex = 0;
+  skater.animation.elapsed = 0;
+  const dir = sheet.getDirection(skater.state, skater.direction);
   if (dir && dir.frames.length > 0) {
-    player.animation.currentFrame = dir.frames[0];
+    skater.animation.currentFrame = dir.frames[0];
   }
 }
 
@@ -339,7 +344,10 @@ async function setSpriteVariantById(variantId) {
     if (requestId !== spriteVariantLoadToken) return;
     game.spriteSheet = new SpriteSheet(variant, image);
     game.spriteVariant = variant;
-    resetPlayerAnimation(game.player, game.spriteSheet);
+    if (game.player) {
+      game.player.spriteSheet = game.spriteSheet;
+      resetSkaterAnimation(game.player, game.spriteSheet);
+    }
   } catch (error) {
     console.error(error);
     if (statusEl) {
@@ -350,15 +358,27 @@ async function setSpriteVariantById(variantId) {
 }
 
 // --- Runtime object factories ----------------------------------------------
-function createPlayer(world, spriteSheet) {
-  const player = {
+function createSkater({
+  world,
+  spriteSheet,
+  controlSource,
+  physics = PLAYER_PHYSICS,
+  radius = PLAYER_COLLISION_RADIUS,
+  scale = PLAYER_SCALE_FACTOR,
+}) {
+  const skater = {
+    type: 'skater',
     position: { x: world.width / 2, y: world.height / 2 },
     velocity: { x: 0, y: 0 },
     heading: -Math.PI / 2, // facing up rink
     targetHeading: -Math.PI / 2,
     state: 'idle',
     direction: 'N',
-    radius: PLAYER_COLLISION_RADIUS,
+    radius,
+    scale,
+    controlSource: controlSource || (() => ZERO_VECTOR),
+    spriteSheet,
+    physics,
     animation: {
       frameIndex: 0,
       elapsed: 0,
@@ -366,12 +386,14 @@ function createPlayer(world, spriteSheet) {
     },
   };
 
-  const dir = spriteSheet.getDirection(player.state, player.direction);
-  if (dir && dir.frames.length > 0) {
-    player.animation.currentFrame = dir.frames[0];
+  if (spriteSheet) {
+    const dir = spriteSheet.getDirection(skater.state, skater.direction);
+    if (dir && dir.frames.length > 0) {
+      skater.animation.currentFrame = dir.frames[0];
+    }
   }
 
-  return player;
+  return skater;
 }
 
 function createCamera(world) {
@@ -404,79 +426,82 @@ function clampCamera(camera, world) {
   }
 }
 
-function clampPlayerToIce(player, bounds) {
-  const leftLimit = bounds.left + player.radius;
-  const rightLimit = bounds.right - player.radius;
-  const topLimit = bounds.top + player.radius;
-  const bottomLimit = bounds.bottom - player.radius;
+function clampSkaterToBounds(skater, bounds) {
+  const radius = skater.radius ?? PLAYER_COLLISION_RADIUS;
+  const leftLimit = bounds.left + radius;
+  const rightLimit = bounds.right - radius;
+  const topLimit = bounds.top + radius;
+  const bottomLimit = bounds.bottom - radius;
 
-  player.position.x = clamp(player.position.x, leftLimit, rightLimit);
-  player.position.y = clamp(player.position.y, topLimit, bottomLimit);
+  skater.position.x = clamp(skater.position.x, leftLimit, rightLimit);
+  skater.position.y = clamp(skater.position.y, topLimit, bottomLimit);
 }
 
 // --- Physics & animation ----------------------------------------------------
-function updatePlayerPhysics(player, inputVector, deltaSeconds) {
+function updateSkaterPhysics(skater, inputVector, deltaSeconds, physics = PLAYER_PHYSICS) {
   const isInputActive = inputVector.x !== 0 || inputVector.y !== 0;
 
   if (isInputActive) {
-    player.targetHeading = Math.atan2(inputVector.y, inputVector.x);
-    const angleDiff = normalizeAngle(player.targetHeading - player.heading);
-    const maxTurn = PLAYER_PHYSICS.TURN_RATE * deltaSeconds;
+    skater.targetHeading = Math.atan2(inputVector.y, inputVector.x);
+    const angleDiff = normalizeAngle(skater.targetHeading - skater.heading);
+    const maxTurn = physics.TURN_RATE * deltaSeconds;
     const turnAmount = clamp(angleDiff, -maxTurn, maxTurn);
-    player.heading = normalizeAngle(player.heading + turnAmount);
+    skater.heading = normalizeAngle(skater.heading + turnAmount);
 
-    const accel = PLAYER_PHYSICS.ACCELERATION * deltaSeconds;
-    player.velocity.x += Math.cos(player.heading) * accel;
-    player.velocity.y += Math.sin(player.heading) * accel;
+    const accel = physics.ACCELERATION * deltaSeconds;
+    skater.velocity.x += Math.cos(skater.heading) * accel;
+    skater.velocity.y += Math.sin(skater.heading) * accel;
   }
 
-  const speed = vectorMagnitude(player.velocity);
-  if (speed > PLAYER_PHYSICS.MAX_SPEED) {
-    const ratio = PLAYER_PHYSICS.MAX_SPEED / speed;
-    player.velocity.x *= ratio;
-    player.velocity.y *= ratio;
+  const speed = vectorMagnitude(skater.velocity);
+  if (speed > physics.MAX_SPEED) {
+    const ratio = physics.MAX_SPEED / speed;
+    skater.velocity.x *= ratio;
+    skater.velocity.y *= ratio;
   }
 
   if (!isInputActive && speed > 0) {
-    const drag = PLAYER_PHYSICS.FRICTION * deltaSeconds;
+    const drag = physics.FRICTION * deltaSeconds;
     const newSpeed = Math.max(0, speed - drag);
     const ratio = newSpeed / speed;
-    player.velocity.x *= ratio;
-    player.velocity.y *= ratio;
+    skater.velocity.x *= ratio;
+    skater.velocity.y *= ratio;
   }
 
-  player.position.x += player.velocity.x * deltaSeconds;
-  player.position.y += player.velocity.y * deltaSeconds;
+  skater.position.x += skater.velocity.x * deltaSeconds;
+  skater.position.y += skater.velocity.y * deltaSeconds;
 }
 
-function updatePlayerState(player, inputVector) {
-  const speed = vectorMagnitude(player.velocity);
+function updateSkaterState(skater, inputVector, physics = PLAYER_PHYSICS) {
+  const speed = vectorMagnitude(skater.velocity);
   const isInputActive = inputVector.x !== 0 || inputVector.y !== 0;
-  const facingAngle = speed > PLAYER_PHYSICS.MIN_SPEED ? Math.atan2(player.velocity.y, player.velocity.x) : player.heading;
-  const headingDelta = Math.abs(normalizeAngle(player.targetHeading - player.heading));
+  const facingAngle = speed > physics.MIN_SPEED ? Math.atan2(skater.velocity.y, skater.velocity.x) : skater.heading;
+  const headingDelta = Math.abs(normalizeAngle(skater.targetHeading - skater.heading));
 
-  if (speed < PLAYER_PHYSICS.MIN_SPEED && !isInputActive) {
-    player.state = 'idle';
-  } else if (isInputActive && headingDelta > PLAYER_PHYSICS.TURNING_THRESHOLD) {
-    player.state = 'turning';
+  if (speed < physics.MIN_SPEED && !isInputActive) {
+    skater.state = 'idle';
+  } else if (isInputActive && headingDelta > physics.TURNING_THRESHOLD) {
+    skater.state = 'turning';
   } else if (isInputActive) {
-    player.state = 'skating';
+    skater.state = 'skating';
   } else {
-    player.state = 'coasting';
+    skater.state = 'coasting';
   }
 
-  player.direction = quantizeDirection(facingAngle);
+  skater.direction = quantizeDirection(facingAngle);
 }
 
-function updatePlayerAnimation(player, spriteSheet, deltaMs) {
-  const dir = spriteSheet.getDirection(player.state, player.direction);
+function updateSkaterAnimation(skater, deltaMs) {
+  const spriteSheet = skater.spriteSheet;
+  if (!spriteSheet) return;
+  const dir = spriteSheet.getDirection(skater.state, skater.direction);
   if (!dir || dir.frames.length === 0) return;
-  player.animation.elapsed += deltaMs;
+  skater.animation.elapsed += deltaMs;
   const frameDuration = dir.frameDurationMs || 100;
-  if (player.animation.elapsed >= frameDuration) {
-    player.animation.elapsed -= frameDuration;
-    player.animation.frameIndex = (player.animation.frameIndex + 1) % dir.frames.length;
-    player.animation.currentFrame = dir.frames[player.animation.frameIndex];
+  if (skater.animation.elapsed >= frameDuration) {
+    skater.animation.elapsed -= frameDuration;
+    skater.animation.frameIndex = (skater.animation.frameIndex + 1) % dir.frames.length;
+    skater.animation.currentFrame = dir.frames[skater.animation.frameIndex];
   }
 }
 
@@ -604,7 +629,7 @@ const hotspotHud = new HotspotHud({
 // --- Rendering --------------------------------------------------------------
 function render() {
   if (!game.ready || !canvas || !ctx) return;
-  const { camera, rinkImage, spriteSheet, player } = game;
+  const { camera, rinkImage } = game;
   const viewWidth = Math.min(camera.width, game.world.width);
   const viewHeight = Math.min(camera.height, game.world.height);
   const scaleX = canvas.width / viewWidth;
@@ -642,40 +667,51 @@ function render() {
     ctx.strokeRect(screenX, screenY, rect.width * scale, rect.height * scale);
   }
 
-  if (spriteSheet && player) {
-    const dir = spriteSheet.getDirection(player.state, player.direction);
-    const frameIndex = player.animation.currentFrame ?? dir?.frames?.[0] ?? 0;
-    const { sx, sy, sw, sh } = spriteSheet.getFrameRect(frameIndex);
-    const screenX = (player.position.x - camera.view.left) * scale + offsetX;
-    const screenY = (player.position.y - camera.view.top) * scale + offsetY;
-    const playerScale = scale * PLAYER_SCALE_FACTOR;
-    const drawX = screenX - spriteSheet.origin.x * playerScale;
-    const drawY = screenY - spriteSheet.origin.y * playerScale;
-    ctx.drawImage(
-      spriteSheet.image,
-      sx,
-      sy,
-      sw,
-      sh,
-      drawX,
-      drawY,
-      sw * playerScale,
-      sh * playerScale
-    );
-  }
+  const sortedSkaters = [...game.skaters].sort((a, b) => a.position.y - b.position.y);
+  sortedSkaters.forEach((skater) => {
+    renderSkater(ctx, skater, camera, scale, offsetX, offsetY);
+  });
 
   ctx.restore();
   hotspotHud.update(game.activeHotspot, game.hotspotHints);
+}
+
+function renderSkater(ctx, skater, camera, scale, offsetX, offsetY) {
+  if (!skater || !skater.spriteSheet) return;
+  const spriteSheet = skater.spriteSheet;
+  const dir = spriteSheet.getDirection(skater.state, skater.direction);
+  const frameIndex = skater.animation.currentFrame ?? dir?.frames?.[0] ?? 0;
+  const { sx, sy, sw, sh } = spriteSheet.getFrameRect(frameIndex);
+  const screenX = (skater.position.x - camera.view.left) * scale + offsetX;
+  const screenY = (skater.position.y - camera.view.top) * scale + offsetY;
+  const drawScale = scale * (skater.scale || PLAYER_SCALE_FACTOR);
+  const drawX = screenX - spriteSheet.origin.x * drawScale;
+  const drawY = screenY - spriteSheet.origin.y * drawScale;
+  ctx.drawImage(
+    spriteSheet.image,
+    sx,
+    sy,
+    sw,
+    sh,
+    drawX,
+    drawY,
+    sw * drawScale,
+    sh * drawScale
+  );
 }
 
 // --- Update loop ------------------------------------------------------------
 function update(deltaMs) {
   if (!game.ready) return;
   const deltaSeconds = deltaMs / 1000;
-  updatePlayerPhysics(game.player, inputState.vector, deltaSeconds);
-  clampPlayerToIce(game.player, game.iceBounds);
-  updatePlayerState(game.player, inputState.vector);
-  updatePlayerAnimation(game.player, game.spriteSheet, deltaMs);
+
+  game.skaters.forEach((skater) => {
+    const controlVector = skater.controlSource ? skater.controlSource() : ZERO_VECTOR;
+    updateSkaterPhysics(skater, controlVector, deltaSeconds, skater.physics);
+    clampSkaterToBounds(skater, game.iceBounds);
+    updateSkaterState(skater, controlVector, skater.physics);
+    updateSkaterAnimation(skater, deltaMs);
+  });
 
   game.camera.position.x = game.player.position.x;
   game.camera.position.y = game.player.position.y;
@@ -781,7 +817,13 @@ async function bootstrap() {
     game.rinkImage = rinkImage;
     game.spriteSheet = spriteSheet;
     game.spriteVariant = initialVariant;
-    game.player = createPlayer(world, spriteSheet);
+    const player = createSkater({
+      world,
+      spriteSheet,
+      controlSource: () => inputState.vector,
+    });
+    game.player = player;
+    game.skaters = [player];
     game.camera = createCamera(world);
     clampCamera(game.camera, world);
     game.ready = true;

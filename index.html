@@ -22,41 +22,50 @@
 
     <main>
       <section class="rink-wrapper">
-        <canvas
-          id="rink-canvas"
-          width="1024"
-          height="480"
-          tabindex="0"
-          role="application"
-          aria-label="Interactive NHL '93 rink"
-          aria-describedby="canvas-instructions"
-        ></canvas>
-        <div class="canvas-status" role="status" aria-live="assertive">
-          Loading rink assets…
-        </div>
-        <div class="hud" aria-live="polite">
-          <div class="hud__prompt" hidden>
-            <span class="hud__label"></span>
-            <span class="hud__action">Press Enter to open</span>
+        <div class="rink-canvas-shell">
+          <canvas
+            id="rink-canvas"
+            width="1024"
+            height="480"
+            tabindex="0"
+            role="application"
+            aria-label="Interactive NHL '93 rink"
+            aria-describedby="canvas-instructions"
+          ></canvas>
+          <div class="canvas-status" role="status" aria-live="assertive">
+            Loading rink assets…
           </div>
-          <div class="hud__beacons"></div>
-        </div>
-        <div class="instructions-overlay" id="instructions-overlay" aria-live="polite">
-          <button class="instructions-overlay__close" type="button" aria-label="Hide instructions">
-            ×
-          </button>
-          <div id="canvas-instructions">
-            <p>
-              Click the rink or press <kbd>Tab</kbd> to focus, then skate with the
-              arrow keys. When you enter a hotspot, press <kbd>Enter</kbd> to visit
-              it. Press <kbd>Esc</kbd> to release the controls at any time.
-            </p>
-            <p class="no-keyboard" hidden>
-              Looks like you might be on touch or without a keyboard. Use the
-              links below to explore the site.
-            </p>
+          <div class="hud" aria-live="polite">
+            <div class="hud__prompt" hidden>
+              <span class="hud__label"></span>
+              <span class="hud__action">Press Enter to open</span>
+            </div>
+            <div class="hud__beacons"></div>
+          </div>
+          <div class="instructions-overlay" id="instructions-overlay" aria-live="polite">
+            <button class="instructions-overlay__close" type="button" aria-label="Hide instructions">
+              ×
+            </button>
+            <div id="canvas-instructions">
+              <p>
+                Click the rink or press <kbd>Tab</kbd> to focus, then skate with the
+                arrow keys. When you enter a hotspot, press <kbd>Enter</kbd> to visit
+                it. Press <kbd>Esc</kbd> to release the controls at any time.
+              </p>
+              <p class="no-keyboard" hidden>
+                Looks like you might be on touch or without a keyboard. Use the
+                links below to explore the site.
+              </p>
+            </div>
           </div>
         </div>
+        <details class="rink-controls">
+          <summary>Customize</summary>
+          <div class="rink-controls__content">
+            <label for="sprite-select">Player Sprite</label>
+            <select id="sprite-select" aria-label="Choose player sprite"></select>
+          </div>
+        </details>
       </section>
 
       <section id="fallback-links" class="fallback-links" aria-label="Standard navigation">

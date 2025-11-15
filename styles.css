@@ -162,6 +162,57 @@ main {
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: clamp(0.5rem, 2vw, 1.5rem);
   display: flex;
+  gap: 1.5rem;
+}
+
+.rink-controls {
+  width: auto;
+  align-self: flex-start;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.75rem;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 0;
+  cursor: pointer;
+}
+
+.rink-controls[open] {
+  width: 260px;
+}
+
+.rink-controls summary {
+  list-style: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.rink-controls summary::-webkit-details-marker {
+  display: none;
+}
+
+.rink-controls__content {
+  padding: 0.75rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.rink-controls select {
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--text);
+}
+
+.rink-canvas-shell {
+  position: relative;
+  flex: 1;
+  min-height: 420px;
+  display: flex;
   align-items: center;
 }
 
@@ -323,6 +374,14 @@ main {
 }
 
 @media (max-width: 900px) {
+  .rink-wrapper {
+    flex-direction: column;
+  }
+
+  .rink-controls {
+    width: 100%;
+  }
+
   .site-header nav ul {
     width: 100%;
     justify-content: space-around;

@@ -20,6 +20,7 @@ const hudPrompt = document.querySelector('.hud__prompt');
 const hudLabel = document.querySelector('.hud__label');
 const hudBeacons = document.querySelector('.hud__beacons');
 const instructionsOverlay = document.getElementById('instructions-overlay');
+const spriteSelect = document.getElementById('sprite-select');
 
 // --- Simulation constants ---------------------------------------------------
 const FIXED_TIME_STEP = 1000 / 60; // target 60 FPS update cadence (in ms)
@@ -73,6 +74,7 @@ const inputState = {
 
 let lastTime = 0;
 let accumulator = 0;
+let spriteVariantLoadToken = 0;
 
 // Bundle runtime state into one object for easier debugging.
 const game = {
@@ -86,6 +88,8 @@ const game = {
   spriteSheet: null,
   iceBounds: ICE_BOUNDS,
   hotspotManager: null,
+  spriteVariants: [],
+  spriteVariant: null,
 };
 
 // --- Asset helpers ----------------------------------------------------------
@@ -163,6 +167,40 @@ class SpriteSheet {
     const sx = (frameIndex % this.framesPerRow) * this.frameWidth;
     const sy = Math.floor(frameIndex / this.framesPerRow) * this.frameHeight;
     return { sx, sy, sw: this.frameWidth, sh: this.frameHeight };
+  }
+}
+
+function normalizeSpriteVariants(config) {
+  if (Array.isArray(config.variants) && config.variants.length > 0) {
+    return config.variants.map((variant, index) => ({
+      id: variant.id || `variant-${index}`,
+      label: variant.label || `Variant ${index + 1}`,
+      sheet: variant.sheet,
+      frameSize: variant.frameSize,
+      origin: variant.origin,
+      states: variant.states,
+    }));
+  }
+
+  return [
+    {
+      id: 'default',
+      label: 'Default',
+      sheet: config.sheet,
+      frameSize: config.frameSize,
+      origin: config.origin,
+      states: config.states,
+    },
+  ];
+}
+
+function resetPlayerAnimation(player, spriteSheet) {
+  if (!player || !spriteSheet) return;
+  player.animation.frameIndex = 0;
+  player.animation.elapsed = 0;
+  const dir = spriteSheet.getDirection(player.state, player.direction);
+  if (dir && dir.frames.length > 0) {
+    player.animation.currentFrame = dir.frames[0];
   }
 }
 
@@ -273,6 +311,42 @@ if (instructionsOverlay) {
       toggleInstructionsOverlay(true);
     }
   });
+}
+
+function populateSpriteSelect(variants) {
+  if (!spriteSelect || !variants) return;
+  spriteSelect.innerHTML = '';
+  variants.forEach((variant) => {
+    const option = document.createElement('option');
+    option.value = variant.id;
+    option.textContent = variant.label;
+    spriteSelect.appendChild(option);
+  });
+
+  spriteSelect.addEventListener('change', (event) => {
+    setSpriteVariantById(event.target.value);
+  });
+}
+
+async function setSpriteVariantById(variantId) {
+  if (!game.spriteVariants || game.spriteVariants.length === 0) return;
+  const variant = game.spriteVariants.find((entry) => entry.id === variantId);
+  if (!variant || game.spriteVariant?.id === variant.id) return;
+
+  const requestId = ++spriteVariantLoadToken;
+  try {
+    const image = await loadImage(variant.sheet);
+    if (requestId !== spriteVariantLoadToken) return;
+    game.spriteSheet = new SpriteSheet(variant, image);
+    game.spriteVariant = variant;
+    resetPlayerAnimation(game.player, game.spriteSheet);
+  } catch (error) {
+    console.error(error);
+    if (statusEl) {
+      statusEl.textContent = 'Failed to load sprite variant';
+      statusEl.removeAttribute('hidden');
+    }
+  }
 }
 
 // --- Runtime object factories ----------------------------------------------
@@ -682,14 +756,20 @@ async function bootstrap() {
   }
 
   try {
-    const [spritesConfig, hotspotsConfig, rinkImage, spriteSheetImage] = await Promise.all([
+    const [spritesConfig, hotspotsConfig, rinkImage] = await Promise.all([
       loadJSON('assets/config/sprites.json'),
       loadJSON('assets/config/hotspots.json'),
       loadImage('assets/rink_map_template.png'),
-      loadImage('assets/sprites/skater.png'),
     ]);
 
-    const spriteSheet = new SpriteSheet(spritesConfig, spriteSheetImage);
+    const spriteVariants = normalizeSpriteVariants(spritesConfig);
+    if (spriteVariants.length === 0) {
+      throw new Error('No sprite variants defined.');
+    }
+    game.spriteVariants = spriteVariants;
+    const initialVariant = spriteVariants[0];
+    const spriteSheetImage = await loadImage(initialVariant.sheet);
+    const spriteSheet = new SpriteSheet(initialVariant, spriteSheetImage);
     const world = {
       width: hotspotsConfig.canvas.width,
       height: hotspotsConfig.canvas.height,
@@ -700,10 +780,16 @@ async function bootstrap() {
     game.world = world;
     game.rinkImage = rinkImage;
     game.spriteSheet = spriteSheet;
+    game.spriteVariant = initialVariant;
     game.player = createPlayer(world, spriteSheet);
     game.camera = createCamera(world);
     clampCamera(game.camera, world);
     game.ready = true;
+
+    if (spriteSelect) {
+      populateSpriteSelect(spriteVariants);
+      spriteSelect.value = initialVariant.id;
+    }
 
     window.__NHL93_CONFIG__ = { sprites: spritesConfig, hotspots: hotspotsConfig };
 

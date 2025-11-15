@@ -1,40 +1,46 @@
 {
   "version": 1,
-  "sheet": "assets/sprites/skater.png",
-  "frameSize": { "width": 57, "height": 110 },
-  "origin": { "x": 28, "y": 102 },
-  "states": {
-    "idle": {
-      "directions": {
-        "N": { "frames": [0], "frameDurationMs": 250 },
-        "NE": { "frames": [0], "frameDurationMs": 250 },
-        "E": { "frames": [0], "frameDurationMs": 250 },
-        "SE": { "frames": [0], "frameDurationMs": 250 }
-      }
-    },
-    "skating": {
-      "directions": {
-        "N": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 },
-        "NE": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 },
-        "E": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 },
-        "SE": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 }
-      }
-    },
-    "turning": {
-      "directions": {
-        "N": { "frames": [5, 6], "frameDurationMs": 110 },
-        "NE": { "frames": [5, 6], "frameDurationMs": 110 },
-        "E": { "frames": [5, 6], "frameDurationMs": 110 },
-        "SE": { "frames": [5, 6], "frameDurationMs": 110 }
-      }
-    },
-    "coasting": {
-      "directions": {
-        "N": { "frames": [7], "frameDurationMs": 140 },
-        "NE": { "frames": [7], "frameDurationMs": 140 },
-        "E": { "frames": [7], "frameDurationMs": 140 },
-        "SE": { "frames": [7], "frameDurationMs": 140 }
+  "variants": [
+    {
+      "id": "classic-ducks",
+      "label": "Classic Mighty Ducks",
+      "sheet": "assets/sprites/skater.png",
+      "frameSize": { "width": 57, "height": 110 },
+      "origin": { "x": 28, "y": 102 },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": { "frames": [0], "frameDurationMs": 250 },
+            "NE": { "frames": [0], "frameDurationMs": 250 },
+            "E": { "frames": [0], "frameDurationMs": 250 },
+            "SE": { "frames": [0], "frameDurationMs": 250 }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 },
+            "NE": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 },
+            "E": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 },
+            "SE": { "frames": [1, 2, 3, 4], "frameDurationMs": 90 }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": { "frames": [5, 6], "frameDurationMs": 110 },
+            "NE": { "frames": [5, 6], "frameDurationMs": 110 },
+            "E": { "frames": [5, 6], "frameDurationMs": 110 },
+            "SE": { "frames": [5, 6], "frameDurationMs": 110 }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": { "frames": [7], "frameDurationMs": 140 },
+            "NE": { "frames": [7], "frameDurationMs": 140 },
+            "E": { "frames": [7], "frameDurationMs": 140 },
+            "SE": { "frames": [7], "frameDurationMs": 140 }
+          }
+        }
       }
     }
-  }
+  ]
 }

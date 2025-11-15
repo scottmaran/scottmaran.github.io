@@ -6,7 +6,7 @@
       "id": "center_ice",
       "label": "About",
       "destination": "/about.html",
-      "rect": { "x": 1750, "y": 2725, "width": 800, "height": 600 },
+      "rect": { "x": 1350, "y": 2725, "width": 800, "height": 600 },
       "labelStyle": { "color": "#F4E04D", "background": "rgba(0,0,0,0.72)" }
     },
     {
@@ -20,7 +20,7 @@
       "id": "goal_crease",
       "label": "Contact",
       "destination": "/contact.html",
-      "rect": { "x": 1850, "y": 800, "width": 600, "height": 900 },
+      "rect": { "x": 1350, "y": 800, "width": 600, "height": 900 },
       "labelStyle": { "color": "#FF6B6B", "background": "rgba(0,0,0,0.72)" }
     }
   ]

@@ -33,7 +33,7 @@ const MAX_UPDATES_PER_FRAME = 5; // prevent spiraling if a frame stalls
 const CAMERA_VIEW = { width: 1536, height: 1152 }; // slice of the rink we show
 const PLAYER_SCALE_FACTOR = 3; // manual knob to keep skater readable
 const PLAYER_COLLISION_RADIUS = 42; // rough hit area around the sprite torso
-const PUCK_DEFAULT_SCALE = 0.35; // eyeballed so the puck feels proportional to skaters
+const PUCK_DEFAULT_SCALE = 0.55; // eyeballed so the puck feels proportional to skaters
 const PUCK_STICK_OFFSET = 50; // distance (px) from player center to stick blade
 const PUCK_RELEASE_SPEED = 900; // px / s impulse when casually dropping the puck
 const PUCK_SHOT_SPEED = 1850; // px / s impulse when firing a shot
@@ -1387,6 +1387,11 @@ function render() {
   ctx.save();
   ctx.imageSmoothingEnabled = false;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(offsetX, offsetY, drawWidth, drawHeight);
+  ctx.clip();
   ctx.drawImage(
     rinkImage,
     camera.view.left,
@@ -1419,6 +1424,8 @@ function render() {
   sortedSkaters.forEach((skater) => {
     renderSkater(ctx, skater, camera, scale, offsetX, offsetY);
   });
+
+  ctx.restore();
 
   ctx.restore();
   const canActivateHotspot = !game.puck || game.puck.state === 'possessed';

@@ -484,9 +484,9 @@ function updatePlayerAnimation(player, spriteSheet, deltaMs) {
 function radiansToEmoji(angleRad) {
   const angleDeg = ((angleRad * 180) / Math.PI + 360) % 360;
   if (angleDeg >= 315 || angleDeg < 45) return '→';
-  if (angleDeg >= 45 && angleDeg < 135) return '↑';
+  if (angleDeg >= 45 && angleDeg < 135) return '↓';
   if (angleDeg >= 135 && angleDeg < 225) return '←';
-  return '↓';
+  return '↑';
 }
 
 class HotspotManager {

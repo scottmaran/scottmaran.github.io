@@ -12,7 +12,7 @@
       <div class="brand">NHL '93 Dev Log</div>
       <nav aria-label="Primary">
         <ul>
-          <li><a href="/">Home</a></li>
+          <li><a href="/" aria-current="page">Home</a></li>
           <li><a href="/about.html">About</a></li>
           <li><a href="/projects.html">Projects</a></li>
           <li><a href="/contact.html">Contact</a></li>
@@ -21,9 +21,20 @@
     </header>
 
     <main>
-      <section class="instructions" aria-live="polite">
-        <p>Skate using the arrow keys. Reach a hotspot and press Enter to open it.</p>
-        <p class="no-keyboard">No keyboard? Use the links below.</p>
+      <section
+        class="instructions"
+        aria-live="polite"
+        id="canvas-instructions"
+      >
+        <p>
+          Click the rink or press <kbd>Tab</kbd> to focus, then skate with the
+          arrow keys. When you enter a hotspot, press <kbd>Enter</kbd> to visit
+          it.
+        </p>
+        <p class="no-keyboard" hidden>
+          Looks like you might be on touch or without a keyboard. Use the links
+          below to explore the site.
+        </p>
       </section>
 
       <section class="rink-wrapper">
@@ -31,7 +42,10 @@
           id="rink-canvas"
           width="1024"
           height="576"
+          tabindex="0"
+          role="application"
           aria-label="Interactive NHL '93 rink"
+          aria-describedby="canvas-instructions"
         ></canvas>
         <div class="canvas-status" role="status" aria-live="assertive">
           Loading rink assets…

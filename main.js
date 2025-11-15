@@ -1,6 +1,8 @@
-const statusEl = document.querySelector('.canvas-status');
 const canvas = document.getElementById('rink-canvas');
-const ctx = canvas.getContext('2d', { alpha: false });
+const ctx = canvas ? canvas.getContext('2d', { alpha: false }) : null;
+const statusEl = document.querySelector('.canvas-status');
+const touchNotice = document.querySelector('.no-keyboard');
+const navLinks = document.querySelectorAll('.site-header nav a');
 
 async function loadJSON(path) {
   const response = await fetch(path);
@@ -20,6 +22,7 @@ function loadImage(src) {
 }
 
 function drawRink(rinkImage) {
+  if (!canvas || !ctx) return;
   const { width, height } = canvas;
   ctx.imageSmoothingEnabled = false;
   ctx.clearRect(0, 0, width, height);
@@ -31,7 +34,52 @@ function drawRink(rinkImage) {
   ctx.drawImage(rinkImage, offsetX, offsetY, drawWidth, drawHeight);
 }
 
+function normalizePath(pathname) {
+  if (!pathname) return '/';
+  if (pathname === '/') return '/';
+  const stripped = pathname
+    .replace(/index\.html$/, '')
+    .replace(/\/$/, '');
+  return stripped || '/';
+}
+
+function updateNavCurrent() {
+  if (!navLinks.length) return;
+  const current = normalizePath(window.location.pathname);
+  navLinks.forEach((link) => {
+    const linkPath = normalizePath(new URL(link.href, window.location.origin).pathname);
+    if (linkPath === current) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
+  });
+}
+
+function updateKeyboardNotice() {
+  if (!touchNotice) return;
+  const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+  const limitedKeyboard = coarsePointer || navigator.maxTouchPoints > 0;
+  touchNotice.hidden = !limitedKeyboard;
+}
+
 async function init() {
+  updateNavCurrent();
+  updateKeyboardNotice();
+
+  if (window.matchMedia) {
+    const mq = window.matchMedia('(pointer: coarse)');
+    if (mq.addEventListener) {
+      mq.addEventListener('change', updateKeyboardNotice);
+    } else if (mq.addListener) {
+      mq.addListener(updateKeyboardNotice);
+    }
+  }
+
+  if (!canvas || !ctx || !statusEl) {
+    return;
+  }
+
   try {
     const [sprites, hotspots, rinkImage] = await Promise.all([
       loadJSON('assets/config/sprites.json'),

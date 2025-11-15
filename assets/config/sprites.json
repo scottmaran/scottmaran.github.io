@@ -41,6 +41,129 @@
           }
         }
       }
+    },
+    {
+      "id": "ducks-alt",
+      "label": "Anaheim Ducks (Alt)",
+      "sheet": "assets/sprites/skater_ana2.png",
+      "frameSize": { "width": 90, "height": 80 },
+      "origin": { "x": 45, "y": 76 },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": { "frames": [0], "frameDurationMs": 250 },
+            "NE": { "frames": [0], "frameDurationMs": 250 },
+            "E": { "frames": [0], "frameDurationMs": 250 },
+            "SE": { "frames": [0], "frameDurationMs": 250 }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": { "frames": [1, 2, 3], "frameDurationMs": 100 },
+            "NE": { "frames": [1, 2, 3], "frameDurationMs": 100 },
+            "E": { "frames": [1, 2, 3], "frameDurationMs": 100 },
+            "SE": { "frames": [1, 2, 3], "frameDurationMs": 100 }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": { "frames": [3, 4], "frameDurationMs": 120 },
+            "NE": { "frames": [3, 4], "frameDurationMs": 120 },
+            "E": { "frames": [3, 4], "frameDurationMs": 120 },
+            "SE": { "frames": [3, 4], "frameDurationMs": 120 }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": { "frames": [5], "frameDurationMs": 160 },
+            "NE": { "frames": [5], "frameDurationMs": 160 },
+            "E": { "frames": [5], "frameDurationMs": 160 },
+            "SE": { "frames": [5], "frameDurationMs": 160 }
+          }
+        }
+      }
+    },
+    {
+      "id": "rangers-home",
+      "label": "New York Rangers",
+      "sheet": "assets/sprites/skater_nyr.png",
+      "frameSize": { "width": 70, "height": 80 },
+      "origin": { "x": 35, "y": 76 },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": { "frames": [0], "frameDurationMs": 250 },
+            "NE": { "frames": [0], "frameDurationMs": 250 },
+            "E": { "frames": [0], "frameDurationMs": 250 },
+            "SE": { "frames": [0], "frameDurationMs": 250 }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": { "frames": [1, 2], "frameDurationMs": 110 },
+            "NE": { "frames": [1, 2], "frameDurationMs": 110 },
+            "E": { "frames": [1, 2], "frameDurationMs": 110 },
+            "SE": { "frames": [1, 2], "frameDurationMs": 110 }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": { "frames": [2], "frameDurationMs": 140 },
+            "NE": { "frames": [2], "frameDurationMs": 140 },
+            "E": { "frames": [2], "frameDurationMs": 140 },
+            "SE": { "frames": [2], "frameDurationMs": 140 }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": { "frames": [3], "frameDurationMs": 160 },
+            "NE": { "frames": [3], "frameDurationMs": 160 },
+            "E": { "frames": [3], "frameDurationMs": 160 },
+            "SE": { "frames": [3], "frameDurationMs": 160 }
+          }
+        }
+      }
+    },
+    {
+      "id": "rangers-alt",
+      "label": "New York Rangers (Alt)",
+      "sheet": "assets/sprites/skater_nyr2.png",
+      "frameSize": { "width": 70, "height": 70 },
+      "origin": { "x": 35, "y": 66 },
+      "states": {
+        "idle": {
+          "directions": {
+            "N": { "frames": [0], "frameDurationMs": 250 },
+            "NE": { "frames": [0], "frameDurationMs": 250 },
+            "E": { "frames": [0], "frameDurationMs": 250 },
+            "SE": { "frames": [0], "frameDurationMs": 250 }
+          }
+        },
+        "skating": {
+          "directions": {
+            "N": { "frames": [1, 2, 3], "frameDurationMs": 110 },
+            "NE": { "frames": [1, 2, 3], "frameDurationMs": 110 },
+            "E": { "frames": [1, 2, 3], "frameDurationMs": 110 },
+            "SE": { "frames": [1, 2, 3], "frameDurationMs": 110 }
+          }
+        },
+        "turning": {
+          "directions": {
+            "N": { "frames": [3, 4], "frameDurationMs": 130 },
+            "NE": { "frames": [3, 4], "frameDurationMs": 130 },
+            "E": { "frames": [3, 4], "frameDurationMs": 130 },
+            "SE": { "frames": [3, 4], "frameDurationMs": 130 }
+          }
+        },
+        "coasting": {
+          "directions": {
+            "N": { "frames": [5], "frameDurationMs": 160 },
+            "NE": { "frames": [5], "frameDurationMs": 160 },
+            "E": { "frames": [5], "frameDurationMs": 160 },
+            "SE": { "frames": [5], "frameDurationMs": 160 }
+          }
+        }
+      }
     }
   ]
 }

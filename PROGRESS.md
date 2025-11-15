@@ -43,4 +43,3 @@
 1. Introduce ARIA live messaging for hotspot entry/exit plus better announcements for control changes.
 2. Flesh out non-JS fallback (static rink image) and skip-link behavior for accessibility audits.
 3. Add mobile/touch detection to disable controls gracefully and ensure fallback navigation is obvious.
-4. Begin drafting accessibility test notes ahead of the Phase 6 QA push.

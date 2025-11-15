@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NHL '93 Personal Site</title>
+    <title>Scott Maran personal site</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#fallback-links">Skip to standard navigation</a>
     <header class="site-header">
-      <div class="brand">NHL '93 Dev Log</div>
+      <div class="brand">Scott Maran</div>
       <nav aria-label="Primary">
         <ul>
           <li><a href="/" aria-current="page">Home</a></li>
@@ -21,27 +21,26 @@
     </header>
 
     <main>
-      <section
-        class="instructions"
-        aria-live="polite"
-        id="canvas-instructions"
-      >
-        <p>
-          Click the rink or press <kbd>Tab</kbd> to focus, then skate with the
-          arrow keys. When you enter a hotspot, press <kbd>Enter</kbd> to visit
-          it. Press <kbd>Esc</kbd> to release the controls at any time.
-        </p>
-        <p class="no-keyboard" hidden>
-          Looks like you might be on touch or without a keyboard. Use the links
-          below to explore the site.
-        </p>
-      </section>
+      <details class="instructions" open>
+        <summary>How to control the rink</summary>
+        <div id="canvas-instructions" aria-live="polite">
+          <p>
+            Click the rink or press <kbd>Tab</kbd> to focus, then skate with the
+            arrow keys. When you enter a hotspot, press <kbd>Enter</kbd> to visit
+            it. Press <kbd>Esc</kbd> to release the controls at any time.
+          </p>
+          <p class="no-keyboard" hidden>
+            Looks like you might be on touch or without a keyboard. Use the
+            links below to explore the site.
+          </p>
+        </div>
+      </details>
 
       <section class="rink-wrapper">
         <canvas
           id="rink-canvas"
           width="1024"
-          height="576"
+          height="480"
           tabindex="0"
           role="application"
           aria-label="Interactive NHL '93 rink"

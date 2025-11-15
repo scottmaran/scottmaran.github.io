@@ -237,6 +237,18 @@ if (canvas) {
 window.addEventListener('keydown', handleKeyDown);
 window.addEventListener('keyup', handleKeyUp);
 
+function primeCanvasFocus() {
+  if (!canvas) return;
+  setControlsEngaged(true);
+  canvas.focus({ preventScroll: true });
+}
+
+if (document.readyState === 'complete') {
+  primeCanvasFocus();
+} else {
+  window.addEventListener('load', primeCanvasFocus, { once: true });
+}
+
 // --- Runtime object factories ----------------------------------------------
 function createPlayer(world, spriteSheet) {
   const player = {

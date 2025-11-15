@@ -107,9 +107,30 @@ main {
 .instructions {
   background: rgba(3, 7, 18, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1rem;
+  padding: 0;
   border-radius: 0.5rem;
   line-height: 1.5;
+  overflow: hidden;
+}
+
+.instructions summary {
+  cursor: pointer;
+  padding: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.instructions summary::marker {
+  color: var(--accent);
+}
+
+.instructions[open] summary {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.instructions #canvas-instructions {
+  padding: 1rem;
 }
 
 .instructions p {
@@ -145,6 +166,7 @@ main {
 #rink-canvas {
   width: 100%;
   height: auto;
+  /* max-height: 420px; */
   display: block;
   border-radius: 0.8rem;
   background: #04203d;

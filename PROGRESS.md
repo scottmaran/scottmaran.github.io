@@ -25,3 +25,14 @@
 - Instantiate a `game.puck` object that uses the newly loaded config for sprite/physics values, then wire it into the update/render loops.
 - Use the puck state to gate hotspot activations (e.g., require possession) and surface HUD / ARIA messages when pickup/drop events occur.
 - Begin scaffolding NPC instantiation so static players can start showing up in Phase 3 without additional loader work.
+
+## Phase 2 – Runtime Puck
+### Completed
+- **Puck Runtime**: Added `createPuck`, `updatePuck`, and `renderPuck` helpers so the puck spawns from `assets/config/puck.json`, glides with its own physics, snaps to the player when collected, and draws beneath the skater layer. The puck’s sprite is now loaded alongside other assets during bootstrap and stored on `game.puck`.
+- **Interaction Gating**: Hotspots only activate when the puck is possessed. Players must tap <kbd>Space</kbd> to pick up or drop the puck; attempting to press `Enter` without possession triggers an ARIA live message (`.canvas-status`), and the HUD action text flips between “Press Enter to open” and “Grab the puck to activate.”
+- **Accessibility/HUD Copy**: Instructions, README, and HUD messaging now mention the puck requirement so users know to pick it up before navigating. The status overlay also announces when the puck is collected, and the HUD beacons persist while showing the new action hint.
+
+### Next Up (Phase 3 Preview)
+- Instantiate NPC skaters from `assets/config/npcs.json`, ensuring each entry reuses the existing sprite variants and clamps to the rink.
+- Render NPCs alongside the player (with painter’s-order sorting already in place) and block the player/puck from clipping through their hitboxes.
+- Add subtle HUD cues or labels for NPC proximity to prepare for future interactions.

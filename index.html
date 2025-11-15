@@ -63,27 +63,36 @@
             </div>
           </div>
         </div>
-        <details class="rink-controls">
-          <summary>Customize</summary>
-          <div class="rink-controls__content">
-            <label for="sprite-select">Player Sprite</label>
-            <select id="sprite-select" aria-label="Choose player sprite"></select>
+        <div class="rink-sidebar">
+          <details class="rink-controls">
+            <summary>Customize</summary>
+            <div class="rink-controls__content">
+              <label for="sprite-select">Player Sprite</label>
+              <select id="sprite-select" aria-label="Choose player sprite"></select>
 
-            <label for="npc-count">NPC Count</label>
-            <select id="npc-count" aria-label="Choose number of NPCs">
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3" selected>3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
+              <label for="npc-count">NPC Count</label>
+              <select id="npc-count" aria-label="Choose number of NPCs">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
 
-            <label for="npc-sprite-select">NPC Sprite</label>
-            <select id="npc-sprite-select" aria-label="Choose NPC sprite"></select>
-          </div>
-        </details>
+              <label for="npc-sprite-select">NPC Sprite</label>
+              <select id="npc-sprite-select" aria-label="Choose NPC sprite"></select>
+            </div>
+          </details>
+          <details class="scoreboard-panel" open>
+            <summary>Scoreboard</summary>
+            <div class="scoreboard" aria-live="polite">
+              <div>Player Goals: <span id="score-player">0</span></div>
+              <div>Opponent Goals: <span id="score-opponent">0</span></div>
+            </div>
+          </details>
+        </div>
       </section>
 
       <section id="fallback-links" class="fallback-links" aria-label="Standard navigation">

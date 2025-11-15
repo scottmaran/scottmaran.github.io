@@ -24,6 +24,8 @@ const instructionsOverlay = document.getElementById('instructions-overlay');
 const spriteSelect = document.getElementById('sprite-select');
 const npcCountSelect = document.getElementById('npc-count');
 const npcSpriteSelect = document.getElementById('npc-sprite-select');
+const scorePlayerEl = document.getElementById('score-player');
+const scoreOpponentEl = document.getElementById('score-opponent');
 
 // --- Simulation constants ---------------------------------------------------
 const FIXED_TIME_STEP = 1000 / 60; // target 60 FPS update cadence (in ms)
@@ -36,7 +38,12 @@ const PUCK_STICK_OFFSET = 50; // distance (px) from player center to stick blade
 const PUCK_RELEASE_SPEED = 900; // px / s impulse when casually dropping the puck
 const PUCK_SHOT_SPEED = 1850; // px / s impulse when firing a shot
 const PUCK_HINT_COLOR = '#FFA851';
+const GOAL_ZONES = [
+  { id: 'north', rect: { x: 1700, y: 750, width: 600, height: 120 }, scorer: 'player' },
+  { id: 'south', rect: { x: 1790, y: 5100, width: 540, height: 120 }, scorer: 'opponent' },
+];
 const MAX_NPC_COUNT = 6;
+const GOAL_RESPAWN_DELAY = 1000; // ms pause before resetting after a goal
 
 // Hard-coded ice bounds derived from `assets/rink_map_template.png`. The rink
 // image includes benches/crowd art outside the boards, but we want the player
@@ -114,6 +121,10 @@ const game = {
   npcs: [],
   spriteVariantsById: {},
   currentNpcVariantId: null,
+  score: { player: 0, opponent: 0 },
+  lastPuckShooter: null,
+  celebratingGoal: false,
+  goalCelebrationTimer: 0,
 };
 
 // --- Asset helpers ----------------------------------------------------------
@@ -494,6 +505,15 @@ function populateNpcSpriteSelect(variants) {
   });
 }
 
+function updateScoreboard() {
+  if (scorePlayerEl) {
+    scorePlayerEl.textContent = String(game.score.player);
+  }
+  if (scoreOpponentEl) {
+    scoreOpponentEl.textContent = String(game.score.opponent);
+  }
+}
+
 async function setSpriteVariantById(variantId) {
   if (!game.spriteVariants || game.spriteVariants.length === 0) return;
     const variant = game.spriteVariants.find((entry) => entry.id === variantId);
@@ -677,6 +697,54 @@ function clampEntityToBounds(entity, bounds) {
   entity.position.y = clamp(entity.position.y, bounds.top + radius, bounds.bottom - radius);
 }
 
+function keepPlayerOutOfGoals(player, goals = GOAL_ZONES) {
+  if (!player) return;
+  goals.forEach((goal) => {
+    const rect = goal.rect;
+    const radius = player.radius || PLAYER_COLLISION_RADIUS;
+    const closestX = clamp(player.position.x, rect.x, rect.x + rect.width);
+    const closestY = clamp(player.position.y, rect.y, rect.y + rect.height);
+    const dx = player.position.x - closestX;
+    const dy = player.position.y - closestY;
+    const distance = Math.hypot(dx, dy);
+    if (distance < radius) {
+      let nx;
+      let ny;
+      if (distance === 0) {
+        const distTop = Math.abs(player.position.y - rect.y);
+        const distBottom = Math.abs(rect.y + rect.height - player.position.y);
+        const distLeft = Math.abs(player.position.x - rect.x);
+        const distRight = Math.abs(rect.x + rect.width - player.position.x);
+        const min = Math.min(distTop, distBottom, distLeft, distRight);
+        if (min === distTop) {
+          nx = 0;
+          ny = -1;
+        } else if (min === distBottom) {
+          nx = 0;
+          ny = 1;
+        } else if (min === distLeft) {
+          nx = -1;
+          ny = 0;
+        } else {
+          nx = 1;
+          ny = 0;
+        }
+      } else {
+        nx = dx / distance;
+        ny = dy / distance;
+      }
+      const overlap = radius - distance || radius;
+      player.position.x += nx * overlap;
+      player.position.y += ny * overlap;
+      const dot = player.velocity.x * nx + player.velocity.y * ny;
+      if (dot < 0) {
+        player.velocity.x -= dot * nx;
+        player.velocity.y -= dot * ny;
+      }
+    }
+  });
+}
+
 // --- Physics & animation ----------------------------------------------------
 function updateSkaterPhysics(skater, inputVector, deltaSeconds, physics = PLAYER_PHYSICS) {
   const isInputActive = inputVector.x !== 0 || inputVector.y !== 0;
@@ -807,6 +875,7 @@ function releasePuck(puck, owner, speed = PUCK_RELEASE_SPEED, headingOverride = 
     if (owner.spriteSheet) {
       resetSkaterAnimation(owner, owner.spriteSheet);
     }
+    game.lastPuckShooter = owner.id || null;
   }
 }
 
@@ -898,6 +967,34 @@ function buildPuckDirectionHint(player, puck) {
     emoji: radiansToEmoji(angle),
     distance,
   };
+}
+
+function resetPuckToCenter() {
+  if (!game.puck || !game.world) return;
+  const center = game.puckConfig?.spawn || { x: game.world.width / 2, y: game.world.height / 2 };
+  game.puck.state = 'free';
+  game.puck.owner = null;
+  game.puck.position.x = center.x;
+  game.puck.position.y = center.y;
+  game.puck.velocity.x = 0;
+  game.puck.velocity.y = 0;
+  game.lastPuckShooter = null;
+}
+
+function resetPlayerToCenter() {
+  if (!game.player || !game.world) return;
+  const center = {
+    x: game.world.width / 2,
+    y: game.world.height / 2,
+  };
+  game.player.position.x = center.x;
+  game.player.position.y = center.y;
+  game.player.velocity.x = 0;
+  game.player.velocity.y = 0;
+  game.player.state = 'idle';
+  game.player.heading = -Math.PI / 2;
+  game.player.targetHeading = -Math.PI / 2;
+  resetSkaterAnimation(game.player, resolveSkaterSpriteSheet(game.player));
 }
 
 function resolvePlayerNpcCollisions(player, npcs) {
@@ -993,6 +1090,72 @@ function cloneNpc(template, duplicateIndex = 0) {
   clampSkaterToBounds(npc, game.iceBounds);
   resetSkaterAnimation(npc, npc.spriteSheet);
   return npc;
+}
+
+function detectGoal(puck) {
+  if (!puck) return;
+  if (game.celebratingGoal) return;
+  const { x, y } = puck.position;
+  const zone = GOAL_ZONES.find((entry) => pointInRect(x, y, entry.rect));
+  if (!zone) return;
+  if (zone.scorer === 'player' && game.lastPuckShooter !== 'player') return;
+  handleGoal(zone.scorer);
+}
+
+function pointInRect(px, py, rect) {
+  return px >= rect.x && px <= rect.x + rect.width && py >= rect.y && py <= rect.y + rect.height;
+}
+
+function handleGoal(team) {
+  if (!game.score[team]) {
+    game.score[team] = 0;
+  }
+  game.score[team] += 1;
+  updateScoreboard();
+  flashStatus('GOAL!', 2000, { emphasize: true });
+  startGoalCelebration();
+}
+
+function startGoalCelebration() {
+  if (game.celebratingGoal) return;
+  game.celebratingGoal = true;
+  game.goalCelebrationTimer = GOAL_RESPAWN_DELAY;
+  if (game.player) {
+    game.player.velocity.x = 0;
+    game.player.velocity.y = 0;
+    game.player.state = 'idle';
+    resetSkaterAnimation(game.player, resolveSkaterSpriteSheet(game.player));
+  }
+  if (game.puck) {
+    game.puck.velocity.x = 0;
+    game.puck.velocity.y = 0;
+  }
+}
+
+function updateGoalCelebration(deltaMs) {
+  if (!game.celebratingGoal) return;
+  game.goalCelebrationTimer -= deltaMs;
+  if (game.goalCelebrationTimer <= 0) {
+    finishGoalCelebration();
+  }
+}
+
+function finishGoalCelebration() {
+  game.celebratingGoal = false;
+  game.goalCelebrationTimer = 0;
+  resetPuckToCenter();
+  resetPlayerToCenter();
+}
+
+function drainActionQueue() {
+  const actions = inputState.actions;
+  if (!actions) return;
+  actions.enterPressed = false;
+  actions.enterTriggered = false;
+  actions.spacePressed = false;
+  actions.spaceTriggered = false;
+  actions.shootPressed = false;
+  actions.shootTriggered = false;
 }
 
 // --- Hotspot system ---------------------------------------------------------
@@ -1291,6 +1454,12 @@ function update(deltaMs) {
   if (!game.ready) return;
   const deltaSeconds = deltaMs / 1000;
 
+  if (game.celebratingGoal) {
+    updateGoalCelebration(deltaMs);
+    drainActionQueue();
+    return;
+  }
+
   game.skaters.forEach((skater) => {
     if (skater.behavior === 'npc-static') {
       updateSkaterAnimation(skater, deltaMs);
@@ -1307,9 +1476,11 @@ function update(deltaMs) {
     updatePuck(game.puck, game.player, deltaSeconds, game.iceBounds);
   }
 
+  keepPlayerOutOfGoals(game.player, GOAL_ZONES);
   resolvePlayerNpcCollisions(game.player, game.npcs);
   if (game.puck && game.puck.state === 'free') {
     resolvePuckNpcCollisions(game.puck, game.npcs);
+    detectGoal(game.puck);
   }
 
   game.camera.position.x = game.player.position.x;
@@ -1482,6 +1653,8 @@ async function bootstrap() {
       npcSpriteSelect.value = game.allNpcs[0]?.variantId || initialVariant.id;
       updateNpcSprites(npcSpriteSelect.value);
     }
+
+    updateScoreboard();
 
     window.__NHL93_CONFIG__ = {
       sprites: spritesConfig,

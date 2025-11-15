@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NHL '93 Personal Site</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#fallback-links">Skip to standard navigation</a>
+    <header class="site-header">
+      <div class="brand">NHL '93 Dev Log</div>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/projects.html">Projects</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="instructions" aria-live="polite">
+        <p>Skate using the arrow keys. Reach a hotspot and press Enter to open it.</p>
+        <p class="no-keyboard">No keyboard? Use the links below.</p>
+      </section>
+
+      <section class="rink-wrapper">
+        <canvas
+          id="rink-canvas"
+          width="1024"
+          height="576"
+          aria-label="Interactive NHL '93 rink"
+        ></canvas>
+        <div class="canvas-status" role="status" aria-live="assertive">
+          Loading rink assets…
+        </div>
+      </section>
+
+      <section id="fallback-links" class="fallback-links" aria-label="Standard navigation">
+        <h2>Fallback Navigation</h2>
+        <ul>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/projects.html">Projects</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "scottmaran.github.io",
+  "version": "1.0.0",
+  "description": "my personal webpage",
+  "main": "index.js",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "lint": "eslint --max-warnings=0 . --ext .js",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scottmaran/scottmaran.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/scottmaran/scottmaran.github.io/issues"
+  },
+  "homepage": "https://github.com/scottmaran/scottmaran.github.io#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "prettier": "^3.6.2"
+  }
+}

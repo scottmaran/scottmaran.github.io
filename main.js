@@ -39,8 +39,8 @@ const PUCK_RELEASE_SPEED = 900; // px / s impulse when casually dropping the puc
 const PUCK_SHOT_SPEED = 1850; // px / s impulse when firing a shot
 const PUCK_HINT_COLOR = '#FFA851';
 const GOAL_ZONES = [
-  { id: 'north', rect: { x: 1700, y: 650, width: 600, height: 220 }, scorer: 'player' },
-  { id: 'south', rect: { x: 1700, y: 4730, width: 600, height: 220 }, scorer: 'opponent' },
+  { id: 'north', rect: { x: 1700, y: 750, width: 600, height: 120 }, scorer: 'player' },
+  { id: 'south', rect: { x: 1790, y: 5100, width: 540, height: 120 }, scorer: 'opponent' },
 ];
 const MAX_NPC_COUNT = 6;
 const GOAL_RESPAWN_DELAY = 1000; // ms pause before resetting after a goal

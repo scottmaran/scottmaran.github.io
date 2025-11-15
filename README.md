@@ -2,9 +2,12 @@
 
 ## Using the Site
 1. **Engage controls**: Click the rink (or press `Tab` until the canvas is focused). The HUD will display which hotspot you are near.
-2. **Skate**: Use the arrow keys (or WASD) to build momentum around the ice. Turning has inertia—just like NHL '93.
-3. **Navigate**: When the dashed outline and HUD prompt show a hotspot (About, Projects, Contact), press `Enter` to open that section. Press `Esc` to release the controls and return to normal page navigation.
-4. **Fallback**: If you are on a touch device or prefer standard navigation, use the fallback links under the rink—they always point to the same destinations.
+2. **Grab the puck**: Skate to center ice and press <kbd>Space</kbd> to pick up the puck. Hotspots only unlock when you have possession; tap <kbd>Space</kbd> again to drop it or press <kbd>P</kbd> to fire it in the direction you’re skating. The HUD’s helper arrows now include a “Puck” direction hint whenever you don’t have it, so you can chase it down quickly.
+3. **Skate**: Use the arrow keys (or WASD) to build momentum around the ice. Turning has inertia—just like NHL '93.
+4. **Thread the bench**: Static computer players line the benches and crease. You can’t skate or shoot through them, so weave around those hitboxes like you would in NHL '93.
+5. **Navigate**: When the dashed outline and HUD prompt show a hotspot (About, Projects, Contact), press `Enter` to open that section. Press `Esc` to release the controls and return to normal page navigation.
+6. **Customize NPCs**: Use the Customize drawer to change your jersey and tweak the NPC count (0–6) or sprite theme. Want only the goalie on the ice? Drop the count to 1. Want a full bench of a specific team? Pick their sprite and bump it back up.
+7. **Fallback**: If you are on a touch device or prefer standard navigation, use the fallback links under the rink—they always point to the same destinations.
 
 ### Hotspot Config Reference (`assets/config/hotspots.json`)
 - `version`: Schema version for future migrations.
@@ -23,8 +26,9 @@
 - `styles.css` – Retro theme, canvas wrapper styling, HUD look-and-feel, instructions, and fallback link styles.
 - `assets/` – Art, sprites, and configuration.
   - `rink_map_template.png` – Native rink graphic (3939×5600) used for world coordinates.
-  - `sprites/` – Packed player spritesheet (`skater.png`).
-  - `config/` – JSON files (`sprites.json`, `hotspots.json`) that drive rendering/interaction.
+  - `sprites/` – Packed player spritesheets for general skating.
+  - `puck_sprites/` – Matching sprite sheets that include puck-on-stick art, swapped in automatically when you possess the puck.
+- `config/` – JSON files (`sprites.json`, `hotspots.json`, `puck.json`, `npcs.json`) that drive rendering/interaction.
 
 ### Runtime (main.js)
 `main.js` is intentionally verbose and grouped into documented sections:

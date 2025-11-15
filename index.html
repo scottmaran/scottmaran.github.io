@@ -49,8 +49,11 @@
             <div id="canvas-instructions">
               <p>
                 Click the rink to skate with the arrow keys.
-                Skate to different sections of the ice and
-                press <kbd>Enter</kbd> to visit that link.
+                Grab the puck at center ice with <kbd>Space</kbd> to activate
+                hotspots, then skate to different sections of the ice and press
+                <kbd>Enter</kbd> to visit that link. Tap <kbd>Space</kbd> again to
+                drop the puck or press <kbd>P</kbd> to fire it in the direction
+                you’re moving.
                 Press <kbd>Esc</kbd> to release the controls at any time.
               </p>
               <p class="no-keyboard" hidden>
@@ -65,6 +68,20 @@
           <div class="rink-controls__content">
             <label for="sprite-select">Player Sprite</label>
             <select id="sprite-select" aria-label="Choose player sprite"></select>
+
+            <label for="npc-count">NPC Count</label>
+            <select id="npc-count" aria-label="Choose number of NPCs">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+
+            <label for="npc-sprite-select">NPC Sprite</label>
+            <select id="npc-sprite-select" aria-label="Choose NPC sprite"></select>
           </div>
         </details>
       </section>

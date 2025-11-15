@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "players": [
+    {
+      "id": "bench_left_a",
+      "spriteVariant": "nyr",
+      "state": "idle",
+      "direction": "E",
+      "position": { "x": 3250, "y": 2550 },
+      "hitbox": { "radius": 60 },
+      "interaction": { "type": "none" }
+    },
+    {
+      "id": "bench_left_b",
+      "spriteVariant": "nyr2",
+      "state": "idle",
+      "direction": "E",
+      "position": { "x": 3400, "y": 2350 },
+      "hitbox": { "radius": 60 },
+      "interaction": { "type": "none" }
+    },
+    {
+      "id": "crease_goalie",
+      "spriteVariant": "ana2",
+      "state": "coasting",
+      "direction": "N",
+      "position": { "x": 1880, "y": 1200 },
+      "hitbox": { "width": 90, "height": 140 },
+      "interaction": { "type": "none" }
+    }
+  ]
+}

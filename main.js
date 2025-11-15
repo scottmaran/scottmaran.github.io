@@ -18,9 +18,12 @@ const navLinks = document.querySelectorAll('.site-header nav a');
 const hudRoot = document.querySelector('.hud');
 const hudPrompt = document.querySelector('.hud__prompt');
 const hudLabel = document.querySelector('.hud__label');
+const hudAction = document.querySelector('.hud__action');
 const hudBeacons = document.querySelector('.hud__beacons');
 const instructionsOverlay = document.getElementById('instructions-overlay');
 const spriteSelect = document.getElementById('sprite-select');
+const npcCountSelect = document.getElementById('npc-count');
+const npcSpriteSelect = document.getElementById('npc-sprite-select');
 
 // --- Simulation constants ---------------------------------------------------
 const FIXED_TIME_STEP = 1000 / 60; // target 60 FPS update cadence (in ms)
@@ -28,6 +31,12 @@ const MAX_UPDATES_PER_FRAME = 5; // prevent spiraling if a frame stalls
 const CAMERA_VIEW = { width: 1536, height: 1152 }; // slice of the rink we show
 const PLAYER_SCALE_FACTOR = 3; // manual knob to keep skater readable
 const PLAYER_COLLISION_RADIUS = 42; // rough hit area around the sprite torso
+const PUCK_DEFAULT_SCALE = 0.35; // eyeballed so the puck feels proportional to skaters
+const PUCK_STICK_OFFSET = 50; // distance (px) from player center to stick blade
+const PUCK_RELEASE_SPEED = 900; // px / s impulse when casually dropping the puck
+const PUCK_SHOT_SPEED = 1850; // px / s impulse when firing a shot
+const PUCK_HINT_COLOR = '#FFA851';
+const MAX_NPC_COUNT = 6;
 
 // Hard-coded ice bounds derived from `assets/rink_map_template.png`. The rink
 // image includes benches/crowd art outside the boards, but we want the player
@@ -69,12 +78,19 @@ const inputState = {
   actions: {
     enterPressed: false,
     enterTriggered: false,
+    spacePressed: false,
+    spaceTriggered: false,
+    shootPressed: false,
+    shootTriggered: false,
   },
 };
+
+const ZERO_VECTOR = Object.freeze({ x: 0, y: 0 });
 
 let lastTime = 0;
 let accumulator = 0;
 let spriteVariantLoadToken = 0;
+const spriteSheetCache = new Map();
 
 // Bundle runtime state into one object for easier debugging.
 const game = {
@@ -90,6 +106,14 @@ const game = {
   hotspotManager: null,
   spriteVariants: [],
   spriteVariant: null,
+  skaters: [],
+  puckConfig: null,
+  npcConfig: null,
+  puck: null,
+  allNpcs: [],
+  npcs: [],
+  spriteVariantsById: {},
+  currentNpcVariantId: null,
 };
 
 // --- Asset helpers ----------------------------------------------------------
@@ -108,6 +132,25 @@ function loadImage(src) {
     img.onerror = () => reject(new Error(`Failed to load image ${src}`));
     img.src = src;
   });
+}
+
+let statusHideTimer = null;
+function flashStatus(message, duration = 1200, { emphasize = false } = {}) {
+  if (!statusEl) return;
+  statusEl.textContent = message;
+  statusEl.removeAttribute('hidden');
+  if (emphasize) {
+    statusEl.classList.add('is-ready');
+  }
+  if (statusHideTimer) {
+    clearTimeout(statusHideTimer);
+  }
+  statusHideTimer = setTimeout(() => {
+    statusEl.setAttribute('hidden', 'hidden');
+    if (statusEl) {
+      statusEl.classList.remove('is-ready');
+    }
+  }, duration);
 }
 
 // --- General utilities ------------------------------------------------------
@@ -194,13 +237,98 @@ function normalizeSpriteVariants(config) {
   ];
 }
 
-function resetPlayerAnimation(player, spriteSheet) {
-  if (!player || !spriteSheet) return;
-  player.animation.frameIndex = 0;
-  player.animation.elapsed = 0;
-  const dir = spriteSheet.getDirection(player.state, player.direction);
+function createSingleFramePuckConfig(baseConfig, puckImage) {
+  const clonedStates = {};
+  Object.entries(baseConfig.states).forEach(([stateKey, stateValue]) => {
+    const directions = {};
+    Object.entries(stateValue.directions).forEach(([dirKey, dirValue]) => {
+      directions[dirKey] = {
+        ...dirValue,
+        frames: [0],
+      };
+    });
+    clonedStates[stateKey] = {
+      ...stateValue,
+      directions,
+    };
+  });
+
+  return {
+    ...baseConfig,
+    frameSize: { width: puckImage.width, height: puckImage.height },
+    origin: {
+      x: Math.min(baseConfig.origin.x, puckImage.width),
+      y: Math.min(baseConfig.origin.y, puckImage.height),
+    },
+    states: clonedStates,
+  };
+}
+
+function derivePuckSpritePath(sheetPath) {
+  if (!sheetPath) return null;
+  if (sheetPath.includes('assets/sprites/')) {
+    return sheetPath.replace('assets/sprites/', 'assets/puck_sprites/');
+  }
+  const parts = sheetPath.split('/');
+  const filename = parts[parts.length - 1];
+  return `assets/puck_sprites/${filename}`;
+}
+
+async function loadSpriteSheetsForVariant(variant) {
+  const baseImage = await loadImage(variant.sheet);
+  const baseSheet = new SpriteSheet(variant, baseImage);
+  let puckSheet = null;
+  const puckPath = derivePuckSpritePath(variant.sheet);
+  if (puckPath) {
+    try {
+      const puckImage = await loadImage(puckPath);
+      const needsSingleFrame =
+        puckImage.width < variant.frameSize.width || puckImage.height < variant.frameSize.height;
+      const puckConfig = needsSingleFrame ? createSingleFramePuckConfig(variant, puckImage) : variant;
+      puckSheet = new SpriteSheet(puckConfig, puckImage);
+    } catch (error) {
+      console.warn(
+        `No puck sprite found for variant "${variant.id}" at ${puckPath}. Defaulting to base sheet.`,
+        error
+      );
+    }
+  }
+  return { base: baseSheet, puck: puckSheet };
+}
+
+async function getVariantSpriteSheets(variant) {
+  if (!variant) return null;
+  if (spriteSheetCache.has(variant.id)) {
+    return spriteSheetCache.get(variant.id);
+  }
+  const sheets = await loadSpriteSheetsForVariant(variant);
+  spriteSheetCache.set(variant.id, sheets);
+  return sheets;
+}
+
+function reportMissingNpcVariants(npcConfig, spriteVariants) {
+  if (!npcConfig || !Array.isArray(npcConfig.players) || !spriteVariants) {
+    return [];
+  }
+  const available = new Set(spriteVariants.map((variant) => variant.id));
+  const missing = npcConfig.players
+    .filter((npc) => npc.spriteVariant && !available.has(npc.spriteVariant))
+    .map((npc) => ({ id: npc.id, spriteVariant: npc.spriteVariant }));
+  if (missing.length > 0) {
+    console.warn('NPC config references sprite variants that do not exist:', missing);
+  }
+  return missing;
+}
+
+function resetSkaterAnimation(skater, spriteSheetOverride) {
+  if (!skater) return;
+  const sheet = spriteSheetOverride || skater.spriteSheet;
+  if (!sheet) return;
+  skater.animation.frameIndex = 0;
+  skater.animation.elapsed = 0;
+  const dir = sheet.getDirection(skater.state, skater.direction);
   if (dir && dir.frames.length > 0) {
-    player.animation.currentFrame = dir.frames[0];
+    skater.animation.currentFrame = dir.frames[0];
   }
 }
 
@@ -251,6 +379,12 @@ function handleKeyDown(event) {
   } else if (key === 'enter') {
     inputState.actions.enterPressed = true;
     handled = true;
+  } else if (key === ' ' || key === 'space') {
+    inputState.actions.spacePressed = true;
+    handled = true;
+  } else if (key === 'p') {
+    inputState.actions.shootPressed = true;
+    handled = true;
   } else {
     handled = handleDirectionalKey(key, true);
   }
@@ -263,7 +397,7 @@ function handleKeyDown(event) {
 function handleKeyUp(event) {
   const key = event.key.toLowerCase();
   if (!inputState.engaged) return;
-  if (key === 'enter') return; // handled on keydown only
+  if (key === 'enter' || key === ' ' || key === 'space' || key === 'p') return; // handled on keydown only
   if (handleDirectionalKey(key, false)) {
     event.preventDefault();
   }
@@ -328,18 +462,64 @@ function populateSpriteSelect(variants) {
   });
 }
 
+function populateNpcCountSelect(totalNpcCount) {
+  if (!npcCountSelect) return;
+  const initialValue = parseInt(npcCountSelect.value, 10);
+  if (Number.isNaN(initialValue)) {
+    npcCountSelect.value = String(Math.min(totalNpcCount, MAX_NPC_COUNT));
+  }
+  const handler = () => {
+    const count = parseInt(npcCountSelect.value, 10);
+    applyNpcLimit(count);
+  };
+  if (!npcCountSelect.dataset.bound) {
+    npcCountSelect.dataset.bound = 'true';
+    npcCountSelect.addEventListener('change', handler);
+  }
+  handler();
+}
+
+function populateNpcSpriteSelect(variants) {
+  if (!npcSpriteSelect || !variants) return;
+  npcSpriteSelect.innerHTML = '';
+  variants.forEach((variant) => {
+    const option = document.createElement('option');
+    option.value = variant.id;
+    option.textContent = variant.label;
+    npcSpriteSelect.appendChild(option);
+  });
+  npcSpriteSelect.addEventListener('change', () => {
+    const variantId = npcSpriteSelect.value;
+    updateNpcSprites(variantId);
+  });
+}
+
 async function setSpriteVariantById(variantId) {
   if (!game.spriteVariants || game.spriteVariants.length === 0) return;
-  const variant = game.spriteVariants.find((entry) => entry.id === variantId);
+    const variant = game.spriteVariants.find((entry) => entry.id === variantId);
   if (!variant || game.spriteVariant?.id === variant.id) return;
 
   const requestId = ++spriteVariantLoadToken;
   try {
-    const image = await loadImage(variant.sheet);
+    const { base, puck } = await getVariantSpriteSheets(variant);
     if (requestId !== spriteVariantLoadToken) return;
-    game.spriteSheet = new SpriteSheet(variant, image);
+    game.spriteSheet = base;
     game.spriteVariant = variant;
-    resetPlayerAnimation(game.player, game.spriteSheet);
+    if (game.player) {
+      game.player.spriteSheet = base;
+      game.player.puckSpriteSheet = puck;
+      resetSkaterAnimation(game.player, game.spriteSheet);
+    }
+    if (game.npcs && game.npcs.length) {
+      game.npcs.forEach((npc) => {
+        const npcVariant = variant.id === npc.variantId ? variant : game.spriteVariantsById?.[npc.variantId];
+        if (!npcVariant) return;
+        getVariantSpriteSheets(npcVariant).then((sheets) => {
+          npc.spriteSheet = sheets.base;
+          resetSkaterAnimation(npc, npc.spriteSheet);
+        });
+      });
+    }
   } catch (error) {
     console.error(error);
     if (statusEl) {
@@ -350,15 +530,36 @@ async function setSpriteVariantById(variantId) {
 }
 
 // --- Runtime object factories ----------------------------------------------
-function createPlayer(world, spriteSheet) {
-  const player = {
+function createSkater({
+  id = 'skater',
+  world,
+  spriteSheet,
+  puckSpriteSheet = null,
+  controlSource,
+  physics = PLAYER_PHYSICS,
+  radius = PLAYER_COLLISION_RADIUS,
+  scale = PLAYER_SCALE_FACTOR,
+  behavior = 'player',
+  hitbox = null,
+  bounds = ICE_BOUNDS,
+}) {
+  const skater = {
+    id,
+    type: 'skater',
     position: { x: world.width / 2, y: world.height / 2 },
     velocity: { x: 0, y: 0 },
     heading: -Math.PI / 2, // facing up rink
     targetHeading: -Math.PI / 2,
     state: 'idle',
     direction: 'N',
-    radius: PLAYER_COLLISION_RADIUS,
+    radius,
+    scale,
+    controlSource: controlSource || (() => ZERO_VECTOR),
+    spriteSheet,
+    puckSpriteSheet,
+    physics,
+    behavior,
+    hitbox,
     animation: {
       frameIndex: 0,
       elapsed: 0,
@@ -366,12 +567,66 @@ function createPlayer(world, spriteSheet) {
     },
   };
 
-  const dir = spriteSheet.getDirection(player.state, player.direction);
-  if (dir && dir.frames.length > 0) {
-    player.animation.currentFrame = dir.frames[0];
+  if (spriteSheet) {
+    const dir = spriteSheet.getDirection(skater.state, skater.direction);
+    if (dir && dir.frames.length > 0) {
+      skater.animation.currentFrame = dir.frames[0];
+    }
   }
 
-  return player;
+  clampEntityToBounds(skater, bounds);
+  return skater;
+}
+
+function resolveSkaterSpriteSheet(skater) {
+  if (!skater) return null;
+  if (
+    skater === game.player &&
+    game.puck &&
+    game.puck.state === 'possessed' &&
+    game.puck.owner === game.player &&
+    skater.puckSpriteSheet
+  ) {
+    return skater.puckSpriteSheet;
+  }
+  return skater.spriteSheet;
+}
+
+async function loadNpcSkaters(npcConfig, variantIndex, world, bounds) {
+  if (!npcConfig || !Array.isArray(npcConfig.players)) return [];
+  const skaters = [];
+  for (const npcDef of npcConfig.players) {
+    const variant = variantIndex[npcDef.spriteVariant];
+    if (!variant) {
+      console.warn(`NPC "${npcDef.id}" references missing sprite variant "${npcDef.spriteVariant}".`);
+      continue;
+    }
+    try {
+      const sheets = await getVariantSpriteSheets(variant);
+      const npc = createSkater({
+        id: npcDef.id,
+        world,
+        spriteSheet: sheets.base,
+        puckSpriteSheet: null,
+        controlSource: () => ZERO_VECTOR,
+        radius: npcDef.hitbox?.radius ?? PLAYER_COLLISION_RADIUS,
+        behavior: 'npc-static',
+        hitbox: npcDef.hitbox || null,
+        bounds,
+      });
+      npc.position.x = npcDef.position?.x ?? npc.position.x;
+      npc.position.y = npcDef.position?.y ?? npc.position.y;
+      npc.state = npcDef.state || npc.state;
+      npc.direction = npcDef.direction || npc.direction;
+      npc.variantId = npcDef.spriteVariant;
+      clampEntityToBounds(npc, bounds || ICE_BOUNDS);
+      resetSkaterAnimation(npc, npc.spriteSheet);
+      skaters.push(npc);
+    } catch (error) {
+      console.error(`Failed to load NPC sprite for ${npcDef.id}:`, error);
+    }
+  }
+  return skaters;
 }
 
 function createCamera(world) {
@@ -404,80 +659,340 @@ function clampCamera(camera, world) {
   }
 }
 
-function clampPlayerToIce(player, bounds) {
-  const leftLimit = bounds.left + player.radius;
-  const rightLimit = bounds.right - player.radius;
-  const topLimit = bounds.top + player.radius;
-  const bottomLimit = bounds.bottom - player.radius;
+function clampSkaterToBounds(skater, bounds) {
+  const radius = skater.radius ?? PLAYER_COLLISION_RADIUS;
+  const leftLimit = bounds.left + radius;
+  const rightLimit = bounds.right - radius;
+  const topLimit = bounds.top + radius;
+  const bottomLimit = bounds.bottom - radius;
 
-  player.position.x = clamp(player.position.x, leftLimit, rightLimit);
-  player.position.y = clamp(player.position.y, topLimit, bottomLimit);
+  skater.position.x = clamp(skater.position.x, leftLimit, rightLimit);
+  skater.position.y = clamp(skater.position.y, topLimit, bottomLimit);
+}
+
+function clampEntityToBounds(entity, bounds) {
+  if (!entity || !bounds) return;
+  const radius = entity.radius ?? PLAYER_COLLISION_RADIUS;
+  entity.position.x = clamp(entity.position.x, bounds.left + radius, bounds.right - radius);
+  entity.position.y = clamp(entity.position.y, bounds.top + radius, bounds.bottom - radius);
 }
 
 // --- Physics & animation ----------------------------------------------------
-function updatePlayerPhysics(player, inputVector, deltaSeconds) {
+function updateSkaterPhysics(skater, inputVector, deltaSeconds, physics = PLAYER_PHYSICS) {
   const isInputActive = inputVector.x !== 0 || inputVector.y !== 0;
 
   if (isInputActive) {
-    player.targetHeading = Math.atan2(inputVector.y, inputVector.x);
-    const angleDiff = normalizeAngle(player.targetHeading - player.heading);
-    const maxTurn = PLAYER_PHYSICS.TURN_RATE * deltaSeconds;
+    skater.targetHeading = Math.atan2(inputVector.y, inputVector.x);
+    const angleDiff = normalizeAngle(skater.targetHeading - skater.heading);
+    const maxTurn = physics.TURN_RATE * deltaSeconds;
     const turnAmount = clamp(angleDiff, -maxTurn, maxTurn);
-    player.heading = normalizeAngle(player.heading + turnAmount);
+    skater.heading = normalizeAngle(skater.heading + turnAmount);
 
-    const accel = PLAYER_PHYSICS.ACCELERATION * deltaSeconds;
-    player.velocity.x += Math.cos(player.heading) * accel;
-    player.velocity.y += Math.sin(player.heading) * accel;
+    const accel = physics.ACCELERATION * deltaSeconds;
+    skater.velocity.x += Math.cos(skater.heading) * accel;
+    skater.velocity.y += Math.sin(skater.heading) * accel;
   }
 
-  const speed = vectorMagnitude(player.velocity);
-  if (speed > PLAYER_PHYSICS.MAX_SPEED) {
-    const ratio = PLAYER_PHYSICS.MAX_SPEED / speed;
-    player.velocity.x *= ratio;
-    player.velocity.y *= ratio;
+  const speed = vectorMagnitude(skater.velocity);
+  if (speed > physics.MAX_SPEED) {
+    const ratio = physics.MAX_SPEED / speed;
+    skater.velocity.x *= ratio;
+    skater.velocity.y *= ratio;
   }
 
   if (!isInputActive && speed > 0) {
-    const drag = PLAYER_PHYSICS.FRICTION * deltaSeconds;
+    const drag = physics.FRICTION * deltaSeconds;
     const newSpeed = Math.max(0, speed - drag);
     const ratio = newSpeed / speed;
-    player.velocity.x *= ratio;
-    player.velocity.y *= ratio;
+    skater.velocity.x *= ratio;
+    skater.velocity.y *= ratio;
   }
 
-  player.position.x += player.velocity.x * deltaSeconds;
-  player.position.y += player.velocity.y * deltaSeconds;
+  skater.position.x += skater.velocity.x * deltaSeconds;
+  skater.position.y += skater.velocity.y * deltaSeconds;
 }
 
-function updatePlayerState(player, inputVector) {
-  const speed = vectorMagnitude(player.velocity);
+function updateSkaterState(skater, inputVector, physics = PLAYER_PHYSICS) {
+  const speed = vectorMagnitude(skater.velocity);
   const isInputActive = inputVector.x !== 0 || inputVector.y !== 0;
-  const facingAngle = speed > PLAYER_PHYSICS.MIN_SPEED ? Math.atan2(player.velocity.y, player.velocity.x) : player.heading;
-  const headingDelta = Math.abs(normalizeAngle(player.targetHeading - player.heading));
+  const facingAngle = speed > physics.MIN_SPEED ? Math.atan2(skater.velocity.y, skater.velocity.x) : skater.heading;
+  const headingDelta = Math.abs(normalizeAngle(skater.targetHeading - skater.heading));
 
-  if (speed < PLAYER_PHYSICS.MIN_SPEED && !isInputActive) {
-    player.state = 'idle';
-  } else if (isInputActive && headingDelta > PLAYER_PHYSICS.TURNING_THRESHOLD) {
-    player.state = 'turning';
+  if (speed < physics.MIN_SPEED && !isInputActive) {
+    skater.state = 'idle';
+  } else if (isInputActive && headingDelta > physics.TURNING_THRESHOLD) {
+    skater.state = 'turning';
   } else if (isInputActive) {
-    player.state = 'skating';
+    skater.state = 'skating';
   } else {
-    player.state = 'coasting';
+    skater.state = 'coasting';
   }
 
-  player.direction = quantizeDirection(facingAngle);
+  skater.direction = quantizeDirection(facingAngle);
 }
 
-function updatePlayerAnimation(player, spriteSheet, deltaMs) {
-  const dir = spriteSheet.getDirection(player.state, player.direction);
+function updateSkaterAnimation(skater, deltaMs) {
+  const spriteSheet = resolveSkaterSpriteSheet(skater);
+  if (!spriteSheet) return;
+  const dir = spriteSheet.getDirection(skater.state, skater.direction);
   if (!dir || dir.frames.length === 0) return;
-  player.animation.elapsed += deltaMs;
+  skater.animation.elapsed += deltaMs;
   const frameDuration = dir.frameDurationMs || 100;
-  if (player.animation.elapsed >= frameDuration) {
-    player.animation.elapsed -= frameDuration;
-    player.animation.frameIndex = (player.animation.frameIndex + 1) % dir.frames.length;
-    player.animation.currentFrame = dir.frames[player.animation.frameIndex];
+  if (skater.animation.elapsed >= frameDuration) {
+    skater.animation.elapsed -= frameDuration;
+    skater.animation.frameIndex = (skater.animation.frameIndex + 1) % dir.frames.length;
+    skater.animation.currentFrame = dir.frames[skater.animation.frameIndex];
   }
+}
+
+// --- Puck system ------------------------------------------------------------
+function createPuck(puckConfig, puckImage, world) {
+  if (!puckConfig || !puckImage || !world) return null;
+  const frameSize = puckConfig.frameSize || { width: puckImage.width, height: puckImage.height };
+  const origin = puckConfig.origin || { x: frameSize.width / 2, y: frameSize.height / 2 };
+  const spawn = puckConfig.spawn || { x: world.width / 2, y: world.height / 2 };
+
+  return {
+    type: 'puck',
+    position: { x: spawn.x, y: spawn.y },
+    velocity: { x: 0, y: 0 },
+    radius: puckConfig.radius ?? 20,
+    state: 'free',
+    owner: null,
+    image: puckImage,
+    width: frameSize.width,
+    height: frameSize.height,
+    origin,
+    physics: {
+      friction: puckConfig.physics?.friction ?? 600,
+      maxSpeed: puckConfig.physics?.maxSpeed ?? 1400,
+      stickMagnet: puckConfig.physics?.stickMagnet ?? 420,
+      elasticity: puckConfig.physics?.elasticity ?? 0.35,
+    },
+    scale: puckConfig.scale ?? PUCK_DEFAULT_SCALE,
+    stickOffset: puckConfig.stickOffset ?? PUCK_STICK_OFFSET,
+  };
+}
+
+function possessPuck(puck, owner, { announce = true } = {}) {
+  if (!puck || !owner) return;
+  if (puck.state === 'possessed' && puck.owner === owner) return;
+  puck.state = 'possessed';
+  puck.owner = owner;
+  const anchor = getStickAnchorPosition(owner, puck);
+  puck.position.x = anchor.x;
+  puck.position.y = anchor.y;
+  puck.velocity.x = 0;
+  puck.velocity.y = 0;
+  if (owner.puckSpriteSheet) {
+    resetSkaterAnimation(owner, owner.puckSpriteSheet);
+  }
+  if (announce) {
+    flashStatus('Puck collected! Skate to a hotspot and press Enter.', 1600);
+  }
+}
+
+function releasePuck(puck, owner, speed = PUCK_RELEASE_SPEED, headingOverride = null) {
+  if (!puck) return;
+  const hasOwner = Boolean(owner);
+  puck.state = 'free';
+  puck.owner = null;
+  if (hasOwner) {
+    const anchor = getStickAnchorPosition(owner, puck);
+    puck.position.x = anchor.x;
+    puck.position.y = anchor.y;
+    const heading = headingOverride ?? owner.heading;
+    puck.velocity.x = Math.cos(heading) * speed;
+    puck.velocity.y = Math.sin(heading) * speed;
+    if (owner.spriteSheet) {
+      resetSkaterAnimation(owner, owner.spriteSheet);
+    }
+  }
+}
+
+function updatePuck(puck, player, deltaSeconds, bounds) {
+  if (!puck || !bounds) return;
+
+  if (puck.state === 'possessed' && player) {
+    puck.owner = player;
+    const anchor = getStickAnchorPosition(player, puck);
+    puck.position.x = anchor.x;
+    puck.position.y = anchor.y;
+    puck.velocity.x = 0;
+    puck.velocity.y = 0;
+    return;
+  }
+
+  const speed = vectorMagnitude(puck.velocity);
+  if (speed > puck.physics.maxSpeed) {
+    const ratio = puck.physics.maxSpeed / speed;
+    puck.velocity.x *= ratio;
+    puck.velocity.y *= ratio;
+  }
+
+  if (speed > 0) {
+    const drag = puck.physics.friction * deltaSeconds;
+    const newSpeed = Math.max(0, speed - drag);
+    const ratio = newSpeed / (speed || 1);
+    puck.velocity.x *= ratio;
+    puck.velocity.y *= ratio;
+  }
+
+  puck.position.x += puck.velocity.x * deltaSeconds;
+  puck.position.y += puck.velocity.y * deltaSeconds;
+
+  const minX = bounds.left + puck.radius;
+  const maxX = bounds.right - puck.radius;
+  const minY = bounds.top + puck.radius;
+  const maxY = bounds.bottom - puck.radius;
+  const bounce = Math.max(0, Math.min(1, puck.physics.elasticity ?? 0.25));
+
+  if (puck.position.x < minX) {
+    puck.position.x = minX;
+    puck.velocity.x = Math.abs(puck.velocity.x) * bounce;
+  } else if (puck.position.x > maxX) {
+    puck.position.x = maxX;
+    puck.velocity.x = -Math.abs(puck.velocity.x) * bounce;
+  }
+
+  if (puck.position.y < minY) {
+    puck.position.y = minY;
+    puck.velocity.y = Math.abs(puck.velocity.y) * bounce;
+  } else if (puck.position.y > maxY) {
+    puck.position.y = maxY;
+    puck.velocity.y = -Math.abs(puck.velocity.y) * bounce;
+  }
+
+}
+
+function getStickAnchorPosition(player, puck) {
+  const offsetX = Math.cos(player.heading) * puck.stickOffset;
+  const offsetY = Math.sin(player.heading) * puck.stickOffset;
+  return {
+    x: player.position.x + offsetX,
+    y: player.position.y + offsetY,
+  };
+}
+
+function playerCanCatchPuck(puck, player) {
+  if (!puck || !player) return false;
+  const dx = player.position.x - puck.position.x;
+  const dy = player.position.y - puck.position.y;
+  const distance = Math.hypot(dx, dy);
+  const pickupRadius = (player.radius || PLAYER_COLLISION_RADIUS) + puck.radius;
+  return distance <= pickupRadius;
+}
+
+function buildPuckDirectionHint(player, puck) {
+  if (!puck || !player) return null;
+  if (puck.state === 'possessed' && puck.owner === player) return null;
+  const dx = puck.position.x - player.position.x;
+  const dy = puck.position.y - player.position.y;
+  const distance = Math.hypot(dx, dy);
+  if (distance < 5) return null;
+  const angle = Math.atan2(dy, dx);
+  return {
+    id: 'puck-direction',
+    label: 'Puck',
+    color: PUCK_HINT_COLOR,
+    emoji: radiansToEmoji(angle),
+    distance,
+  };
+}
+
+function resolvePlayerNpcCollisions(player, npcs) {
+  if (!player || !Array.isArray(npcs)) return;
+  npcs.forEach((npc) => {
+    const radius = getNpcCollisionRadius(npc);
+    const dx = player.position.x - npc.position.x;
+    const dy = player.position.y - npc.position.y;
+    const distance = Math.hypot(dx, dy) || 0.0001;
+    const minDistance = (player.radius || PLAYER_COLLISION_RADIUS) + radius;
+    if (distance < minDistance) {
+      const overlap = minDistance - distance;
+      const nx = dx / distance;
+      const ny = dy / distance;
+      player.position.x += nx * overlap;
+      player.position.y += ny * overlap;
+      const velocityDot = player.velocity.x * nx + player.velocity.y * ny;
+      if (velocityDot < 0) {
+        player.velocity.x -= velocityDot * nx;
+        player.velocity.y -= velocityDot * ny;
+      }
+    }
+  });
+}
+
+async function updateNpcSprites(variantId) {
+  if (!variantId || !game.allNpcs) return;
+  game.currentNpcVariantId = variantId;
+  const variant = game.spriteVariantsById?.[variantId];
+  if (!variant) return;
+  try {
+    const sheets = await getVariantSpriteSheets(variant);
+    game.allNpcs.forEach((npc) => {
+      npc.spriteSheet = sheets.base;
+      npc.variantId = variantId;
+      resetSkaterAnimation(npc, npc.spriteSheet);
+    });
+    applyNpcLimit(parseInt(npcCountSelect?.value, 10) || game.npcs.length);
+  } catch (error) {
+    console.error('Failed to update NPC sprite variant:', error);
+  }
+}
+
+function resolvePuckNpcCollisions(puck, npcs) {
+  if (!puck || !Array.isArray(npcs)) return;
+  npcs.forEach((npc) => {
+    const radius = getNpcCollisionRadius(npc);
+    const dx = puck.position.x - npc.position.x;
+    const dy = puck.position.y - npc.position.y;
+    const distance = Math.hypot(dx, dy) || 0.0001;
+    const minDistance = puck.radius + radius;
+    if (distance < minDistance) {
+      const overlap = minDistance - distance;
+      const nx = dx / distance;
+      const ny = dy / distance;
+      puck.position.x += nx * overlap;
+      puck.position.y += ny * overlap;
+      const velocityDot = puck.velocity.x * nx + puck.velocity.y * ny;
+      puck.velocity.x -= 2 * velocityDot * nx;
+      puck.velocity.y -= 2 * velocityDot * ny;
+      puck.velocity.x *= puck.physics.elasticity;
+      puck.velocity.y *= puck.physics.elasticity;
+    }
+  });
+}
+
+function getNpcCollisionRadius(npc) {
+  if (npc?.hitbox?.radius) return npc.hitbox.radius;
+  if (npc?.hitbox?.width && npc?.hitbox?.height) {
+    return Math.max(npc.hitbox.width, npc.hitbox.height) / 2;
+  }
+  return npc?.radius || PLAYER_COLLISION_RADIUS;
+}
+
+function cloneNpc(template, duplicateIndex = 0) {
+  if (!template || !game.world) return null;
+  const npc = createSkater({
+    id: `${template.id}__${duplicateIndex}`,
+    world: game.world,
+    spriteSheet: template.spriteSheet,
+    controlSource: () => ZERO_VECTOR,
+    radius: template.radius,
+    scale: template.scale,
+    behavior: 'npc-static',
+    hitbox: template.hitbox,
+    bounds: game.iceBounds,
+  });
+  npc.variantId = template.variantId;
+  npc.state = template.state;
+  npc.direction = template.direction;
+  npc.position.x = template.position.x + duplicateIndex * 30 * (duplicateIndex % 2 === 0 ? 1 : -1);
+  npc.position.y = template.position.y + duplicateIndex * 45;
+  clampSkaterToBounds(npc, game.iceBounds);
+  resetSkaterAnimation(npc, npc.spriteSheet);
+  return npc;
 }
 
 // --- Hotspot system ---------------------------------------------------------
@@ -547,14 +1062,15 @@ class HotspotManager {
 }
 
 class HotspotHud {
-  constructor({ root, prompt, label, beacons }) {
+  constructor({ root, prompt, label, action, beacons }) {
     this.root = root;
     this.promptEl = prompt;
     this.labelEl = label;
+    this.actionEl = action;
     this.beaconsEl = beacons;
   }
 
-  update(activeHotspot, hints) {
+  update(activeHotspot, hints, { canActivate = true } = {}) {
     if (!this.promptEl || !this.labelEl || !this.beaconsEl) return;
 
     if (activeHotspot) {
@@ -562,8 +1078,14 @@ class HotspotHud {
       this.labelEl.style.color = activeHotspot.labelStyle.color;
       this.promptEl.style.borderColor = activeHotspot.labelStyle.color;
       this.promptEl.hidden = false;
+      if (this.actionEl) {
+        this.actionEl.textContent = canActivate ? 'Press Enter to open' : 'Grab the puck to activate';
+      }
     } else {
       this.promptEl.hidden = true;
+      if (this.actionEl) {
+        this.actionEl.textContent = 'Skate to a hotspot';
+      }
     }
 
     const fragment = document.createDocumentFragment();
@@ -582,6 +1104,10 @@ class HotspotHud {
 function handleHotspotActivation() {
   if (!inputState.actions.enterTriggered || !game.activeHotspot) return;
   inputState.actions.enterTriggered = false;
+  if (game.puck && game.puck.state !== 'possessed') {
+    flashStatus('Grab the puck to activate this hotspot.', 1500);
+    return;
+  }
   const destination = game.activeHotspot.destination;
   if (!destination) return;
 
@@ -593,18 +1119,78 @@ function handleHotspotActivation() {
   window.location.href = destination;
 }
 
+function handlePuckControl() {
+  if (!inputState.actions.spaceTriggered) return;
+  inputState.actions.spaceTriggered = false;
+  if (!game.puck || !game.player) return;
+
+  if (game.puck.state === 'possessed') {
+    releasePuck(game.puck, game.player, PUCK_RELEASE_SPEED);
+    flashStatus('Puck released.', 900);
+    return;
+  }
+
+  if (playerCanCatchPuck(game.puck, game.player)) {
+    possessPuck(game.puck, game.player);
+  } else {
+    flashStatus('Skate closer to grab the puck.', 1200);
+  }
+}
+
+function handlePuckShot() {
+  if (!inputState.actions.shootTriggered) return;
+  inputState.actions.shootTriggered = false;
+  if (!game.puck || !game.player) return;
+  if (game.puck.state !== 'possessed') {
+    flashStatus('Grab the puck before shooting.', 1200);
+    return;
+  }
+
+  const player = game.player;
+  const speedVectorLength = vectorMagnitude(player.velocity);
+  const heading = speedVectorLength > PLAYER_PHYSICS.MIN_SPEED ? Math.atan2(player.velocity.y, player.velocity.x) : player.heading;
+  releasePuck(game.puck, player, PUCK_SHOT_SPEED, heading);
+  flashStatus('Shot fired!', 1000, { emphasize: true });
+}
+
+function applyNpcLimit(count) {
+  if (!Array.isArray(game.allNpcs)) {
+    game.npcs = [];
+    game.skaters = [game.player];
+    return;
+  }
+  const base = game.allNpcs;
+  if (!base.length || !game.world) {
+    game.npcs = [];
+    game.skaters = [game.player];
+    return;
+  }
+  const requestedRaw = Number.isFinite(count) ? count : base.length;
+  const requested = clamp(Math.round(requestedRaw), 0, MAX_NPC_COUNT);
+  const clones = [];
+  for (let i = 0; i < requested; i += 1) {
+    const template = base[i % base.length];
+    const duplicateIndex = Math.floor(i / base.length);
+    const clone = cloneNpc(template, duplicateIndex);
+    if (clone) clones.push(clone);
+  }
+  game.npcs = clones;
+  game.skaters = [game.player, ...clones];
+}
+
 const hotspotManager = new HotspotManager();
 const hotspotHud = new HotspotHud({
   root: hudRoot,
   prompt: hudPrompt,
   label: hudLabel,
+  action: hudAction,
   beacons: hudBeacons,
 });
 
 // --- Rendering --------------------------------------------------------------
 function render() {
   if (!game.ready || !canvas || !ctx) return;
-  const { camera, rinkImage, spriteSheet, player } = game;
+  const { camera, rinkImage } = game;
   const viewWidth = Math.min(camera.width, game.world.width);
   const viewHeight = Math.min(camera.height, game.world.height);
   const scaleX = canvas.width / viewWidth;
@@ -642,40 +1228,89 @@ function render() {
     ctx.strokeRect(screenX, screenY, rect.width * scale, rect.height * scale);
   }
 
-  if (spriteSheet && player) {
-    const dir = spriteSheet.getDirection(player.state, player.direction);
-    const frameIndex = player.animation.currentFrame ?? dir?.frames?.[0] ?? 0;
-    const { sx, sy, sw, sh } = spriteSheet.getFrameRect(frameIndex);
-    const screenX = (player.position.x - camera.view.left) * scale + offsetX;
-    const screenY = (player.position.y - camera.view.top) * scale + offsetY;
-    const playerScale = scale * PLAYER_SCALE_FACTOR;
-    const drawX = screenX - spriteSheet.origin.x * playerScale;
-    const drawY = screenY - spriteSheet.origin.y * playerScale;
-    ctx.drawImage(
-      spriteSheet.image,
-      sx,
-      sy,
-      sw,
-      sh,
-      drawX,
-      drawY,
-      sw * playerScale,
-      sh * playerScale
-    );
+  if (game.puck) {
+    renderPuck(ctx, game.puck, camera, scale, offsetX, offsetY);
   }
 
+  const sortedSkaters = [...game.skaters].sort((a, b) => a.position.y - b.position.y);
+  sortedSkaters.forEach((skater) => {
+    renderSkater(ctx, skater, camera, scale, offsetX, offsetY);
+  });
+
   ctx.restore();
-  hotspotHud.update(game.activeHotspot, game.hotspotHints);
+  const canActivateHotspot = !game.puck || game.puck.state === 'possessed';
+  hotspotHud.update(game.activeHotspot, game.hotspotHints, { canActivate: canActivateHotspot });
+}
+
+function renderSkater(ctx, skater, camera, scale, offsetX, offsetY) {
+  const spriteSheet = resolveSkaterSpriteSheet(skater);
+  if (!skater || !spriteSheet) return;
+  const dir = spriteSheet.getDirection(skater.state, skater.direction);
+  const frameIndex = skater.animation.currentFrame ?? dir?.frames?.[0] ?? 0;
+  const { sx, sy, sw, sh } = spriteSheet.getFrameRect(frameIndex);
+  const screenX = (skater.position.x - camera.view.left) * scale + offsetX;
+  const screenY = (skater.position.y - camera.view.top) * scale + offsetY;
+  const drawScale = scale * (skater.scale || PLAYER_SCALE_FACTOR);
+  const drawX = screenX - spriteSheet.origin.x * drawScale;
+  const drawY = screenY - spriteSheet.origin.y * drawScale;
+  ctx.drawImage(
+    spriteSheet.image,
+    sx,
+    sy,
+    sw,
+    sh,
+    drawX,
+    drawY,
+    sw * drawScale,
+    sh * drawScale
+  );
+}
+
+function renderPuck(ctx, puck, camera, scale, offsetX, offsetY) {
+  if (!puck || !puck.image) return;
+  const screenX = (puck.position.x - camera.view.left) * scale + offsetX;
+  const screenY = (puck.position.y - camera.view.top) * scale + offsetY;
+  const drawScale = scale * (puck.scale || PUCK_DEFAULT_SCALE);
+  const drawX = screenX - puck.origin.x * drawScale;
+  const drawY = screenY - puck.origin.y * drawScale;
+  ctx.drawImage(
+    puck.image,
+    0,
+    0,
+    puck.width,
+    puck.height,
+    drawX,
+    drawY,
+    puck.width * drawScale,
+    puck.height * drawScale
+  );
 }
 
 // --- Update loop ------------------------------------------------------------
 function update(deltaMs) {
   if (!game.ready) return;
   const deltaSeconds = deltaMs / 1000;
-  updatePlayerPhysics(game.player, inputState.vector, deltaSeconds);
-  clampPlayerToIce(game.player, game.iceBounds);
-  updatePlayerState(game.player, inputState.vector);
-  updatePlayerAnimation(game.player, game.spriteSheet, deltaMs);
+
+  game.skaters.forEach((skater) => {
+    if (skater.behavior === 'npc-static') {
+      updateSkaterAnimation(skater, deltaMs);
+      return;
+    }
+    const controlVector = skater.controlSource ? skater.controlSource() : ZERO_VECTOR;
+    updateSkaterPhysics(skater, controlVector, deltaSeconds, skater.physics);
+    clampSkaterToBounds(skater, game.iceBounds);
+    updateSkaterState(skater, controlVector, skater.physics);
+    updateSkaterAnimation(skater, deltaMs);
+  });
+
+  if (game.puck) {
+    updatePuck(game.puck, game.player, deltaSeconds, game.iceBounds);
+  }
+
+  resolvePlayerNpcCollisions(game.player, game.npcs);
+  if (game.puck && game.puck.state === 'free') {
+    resolvePuckNpcCollisions(game.puck, game.npcs);
+  }
 
   game.camera.position.x = game.player.position.x;
   game.camera.position.y = game.player.position.y;
@@ -689,12 +1324,29 @@ function update(deltaMs) {
     game.hotspotHints = [];
   }
 
+  const puckHint = buildPuckDirectionHint(game.player, game.puck);
+  if (puckHint) {
+    game.hotspotHints = [puckHint, ...(game.hotspotHints || [])];
+  }
+
   if (inputState.actions.enterPressed) {
     inputState.actions.enterPressed = false;
     inputState.actions.enterTriggered = true;
   }
 
+  if (inputState.actions.spacePressed) {
+    inputState.actions.spacePressed = false;
+    inputState.actions.spaceTriggered = true;
+  }
+
+  if (inputState.actions.shootPressed) {
+    inputState.actions.shootPressed = false;
+    inputState.actions.shootTriggered = true;
+  }
+
   handleHotspotActivation();
+  handlePuckControl();
+  handlePuckShot();
 }
 
 function gameLoop(timestamp) {
@@ -756,10 +1408,16 @@ async function bootstrap() {
   }
 
   try {
-    const [spritesConfig, hotspotsConfig, rinkImage] = await Promise.all([
+    const [spritesConfig, hotspotsConfig, puckConfig, npcConfig] = await Promise.all([
       loadJSON('assets/config/sprites.json'),
       loadJSON('assets/config/hotspots.json'),
+      loadJSON('assets/config/puck.json'),
+      loadJSON('assets/config/npcs.json'),
+    ]);
+
+    const [rinkImage, puckImage] = await Promise.all([
       loadImage('assets/rink_map_template.png'),
+      loadImage(puckConfig.sprite),
     ]);
 
     const spriteVariants = normalizeSpriteVariants(spritesConfig);
@@ -767,9 +1425,14 @@ async function bootstrap() {
       throw new Error('No sprite variants defined.');
     }
     game.spriteVariants = spriteVariants;
+    const variantIndex = spriteVariants.reduce((acc, entry) => {
+      acc[entry.id] = entry;
+      return acc;
+    }, {});
+    game.spriteVariantsById = variantIndex;
+
     const initialVariant = spriteVariants[0];
-    const spriteSheetImage = await loadImage(initialVariant.sheet);
-    const spriteSheet = new SpriteSheet(initialVariant, spriteSheetImage);
+    const { base: spriteSheet, puck: puckSpriteSheet } = await getVariantSpriteSheets(initialVariant);
     const world = {
       width: hotspotsConfig.canvas.width,
       height: hotspotsConfig.canvas.height,
@@ -781,21 +1444,53 @@ async function bootstrap() {
     game.rinkImage = rinkImage;
     game.spriteSheet = spriteSheet;
     game.spriteVariant = initialVariant;
-    game.player = createPlayer(world, spriteSheet);
+    game.puckConfig = puckConfig;
+    game.npcConfig = npcConfig;
+    const player = createSkater({
+      id: 'player',
+      world,
+      spriteSheet,
+      puckSpriteSheet,
+      controlSource: () => inputState.vector,
+    });
+    game.player = player;
+    let allNpcs = [];
+    try {
+      allNpcs = await loadNpcSkaters(npcConfig, variantIndex, world, ICE_BOUNDS);
+    } catch (error) {
+      console.error('Failed to load NPC skaters:', error);
+    }
+    game.allNpcs = allNpcs;
+    applyNpcLimit(parseInt(npcCountSelect?.value, 10) || allNpcs.length);
+    const puck = createPuck(puckConfig, puckImage, world);
+    game.puck = puck;
     game.camera = createCamera(world);
     clampCamera(game.camera, world);
     game.ready = true;
+
+    reportMissingNpcVariants(npcConfig, spriteVariants);
 
     if (spriteSelect) {
       populateSpriteSelect(spriteVariants);
       spriteSelect.value = initialVariant.id;
     }
+    if (npcCountSelect) {
+      populateNpcCountSelect(game.allNpcs.length || 0);
+    }
+    if (npcSpriteSelect) {
+      populateNpcSpriteSelect(spriteVariants);
+      npcSpriteSelect.value = game.allNpcs[0]?.variantId || initialVariant.id;
+      updateNpcSprites(npcSpriteSelect.value);
+    }
 
-    window.__NHL93_CONFIG__ = { sprites: spritesConfig, hotspots: hotspotsConfig };
+    window.__NHL93_CONFIG__ = {
+      sprites: spritesConfig,
+      hotspots: hotspotsConfig,
+      puck: puckConfig,
+      npcs: npcConfig,
+    };
 
-    statusEl.textContent = 'Ready to skate';
-    statusEl.classList.add('is-ready');
-    setTimeout(() => statusEl.setAttribute('hidden', 'hidden'), 500);
+    flashStatus('Ready to skate', 700, { emphasize: true });
   } catch (error) {
     console.error(error);
     statusEl.textContent = error.message;

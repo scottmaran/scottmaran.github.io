@@ -42,7 +42,7 @@ const GOAL_ZONES = [
   { id: 'north', rect: { x: 1700, y: 750, width: 600, height: 120 }, scorer: 'player' },
   { id: 'south', rect: { x: 1790, y: 5100, width: 540, height: 120 }, scorer: 'opponent' },
 ];
-const MAX_NPC_COUNT = 6;
+const MAX_NPC_COUNT = 12;
 const GOAL_RESPAWN_DELAY = 1000; // ms pause before resetting after a goal
 
 // Hard-coded ice bounds derived from `assets/rink_map_template_no_lines.png`. The rink

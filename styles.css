@@ -97,6 +97,11 @@ body {
   border-radius: 999px;
 }
 
+.display-text {
+  /* font-family: var(--font-display); */
+  letter-spacing: 0.08em;
+}
+
 main {
   padding: clamp(1rem, 4vw, 3rem);
   display: flex;
@@ -427,6 +432,17 @@ main {
   min-height: 420px;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rink-canvas-frame {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #rink-canvas {
@@ -539,6 +555,19 @@ main {
   flex-direction: column;
   gap: 0.35rem;
   text-align: right;
+}
+
+.rink-legacy-note {
+  margin: 0;
+  padding: 0.6rem 1rem;
+  text-transform: none;
+  font-size: 0.9rem;
+  background: rgba(6, 8, 20, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.6rem;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  align-self: stretch;
 }
 
 .hud__beacon {

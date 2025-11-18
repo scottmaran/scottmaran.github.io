@@ -21,29 +21,30 @@
     </header>
 
     <main>
-      <p>Welcome. A place of things and thoughts.</p>
+      <p class="display-text">Welcome. A place of things and thoughts.</p>
       <section class="rink-wrapper">
         <div class="rink-canvas-shell">
-          <canvas
-            id="rink-canvas"
-            width="1024"
-            height="480"
-            tabindex="0"
-            role="application"
-            aria-label="Interactive NHL '93 rink"
-            aria-describedby="canvas-instructions"
-          ></canvas>
-          <div class="canvas-status" role="status" aria-live="assertive">
-            Loading rink assets…
-          </div>
-          <div class="hud" aria-live="polite">
-            <div class="hud__prompt" hidden>
-              <span class="hud__label"></span>
-              <span class="hud__action">Press Enter to open</span>
+          <div class="rink-canvas-frame">
+            <canvas
+              id="rink-canvas"
+              width="1024"
+              height="480"
+              tabindex="0"
+              role="application"
+              aria-label="Interactive NHL '93 rink"
+              aria-describedby="canvas-instructions"
+            ></canvas>
+            <div class="canvas-status" role="status" aria-live="assertive">
+              Loading rink assets…
             </div>
-            <div class="hud__beacons"></div>
-          </div>
-          <div class="instructions-overlay minimized" id="instructions-overlay" aria-live="polite">
+            <div class="hud" aria-live="polite">
+              <div class="hud__prompt" hidden>
+                <span class="hud__label"></span>
+                <span class="hud__action">Press Enter to open</span>
+              </div>
+              <div class="hud__beacons"></div>
+            </div>
+            <div class="instructions-overlay minimized" id="instructions-overlay" aria-live="polite">
             <button class="instructions-overlay__close" type="button" aria-label="Hide instructions">
               ×
             </button>
@@ -62,7 +63,12 @@
                 links below to explore the site.
               </p>
             </div>
+            </div>
           </div>
+          <p class="rink-legacy-note display-text">
+            My dad grew up playing NHL 93' on the Sega Genesis. We used to play
+            on our own Sega every day when I was home from college.
+          </p>
         </div>
         <div class="rink-sidebar">
           <details class="rink-controls">
@@ -101,8 +107,6 @@
           </details>
         </div>
       </section>
-      <p>My dad grew up playing NHL 93' on the Sega Genesis. We used to play on our own sega every day when I was home from college.</p>
-
       <section id="fallback-links" class="fallback-links" aria-label="Standard navigation">
         <h2>Fallback Navigation</h2>
         <ul>

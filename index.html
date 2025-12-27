@@ -14,16 +14,27 @@
         <ul>
           <li><a href="/" aria-current="page">Home</a></li>
           <li><a href="/about.html">About</a></li>
-          <li><a href="/projects.html">Projects</a></li>
+          <!-- <li><a href="/projects.html">Projects</a></li> -->
           <li><a href="/contact.html">Contact</a></li>
         </ul>
       </nav>
     </header>
 
     <main>
-      <p class="display-text">Welcome. A place of things and thoughts.</p>
+      <p class="display-text">Welcome. A place of thoughts and things. 
+        Navigate the site by skating to the location on the rink.</p>
       <section class="rink-wrapper">
         <div class="rink-canvas-shell">
+          <details class="rink-legacy-note display-text">
+            <summary>Instructions</summary>
+                Click the rink to skate with the arrow keys.
+                Grab the puck at center ice with <kbd>Space</kbd> to activate
+                hotspots, then skate to different sections of the ice and press
+                <kbd>Enter</kbd> to visit that link. Tap <kbd>Space</kbd> again to
+                drop the puck or press <kbd>P</kbd> to fire it in the direction
+                you’re moving.
+                Press <kbd>Esc</kbd> to release the controls at any time.
+          </details>
           <div class="rink-canvas-frame">
             <canvas
               id="rink-canvas"
@@ -44,7 +55,7 @@
               </div>
               <div class="hud__beacons"></div>
             </div>
-            <div class="instructions-overlay minimized" id="instructions-overlay" aria-live="polite">
+            <!-- <div class="instructions-overlay minimized" id="instructions-overlay" aria-live="polite">
             <button class="instructions-overlay__close" type="button" aria-label="Hide instructions">
               ×
             </button>
@@ -63,12 +74,12 @@
                 links below to explore the site.
               </p>
             </div>
-            </div>
+            </div> -->
           </div>
-          <p class="rink-legacy-note display-text">
-            My dad grew up playing NHL 93' on the Sega Genesis. We used to play
-            on our own Sega every day when I was home from college.
-          </p>
+          <details class="rink-legacy-note display-text">
+            <summary></summary>
+            Inspo: playing NHL 93' with my dad on our old Sega Genesis every day when I was home from college.
+          </details>
         </div>
         <div class="rink-sidebar">
           <details class="rink-controls">
@@ -111,7 +122,7 @@
         <h2>Fallback Navigation</h2>
         <ul>
           <li><a href="/about.html">About</a></li>
-          <li><a href="/projects.html">Projects</a></li>
+          <!-- <li><a href="/projects.html">Projects</a></li> -->
           <li><a href="/contact.html">Contact</a></li>
         </ul>
       </section>

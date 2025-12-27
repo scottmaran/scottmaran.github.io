@@ -39,10 +39,10 @@ const PUCK_RELEASE_SPEED = 900; // px / s impulse when casually dropping the puc
 const PUCK_SHOT_SPEED = 1850; // px / s impulse when firing a shot
 const PUCK_HINT_COLOR = '#FFA851';
 const GOAL_ZONES = [
-  { id: 'north', rect: { x: 1700, y: 750, width: 600, height: 120 }, scorer: 'player' },
+  { id: 'north', rect: { x: 1700, y: 875, width: 600, height: 120 }, scorer: 'player' },
   { id: 'south', rect: { x: 1790, y: 5100, width: 540, height: 120 }, scorer: 'opponent' },
 ];
-const MAX_NPC_COUNT = 6;
+const MAX_NPC_COUNT = 12;
 const GOAL_RESPAWN_DELAY = 1000; // ms pause before resetting after a goal
 const NPC_HIT_MIN_SPEED = 260; // px / s before a collision counts as a body check
 const NPC_HIT_IMPULSE_SCALE = 0.85; // converts player speed into NPC knockback speed
@@ -54,9 +54,9 @@ const NPC_SEPARATION_RATIO = 0.4; // share of the overlap distance applied to NP
 // image includes benches/crowd art outside the boards, but we want the player
 // confined to the actual playable ice surface.
 const ICE_BOUNDS = {
-  left: 850,
+  left: 650,
   right: 3275,
-  top: 600,
+  top: 700,
   bottom: 5350,
 };
 

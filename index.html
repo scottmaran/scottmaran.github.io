@@ -9,40 +9,53 @@
   <body>
     <a class="skip-link" href="#fallback-links">Skip to standard navigation</a>
     <header class="site-header">
-      <div class="brand">Scott Maran</div>
+      <div class="brand">Personal Blog</div>
       <nav aria-label="Primary">
         <ul>
           <li><a href="/" aria-current="page">Home</a></li>
           <li><a href="/about.html">About</a></li>
-          <li><a href="/projects.html">Projects</a></li>
+          <!-- <li><a href="/projects.html">Projects</a></li> -->
           <li><a href="/contact.html">Contact</a></li>
         </ul>
       </nav>
     </header>
 
     <main>
+      <p class="display-text">Welcome. A place of thoughts and things. 
+        Navigate the site by skating to the location on the rink.</p>
       <section class="rink-wrapper">
         <div class="rink-canvas-shell">
-          <canvas
-            id="rink-canvas"
-            width="1024"
-            height="480"
-            tabindex="0"
-            role="application"
-            aria-label="Interactive NHL '93 rink"
-            aria-describedby="canvas-instructions"
-          ></canvas>
-          <div class="canvas-status" role="status" aria-live="assertive">
-            Loading rink assets…
-          </div>
-          <div class="hud" aria-live="polite">
-            <div class="hud__prompt" hidden>
-              <span class="hud__label"></span>
-              <span class="hud__action">Press Enter to open</span>
+          <details class="rink-legacy-note display-text">
+            <summary>Instructions</summary>
+                Click the rink to skate with the arrow keys.
+                Grab the puck at center ice with <kbd>Space</kbd> to activate
+                hotspots, then skate to different sections of the ice and press
+                <kbd>Enter</kbd> to visit that link. Tap <kbd>Space</kbd> again to
+                drop the puck or press <kbd>P</kbd> to fire it in the direction
+                you’re moving.
+                Press <kbd>Esc</kbd> to release the controls at any time.
+          </details>
+          <div class="rink-canvas-frame">
+            <canvas
+              id="rink-canvas"
+              width="1024"
+              height="480"
+              tabindex="0"
+              role="application"
+              aria-label="Interactive NHL '93 rink"
+              aria-describedby="canvas-instructions"
+            ></canvas>
+            <div class="canvas-status" role="status" aria-live="assertive">
+              Loading rink assets…
             </div>
-            <div class="hud__beacons"></div>
-          </div>
-          <div class="instructions-overlay minimized" id="instructions-overlay" aria-live="polite">
+            <div class="hud" aria-live="polite">
+              <div class="hud__prompt" hidden>
+                <span class="hud__label"></span>
+                <span class="hud__action">Press Enter to open</span>
+              </div>
+              <div class="hud__beacons"></div>
+            </div>
+            <!-- <div class="instructions-overlay minimized" id="instructions-overlay" aria-live="polite">
             <button class="instructions-overlay__close" type="button" aria-label="Hide instructions">
               ×
             </button>
@@ -61,7 +74,12 @@
                 links below to explore the site.
               </p>
             </div>
+            </div> -->
           </div>
+          <details class="rink-legacy-note display-text">
+            <summary></summary>
+            Inspo: playing NHL 93' with my dad on our old Sega Genesis every day when I was home from college.
+          </details>
         </div>
         <div class="rink-sidebar">
           <details class="rink-controls">
@@ -79,6 +97,12 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
                 <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
               </select>
 
               <label for="npc-sprite-select">NPC Sprite</label>
@@ -94,12 +118,11 @@
           </details>
         </div>
       </section>
-
       <section id="fallback-links" class="fallback-links" aria-label="Standard navigation">
         <h2>Fallback Navigation</h2>
         <ul>
           <li><a href="/about.html">About</a></li>
-          <li><a href="/projects.html">Projects</a></li>
+          <!-- <li><a href="/projects.html">Projects</a></li> -->
           <li><a href="/contact.html">Contact</a></li>
         </ul>
       </section>

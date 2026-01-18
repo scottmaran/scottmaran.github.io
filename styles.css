@@ -328,8 +328,10 @@ kbd {
 
 .canvas-status {
   position: absolute;
-  inset: 0;
-  display: flex;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--steel);
@@ -337,6 +339,12 @@ kbd {
   text-transform: uppercase;
   letter-spacing: 0.14em;
   background: var(--paper);
+  border: 1px solid var(--ink);
+  box-shadow: var(--shadow-hard-sm);
+  padding: 0.6rem 1rem;
+  text-align: center;
+  max-width: calc(100% - 2rem);
+  pointer-events: none;
 }
 
 .canvas-status.is-ready {

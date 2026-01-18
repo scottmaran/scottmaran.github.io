@@ -8,25 +8,27 @@
   </head>
   <body>
     <a class="skip-link" href="#fallback-links">Skip to standard navigation</a>
-    <header class="site-header">
-      <div class="brand">Personal Blog</div>
-      <nav aria-label="Primary">
-        <ul>
-          <li><a href="/" aria-current="page">Home</a></li>
-          <li><a href="/about.html">About</a></li>
-          <!-- <li><a href="/projects.html">Projects</a></li> -->
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
+    <div class="site-frame">
+      <header class="site-header">
+        <div class="brand">PERSONAL BLOG</div>
+        <nav aria-label="Primary">
+          <ul>
+            <li><a href="/" aria-current="page">Home</a></li>
+            <li><a href="/about.html">About</a></li>
+            <!-- <li><a href="/projects.html">Projects</a></li> -->
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
 
-    <main>
-      <p class="display-text">Welcome. A place of thoughts and things. 
-        Navigate the site by skating to the location on the rink.</p>
-      <section class="rink-wrapper">
-        <div class="rink-canvas-shell">
-          <details class="rink-legacy-note display-text">
-            <summary>Instructions</summary>
+      <main>
+        <p class="display-text">Welcome. A place of thoughts and things. <br>
+          Navigate the site by skating to the location on the rink.</p>
+        <section class="rink-wrapper">
+          <div class="rink-canvas-shell">
+            <details class="rink-legacy-note">
+              <summary>[ INSTRUCTIONS ]</summary>
+              <div class="details-body">
                 Click the rink to skate with the arrow keys.
                 Grab the puck at center ice with <kbd>Space</kbd> to activate
                 hotspots, then skate to different sections of the ice and press
@@ -34,99 +36,103 @@
                 drop the puck or press <kbd>P</kbd> to fire it in the direction
                 you’re moving.
                 Press <kbd>Esc</kbd> to release the controls at any time.
-          </details>
-          <div class="rink-canvas-frame">
-            <canvas
-              id="rink-canvas"
-              width="1024"
-              height="480"
-              tabindex="0"
-              role="application"
-              aria-label="Interactive NHL '93 rink"
-              aria-describedby="canvas-instructions"
-            ></canvas>
-            <div class="canvas-status" role="status" aria-live="assertive">
-              Loading rink assets…
-            </div>
-            <div class="hud" aria-live="polite">
-              <div class="hud__prompt" hidden>
-                <span class="hud__label"></span>
-                <span class="hud__action">Press Enter to open</span>
               </div>
-              <div class="hud__beacons"></div>
+            </details>
+            <div class="rink-canvas-frame">
+              <canvas
+                id="rink-canvas"
+                width="1024"
+                height="480"
+                tabindex="0"
+                role="application"
+                aria-label="Interactive NHL '93 rink"
+                aria-describedby="canvas-instructions"
+              ></canvas>
+              <div class="canvas-status" role="status" aria-live="assertive">
+                [ LOADING RINK ASSETS ]
+              </div>
+              <div class="hud" aria-live="polite">
+                <div class="hud__prompt" hidden>
+                  <span class="hud__label"></span>
+                  <span class="hud__action">[ PRESS ENTER TO OPEN ]</span>
+                </div>
+                <div class="hud__beacons"></div>
+              </div>
+              <!-- <div class="instructions-overlay minimized" id="instructions-overlay" aria-live="polite">
+              <button class="instructions-overlay__close" type="button" aria-label="Hide instructions">
+                ×
+              </button>
+              <div id="canvas-instructions">
+                <p>
+                  Click the rink to skate with the arrow keys.
+                  Grab the puck at center ice with <kbd>Space</kbd> to activate
+                  hotspots, then skate to different sections of the ice and press
+                  <kbd>Enter</kbd> to visit that link. Tap <kbd>Space</kbd> again to
+                  drop the puck or press <kbd>P</kbd> to fire it in the direction
+                  you’re moving.
+                  Press <kbd>Esc</kbd> to release the controls at any time.
+                </p>
+                <p class="no-keyboard" hidden>
+                  Looks like you might be on touch or without a keyboard. Use the
+                  links below to explore the site.
+                </p>
+              </div>
+              </div> -->
             </div>
-            <!-- <div class="instructions-overlay minimized" id="instructions-overlay" aria-live="polite">
-            <button class="instructions-overlay__close" type="button" aria-label="Hide instructions">
-              ×
-            </button>
-            <div id="canvas-instructions">
-              <p>
-                Click the rink to skate with the arrow keys.
-                Grab the puck at center ice with <kbd>Space</kbd> to activate
-                hotspots, then skate to different sections of the ice and press
-                <kbd>Enter</kbd> to visit that link. Tap <kbd>Space</kbd> again to
-                drop the puck or press <kbd>P</kbd> to fire it in the direction
-                you’re moving.
-                Press <kbd>Esc</kbd> to release the controls at any time.
-              </p>
-              <p class="no-keyboard" hidden>
-                Looks like you might be on touch or without a keyboard. Use the
-                links below to explore the site.
-              </p>
-            </div>
-            </div> -->
+            <details class="rink-legacy-note">
+              <summary>[ Inspo ]</summary>
+              <div class="details-body">
+                playing NHL 93' with my dad on our old Sega Genesis every day when I was home from college.
+              </div>
+            </details>
           </div>
-          <details class="rink-legacy-note display-text">
-            <summary></summary>
-            Inspo: playing NHL 93' with my dad on our old Sega Genesis every day when I was home from college.
-          </details>
-        </div>
-        <div class="rink-sidebar">
-          <details class="rink-controls">
-            <summary>Customize</summary>
-            <div class="rink-controls__content">
-              <label for="sprite-select">Player Sprite</label>
-              <select id="sprite-select" aria-label="Choose player sprite"></select>
+          <div class="rink-sidebar">
+            <details class="rink-controls">
+              <summary>[ CUSTOMIZE ]</summary>
+              <div class="rink-controls__content">
+                <label for="sprite-select">Player Sprite</label>
+                <select id="sprite-select" aria-label="Choose player sprite"></select>
 
-              <label for="npc-count">NPC Count</label>
-              <select id="npc-count" aria-label="Choose number of NPCs">
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3" selected>3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-              </select>
+                <label for="npc-count">NPC Count</label>
+                <select id="npc-count" aria-label="Choose number of NPCs">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3" selected>3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
 
-              <label for="npc-sprite-select">NPC Sprite</label>
-              <select id="npc-sprite-select" aria-label="Choose NPC sprite"></select>
-            </div>
-          </details>
-          <details class="scoreboard-panel" open>
-            <summary>Scoreboard</summary>
-            <div class="scoreboard" aria-live="polite">
-              <div>Player Goals: <span id="score-player">0</span></div>
-              <div>Opponent Goals: <span id="score-opponent">0</span></div>
-            </div>
-          </details>
-        </div>
-      </section>
-      <section id="fallback-links" class="fallback-links" aria-label="Standard navigation">
-        <h2>Fallback Navigation</h2>
-        <ul>
-          <li><a href="/about.html">About</a></li>
-          <!-- <li><a href="/projects.html">Projects</a></li> -->
-          <li><a href="/contact.html">Contact</a></li>
-        </ul>
-      </section>
-    </main>
+                <label for="npc-sprite-select">NPC Sprite</label>
+                <select id="npc-sprite-select" aria-label="Choose NPC sprite"></select>
+              </div>
+            </details>
+            <details class="scoreboard-panel" open>
+              <summary>[ SCOREBOARD ]</summary>
+              <div class="scoreboard" aria-live="polite">
+                <div>Player Goals: <span id="score-player">0</span></div>
+                <div>Opp Goals: <span id="score-opponent">0</span></div>
+              </div>
+            </details>
+          </div>
+        </section>
+        <section id="fallback-links" class="fallback-links" aria-label="Standard navigation">
+          <h2>FALLBACK NAVIGATION</h2>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <!-- <li><a href="/projects.html">Projects</a></li> -->
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </section>
+      </main>
+    </div>
 
     <script type="module" src="main.js"></script>
   </body>

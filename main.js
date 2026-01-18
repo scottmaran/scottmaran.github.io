@@ -37,7 +37,7 @@ const PUCK_DEFAULT_SCALE = 0.55; // eyeballed so the puck feels proportional to 
 const PUCK_STICK_OFFSET = 50; // distance (px) from player center to stick blade
 const PUCK_RELEASE_SPEED = 900; // px / s impulse when casually dropping the puck
 const PUCK_SHOT_SPEED = 1850; // px / s impulse when firing a shot
-const PUCK_HINT_COLOR = '#FFA851';
+const PUCK_HINT_COLOR = '#F97316';
 const GOAL_ZONES = [
   { id: 'north', rect: { x: 1700, y: 875, width: 600, height: 120 }, scorer: 'player' },
   { id: 'south', rect: { x: 1790, y: 5100, width: 540, height: 120 }, scorer: 'opponent' },
@@ -171,9 +171,14 @@ function alignRinkImageToWorld(image, world) {
 }
 
 let statusHideTimer = null;
+function formatSystemLabel(message) {
+  if (!message) return '';
+  return `[ ${String(message).toUpperCase()} ]`;
+}
+
 function flashStatus(message, duration = 1200, { emphasize = false } = {}) {
   if (!statusEl) return;
-  statusEl.textContent = message;
+  statusEl.textContent = formatSystemLabel(message);
   statusEl.removeAttribute('hidden');
   if (emphasize) {
     statusEl.classList.add('is-ready');
@@ -568,7 +573,7 @@ async function setSpriteVariantById(variantId) {
   } catch (error) {
     console.error(error);
     if (statusEl) {
-      statusEl.textContent = 'Failed to load sprite variant';
+      statusEl.textContent = formatSystemLabel('Failed to load sprite variant');
       statusEl.removeAttribute('hidden');
     }
   }
@@ -1254,8 +1259,8 @@ class HotspotManager {
       ...spot,
       rect: { ...spot.rect },
       labelStyle: {
-        background: 'rgba(0,0,0,0.7)',
-        color: '#ffffff',
+        background: '#FFFFFF',
+        color: '#1D4ED8',
         ...(spot.labelStyle || {}),
       },
     }));
@@ -1317,12 +1322,13 @@ class HotspotHud {
       this.promptEl.style.borderColor = activeHotspot.labelStyle.color;
       this.promptEl.hidden = false;
       if (this.actionEl) {
-        this.actionEl.textContent = canActivate ? 'Press Enter to open' : 'Grab the puck to activate';
+        const actionMessage = canActivate ? 'Press Enter to open' : 'Grab the puck to activate';
+        this.actionEl.textContent = formatSystemLabel(actionMessage);
       }
     } else {
       this.promptEl.hidden = true;
       if (this.actionEl) {
-        this.actionEl.textContent = 'Skate to a hotspot';
+        this.actionEl.textContent = formatSystemLabel('Skate to a hotspot');
       }
     }
 
@@ -1350,7 +1356,7 @@ function handleHotspotActivation() {
   if (!destination) return;
 
   if (statusEl) {
-    statusEl.textContent = `Opening ${game.activeHotspot.label}`;
+    statusEl.textContent = formatSystemLabel(`Opening ${game.activeHotspot.label}`);
     statusEl.removeAttribute('hidden');
   }
 
@@ -1461,13 +1467,13 @@ function render() {
 
   if (game.activeHotspot) {
     const { rect, labelStyle } = game.activeHotspot;
-    const color = labelStyle?.color || '#ffffff';
+    const color = labelStyle?.color || '#1D4ED8';
     const screenX = (rect.x - camera.view.left) * scale + offsetX;
     const screenY = (rect.y - camera.view.top) * scale + offsetY;
     ctx.fillStyle = `${color}33`;
     ctx.fillRect(screenX, screenY, rect.width * scale, rect.height * scale);
     ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 1;
     ctx.strokeRect(screenX, screenY, rect.width * scale, rect.height * scale);
   }
 
@@ -1748,7 +1754,7 @@ async function bootstrap() {
     flashStatus('Ready to skate', 700, { emphasize: true });
   } catch (error) {
     console.error(error);
-    statusEl.textContent = error.message;
+    statusEl.textContent = formatSystemLabel(error.message);
     statusEl.classList.remove('is-ready');
   }
 }

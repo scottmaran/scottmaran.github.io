@@ -7,21 +7,21 @@
       "label": "About",
       "destination": "/about.html",
       "rect": { "x": 1550, "y": 2725, "width": 800, "height": 600 },
-      "labelStyle": { "color": "#F4E04D", "background": "rgba(0,0,0,0.72)" }
+      "labelStyle": { "color": "#1D4ED8", "background": "#FFFFFF" }
     },
     {
       "id": "penalty_box",
       "label": "Projects",
       "destination": "/projects.html",
       "rect": { "x": 2850, "y": 2480, "width": 700, "height": 1000 },
-      "labelStyle": { "color": "#7FDBFF", "background": "rgba(0,0,0,0.72)" }
+      "labelStyle": { "color": "#1D4ED8", "background": "#FFFFFF" }
     },
     {
       "id": "goal_crease",
       "label": "Contact",
       "destination": "/contact.html",
       "rect": { "x": 1650, "y": 800, "width": 600, "height": 900 },
-      "labelStyle": { "color": "#FF6B6B", "background": "rgba(0,0,0,0.72)" }
+      "labelStyle": { "color": "#1D4ED8", "background": "#FFFFFF" }
     }
   ]
 }

@@ -114,21 +114,21 @@
       "label": "About",
       "destination": "/about.html",
       "rect": { "x": 132, "y": 360, "width": 150, "height": 90 },
-      "labelStyle": { "color": "#F4E04D", "background": "rgba(0,0,0,0.7)" }
+      "labelStyle": { "color": "#1D4ED8", "background": "#FFFFFF" }
     },
     {
       "id": "bench",
       "label": "Projects",
       "destination": "/projects.html",
       "rect": { "x": 1560, "y": 370, "width": 180, "height": 80 },
-      "labelStyle": { "color": "#7FDBFF", "background": "rgba(0,0,0,0.7)" }
+      "labelStyle": { "color": "#1D4ED8", "background": "#FFFFFF" }
     },
     {
       "id": "goal_crease",
       "label": "Contact",
       "destination": "/contact.html",
       "rect": { "x": 940, "y": 240, "width": 120, "height": 70 },
-      "labelStyle": { "color": "#FF6B6B", "background": "rgba(0,0,0,0.7)" }
+      "labelStyle": { "color": "#1D4ED8", "background": "#FFFFFF" }
     }
   ]
 }

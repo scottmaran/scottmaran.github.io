@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Projects by Scott Maran, including his NFL Big Data Bowl 2024 submission."
+      content="Selected projects by Scott Maran."
     />
     <title>Scott Maran | Projects</title>
     <link rel="icon" href="assets/general_puck.png" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="projects.css" />
   </head>
-  <body class="interior-page">
+  <body class="interior-page film-room-page">
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header rink-header">
@@ -28,7 +29,7 @@
       </nav>
       <div class="rink-status">
         <span class="rink-status__light"></span>
-        Open ice · NYC
+        Film room · NYC
       </div>
       <details class="mobile-nav">
         <summary>Menu</summary>
@@ -46,7 +47,7 @@
       </details>
     </header>
 
-    <main id="main" class="rink-story interior-story interior-story--single">
+    <main id="main" class="rink-story film-room-story">
       <div class="long-rink" aria-hidden="true">
         <div class="rink-board rink-board--left"></div>
         <div class="rink-board rink-board--right"></div>
@@ -63,51 +64,440 @@
         <div class="goal-crease goal-crease--top"></div>
         <div class="goal-crease goal-crease--bottom"></div>
       </div>
-      <div class="reading-wash" aria-hidden="true"></div>
+      <div class="film-room-wash" aria-hidden="true"></div>
 
-      <svg
-        class="minimal-route"
-        viewBox="0 0 1000 1000"
-        preserveAspectRatio="none"
-        aria-hidden="true"
+      <section class="film-intro">
+        <div class="film-intro__copy reveal">
+          <!-- <p class="film-kicker">
+            <span>02</span>
+            Selected projects
+          </p> -->
+          <h1>The film<br />room.</h1>
+          <p class="film-intro__deck">
+            Check out some of my projects.
+          </p>
+          <a class="film-intro__cue" href="#project-reels">
+            <span>Enter the room</span>
+            <i aria-hidden="true"></i>
+          </a>
+        </div>
+      </section>
+
+      <section
+        id="project-reels"
+        class="film-room"
+        aria-labelledby="film-room-heading"
       >
-        <path
-          class="minimal-route__guide"
-          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
-        ></path>
-        <path
-          id="route-path"
-          data-route-path
-          class="minimal-route__progress"
-          pathLength="100"
-          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
-        ></path>
-      </svg>
-      <div class="minimal-puck" aria-hidden="true"><span></span></div>
-
-      <div class="story-track">
-        <section id="projects" class="story-chapter story-chapter--opening">
-          <div class="story-copy reveal">
-            <p class="chapter-marker"><span>00</span> Projects</p>
-            <h1>NFL Big Data Bowl 2024.</h1>
-            <a
-              class="project-entry"
-              href="https://github.com/scottmaran/big_data_bowl_2024/blob/main/pay-attention-to-tackles-an-ai-approach.ipynb"
-            >
-              <span>Submission</span>
-              <strong>Pay Attention to Tackles: An AI Approach</strong>
-              <i aria-hidden="true">↗</i>
-            </a>
-            <footer class="story-footer">
-              <a href="about.html">About</a>
-              <a href="contact.html">Contact</a>
-              <span>NYC</span>
-            </footer>
+        <div class="project-index">
+          <div class="project-index__heading">
+            <div>
+              <p>On the reel</p>
+              <h2 id="film-room-heading">Choose:</h2>
+            </div>
           </div>
-        </section>
-      </div>
+
+          <div class="project-index__rail" aria-hidden="true">
+            <span></span>
+          </div>
+
+          <div
+            id="project-trigger-lux"
+            class="project-index__item is-active"
+            data-project-trigger="lux"
+          >
+            <button
+              class="project-select"
+              type="button"
+              data-project-select="lux"
+              aria-controls="project-lux"
+              aria-pressed="true"
+            >
+              <span class="project-select__number">01</span>
+              <span class="project-select__copy">
+                <span class="project-select__meta">
+                  Open Source · AI · 2026
+                </span>
+                <strong>Lux</strong>
+                <span class="project-select__summary">
+                  A black box for AI agents.
+                </span>
+              </span>
+              <span class="project-select__arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+
+          <div
+            id="project-trigger-bdb"
+            class="project-index__item"
+            data-project-trigger="bdb"
+          >
+            <button
+              class="project-select"
+              type="button"
+              data-project-select="bdb"
+              aria-controls="project-bdb"
+              aria-pressed="false"
+            >
+              <span class="project-select__number">02</span>
+              <span class="project-select__copy">
+                <span class="project-select__meta">
+                  Research · NFL · 2024
+                </span>
+                <strong>Pay Attention to Tackles</strong>
+                <span class="project-select__summary">
+                  Measuring tackling in context.
+                </span>
+              </span>
+              <span class="project-select__arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="project-stage-column">
+          <div class="project-stage">
+            <article
+              id="project-lux"
+              class="project-panel"
+              data-project-panel="lux"
+              aria-labelledby="project-lux-title"
+            >
+              <header class="project-panel__header">
+                <span>AI infrastructure</span>
+              </header>
+
+              <div class="project-screen">
+                <div
+                  id="lux-reel-demo"
+                  class="project-reel is-active"
+                  data-reel-panel="demo"
+                >
+                  <video
+                    data-motion-media
+                    src="assets/projects/lux-demo.mp4"
+                    poster="assets/projects/lux-poster.png"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    aria-label="Lux product demonstration"
+                  ></video>
+                  <p class="project-screen__caption">
+                    <span>01 / Demo</span>
+                    From agent activity to reviewable evidence.
+                    <button type="button" data-motion-toggle>Pause</button>
+                  </p>
+                </div>
+
+                <div
+                  id="lux-reel-architecture"
+                  class="project-reel"
+                  data-reel-panel="architecture"
+                  hidden
+                >
+                  <div
+                    class="lux-architecture"
+                    role="img"
+                    aria-label="Lux architecture: an untrusted agent is launched by a harness, observed by auditd and eBPF, and its evidence is stored outside the agent before being displayed in a review UI."
+                  >
+                    <div class="lux-architecture__lead">
+                      <span>Observation boundary</span>
+                      <strong>Outside the agent.</strong>
+                      <p>
+                        Evidence is collected below the transcript and stored
+                        beyond the agent’s control.
+                      </p>
+                    </div>
+                    <div class="lux-flow">
+                      <div class="lux-flow__node lux-flow__node--agent">
+                        <span>Untrusted</span>
+                        <strong>Agent</strong>
+                        <small>Codex · Claude</small>
+                      </div>
+                      <i aria-hidden="true">→</i>
+                      <div class="lux-flow__node">
+                        <span>Launch</span>
+                        <strong>Harness</strong>
+                        <small>PTY · API</small>
+                      </div>
+                      <i aria-hidden="true">→</i>
+                      <div class="lux-flow__node lux-flow__node--sensor">
+                        <span>Observe</span>
+                        <strong>auditd + eBPF</strong>
+                        <small>Exec · FS · Network</small>
+                      </div>
+                      <i aria-hidden="true">→</i>
+                      <div class="lux-flow__node">
+                        <span>Protect</span>
+                        <strong>Evidence</strong>
+                        <small>Run-attributed sink</small>
+                      </div>
+                      <i aria-hidden="true">→</i>
+                      <div class="lux-flow__node lux-flow__node--review">
+                        <span>Understand</span>
+                        <strong>Review UI</strong>
+                        <small>Timeline · Runs</small>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="project-screen__caption">
+                    <span>02 / System</span>
+                    Observation that does not depend on agent cooperation.
+                  </p>
+                </div>
+
+                <div
+                  id="lux-reel-evidence"
+                  class="project-reel"
+                  data-reel-panel="evidence"
+                  hidden
+                >
+                  <img
+                    src="assets/projects/lux-evidence.png"
+                    alt="Lux dashboard showing process, file change, and network call counts alongside an attributed event timeline and list of agent runs."
+                  />
+                  <p class="project-screen__caption">
+                    <span>03 / Proof</span>
+                    One session-tagged timeline for what ran, changed, and
+                    connected.
+                  </p>
+                </div>
+              </div>
+
+              <div class="reel-controls" aria-label="Choose Lux reel">
+                <button
+                  type="button"
+                  data-reel-target="demo"
+                  aria-controls="lux-reel-demo"
+                  aria-pressed="true"
+                >
+                  Demo
+                </button>
+                <button
+                  type="button"
+                  data-reel-target="architecture"
+                  aria-controls="lux-reel-architecture"
+                  aria-pressed="false"
+                >
+                  System
+                </button>
+                <button
+                  type="button"
+                  data-reel-target="evidence"
+                  aria-controls="lux-reel-evidence"
+                  aria-pressed="false"
+                >
+                  Evidence
+                </button>
+              </div>
+
+              <div class="project-overview">
+                <div class="project-overview__title">
+                  <p>Agent observability</p>
+                  <h2 id="project-lux-title">Lux.</h2>
+                </div>
+                <p class="project-overview__thesis">
+                  An OS-level black box for AI agents, capturing what they
+                  execute, change, and make contact with.
+                </p>
+              </div>
+
+              <dl class="project-proof">
+                <div>
+                  <dt>Question</dt>
+                  <dd>What did the agent actually do?</dd>
+                </div>
+                <div>
+                  <dt>Built</dt>
+                  <dd>
+                    A CLI, isolated harness, kernel-level collector, protected
+                    evidence sink, and review UI.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Proof</dt>
+                  <dd>
+                    Attributed process, filesystem, and network evidence in a
+                    single timeline.
+                  </dd>
+                </div>
+              </dl>
+
+              <footer class="project-actions">
+                <a href="https://github.com/scottmaran/lux">
+                  <span>View source</span>
+                  <i aria-hidden="true">↗</i>
+                </a>
+                <a href="https://github.com/scottmaran/lux/tree/main/docs">
+                  <span>Read documentation</span>
+                  <i aria-hidden="true">↗</i>
+                </a>
+              </footer>
+            </article>
+
+            <article
+              id="project-bdb"
+              class="project-panel"
+              data-project-panel="bdb"
+              aria-labelledby="project-bdb-title"
+              hidden
+            >
+              <header class="project-panel__header">
+                <span>Sports Analytics</span>
+              </header>
+
+              <div class="project-screen project-screen--paper">
+                <div
+                  id="bdb-reel-demo"
+                  class="project-reel is-active"
+                  data-reel-panel="demo"
+                >
+                  <video
+                    data-motion-media
+                    src="assets/projects/bdb-demo.mp4"
+                    poster="assets/projects/bdb-poster.png"
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    aria-label="Animated NFL play with changing model tackle probabilities"
+                  ></video>
+                  <p class="project-screen__caption">
+                    <span>01 / Film</span>
+                    The model updates each defender’s tackle probability as the
+                    play develops.
+                    <button type="button" data-motion-toggle>Pause</button>
+                  </p>
+                </div>
+
+                <div
+                  id="bdb-reel-architecture"
+                  class="project-reel"
+                  data-reel-panel="architecture"
+                  hidden
+                >
+                  <img
+                    src="assets/projects/bdb-architecture.png"
+                    alt="Diagram of player and positional embeddings entering a transformer encoder and producing a tackle probability for each player."
+                  />
+                  <p class="project-screen__caption">
+                    <span>02 / Model</span>
+                    Attention over all 23 field entities, without imposing an
+                    arbitrary player order.
+                  </p>
+                </div>
+
+                <div
+                  id="bdb-reel-evidence"
+                  class="project-reel"
+                  data-reel-panel="evidence"
+                  hidden
+                >
+                  <img
+                    src="assets/projects/bdb-embeddings.png"
+                    alt="Two-dimensional projection of learned NFL player positional embeddings clustered by similar on-field roles."
+                  />
+                  <p class="project-screen__caption">
+                    <span>03 / Evidence</span>
+                    Football’s positional relationships emerge from player
+                    behavior rather than fixed labels.
+                  </p>
+                </div>
+              </div>
+
+              <div class="reel-controls" aria-label="Choose Big Data Bowl reel">
+                <button
+                  type="button"
+                  data-reel-target="demo"
+                  aria-controls="bdb-reel-demo"
+                  aria-pressed="true"
+                >
+                  Film
+                </button>
+                <button
+                  type="button"
+                  data-reel-target="architecture"
+                  aria-controls="bdb-reel-architecture"
+                  aria-pressed="false"
+                >
+                  Model
+                </button>
+                <button
+                  type="button"
+                  data-reel-target="evidence"
+                  aria-controls="bdb-reel-evidence"
+                  aria-pressed="false"
+                >
+                  Evidence
+                </button>
+              </div>
+
+              <div class="project-overview">
+                <div class="project-overview__title">
+                  <p>NFL Big Data Bowl 2024</p>
+                  <h2 id="project-bdb-title">Pay Attention to Tackles.</h2>
+                </div>
+                <p class="project-overview__thesis">
+                  A transformer-based approach to estimate who should make a
+                  tackle and measure player performance as Tackles over
+                  Expected.
+                </p>
+              </div>
+
+              <dl class="project-proof">
+                <div>
+                  <dt>Question</dt>
+                  <dd>
+                    How do you separate tackling skill from the quality of the
+                    opportunity?
+                  </dd>
+                </div>
+                <div>
+                  <dt>Built</dt>
+                  <dd>
+                    An attention model over the full field, enriched with
+                    learned positional embeddings.
+                  </dd>
+                </div>
+                <div>
+                  <dt>Proof</dt>
+                  <dd>
+                    Play-level probabilities, player-similarity structure, and
+                    context-adjusted rankings.
+                  </dd>
+                </div>
+              </dl>
+
+              <footer class="project-actions">
+                <a
+                  href="https://github.com/scottmaran/big_data_bowl_2024/blob/main/pay-attention-to-tackles-an-ai-approach.ipynb"
+                >
+                  <span>Read submission</span>
+                  <i aria-hidden="true">↗</i>
+                </a>
+                <a href="https://github.com/scottmaran/big_data_bowl_2024">
+                  <span>View source</span>
+                  <i aria-hidden="true">↗</i>
+                </a>
+              </footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <footer class="film-room-footer">
+        <!-- <p>
+          <span>End of reel</span>
+          More work joins the rail as it is ready.
+        </p> -->
+        <div>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <span>NYC</span>
+        </div>
+      </footer>
     </main>
 
     <script type="module" src="main.js"></script>
+    <script type="module" src="projects.js"></script>
   </body>
 </html>

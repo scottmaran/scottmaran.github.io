@@ -402,13 +402,13 @@ body.is-playing .rink-story::after {
 
 .minimal-route path {
   fill: none;
-  vector-effect: non-scaling-stroke;
 }
 
 .minimal-route__guide {
   stroke: rgba(16, 36, 43, 0.09);
   stroke-dasharray: 3 9;
   stroke-width: 1;
+  vector-effect: non-scaling-stroke;
 }
 
 .minimal-route__progress {

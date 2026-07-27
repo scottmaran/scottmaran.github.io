@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="About Scott Maran — the winding route from a New Jersey rink to prediction markets."
+    />
+    <title>Scott Maran | About</title>
+    <link rel="icon" href="assets/general_puck.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ---- Direction 2: Trace the Route --------------------------------- */
+      /* Keep the ambient SVG in the DOM (main.js reads it for --route-progress)
+         but hide it; the page draws its own central route instead. */
+      .route-page .minimal-route,
+      .route-page .minimal-puck {
+        display: none;
+      }
+
+      .route {
+        position: relative;
+        z-index: 10;
+        max-width: 660px;
+        margin: 0;
+        padding: 150px 32px 60px;
+        padding-left: clamp(120px, 10vw, 200px);
+      }
+
+      /* Option 3: text lives in the quiet left zone; the crisp rink (faceoff
+         circles, blue/red lines) breathes to the right. The reading-wash is
+         widened + strengthened so the left strip stays clean ice at any size,
+         then feathers back to the sharp rink just past the text column. */
+      .route-page .reading-wash {
+        width: min(94%, 940px);
+        background: linear-gradient(
+          90deg,
+          rgba(237, 246, 244, 0.98) 0%,
+          rgba(237, 246, 244, 0.98) 66%,
+          rgba(237, 246, 244, 0.35) 86%,
+          transparent 100%
+        );
+      }
+
+      .route-intro {
+        display: flex;
+        min-height: 58svh;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .route-intro__eyebrow {
+        margin: 0 0 22px;
+        color: var(--muted);
+        font: 800 8px/1 var(--sans);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .route-intro h1 {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(52px, 7.5vw, 96px);
+        line-height: 0.92;
+        letter-spacing: -0.06em;
+      }
+
+      .route-intro p {
+        max-width: 460px;
+        margin: 30px 0 0;
+        color: #40585d;
+        font-size: clamp(15px, 1.3vw, 18px);
+        line-height: 1.7;
+      }
+
+      /* The route line itself. */
+      .route-line {
+        position: relative;
+        margin: 20px 0 0;
+        padding: 0 0 0 56px;
+        list-style: none;
+      }
+      .route-line::before {
+        content: '';
+        position: absolute;
+        left: 14px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        background: repeating-linear-gradient(
+          180deg,
+          rgba(16, 36, 43, 0.3) 0 3px,
+          transparent 3px 12px
+        );
+      }
+      /* Progress trail — grows as you scroll; the puck rides its leading edge. */
+      .route-line__fill {
+        position: absolute;
+        left: 14px;
+        top: 8px;
+        width: 2px;
+        height: calc(var(--route-progress, 0) * 0.96%);
+        max-height: calc(100% - 16px);
+        background: var(--red);
+      }
+      .route-line__fill::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -5px;
+        width: 15px;
+        height: 9px;
+        transform: translateX(-50%);
+        border: 2px solid #fff;
+        border-radius: 50%;
+        background: #0b1518;
+        box-shadow: 0 5px 9px rgba(12, 28, 32, 0.28);
+      }
+
+      .stop {
+        position: relative;
+        padding: 0 0 clamp(42px, 7vh, 76px);
+      }
+      .stop:last-child { padding-bottom: 0; }
+
+      .stop__node {
+        position: absolute;
+        left: -49px;
+        top: 3px;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(16, 36, 43, 0.4);
+        border-radius: 50%;
+        background: var(--ice);
+        transition:
+          background 550ms ease,
+          border-color 550ms ease,
+          box-shadow 550ms ease;
+      }
+      .stop.is-visible .stop__node {
+        border-color: var(--red);
+        background: var(--red);
+        box-shadow: 0 0 0 5px rgba(237, 79, 82, 0.16);
+      }
+
+      .stop__label {
+        margin: 0 0 10px;
+        color: var(--muted);
+        font: 800 8px/1 var(--sans);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .stop h2 {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(26px, 3.4vw, 40px);
+        line-height: 1.02;
+        letter-spacing: -0.04em;
+      }
+      .stop p {
+        max-width: 52ch;
+        margin: 14px 0 0;
+        color: #40585d;
+        font-size: clamp(14px, 1.15vw, 16px);
+        line-height: 1.66;
+      }
+      .stop--here h2 { color: var(--red); }
+      .stop--here .stop__node {
+        border-color: var(--red);
+        background: var(--red);
+        box-shadow: 0 0 0 5px rgba(237, 79, 82, 0.16);
+      }
+
+      .route .story-footer { margin-top: 70px; padding-left: 56px; }
+
+      @media (max-width: 620px) {
+        .route-line { padding-left: 40px; }
+        .stop__node { left: -33px; }
+        .route .story-footer { padding-left: 40px; }
+      }
+    </style>
+  </head>
+  <body class="interior-page route-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header rink-header">
+      <a class="rink-brand" href="index.html" aria-label="Scott Maran, home">
+        <span class="rink-brand__disc">SM</span>
+        <span>Scott Maran</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="index.html?play=1">Play</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="rink-status">
+        <span class="rink-status__light"></span>
+        NYC
+      </div>
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <div
+          class="mobile-nav__panel"
+          role="navigation"
+          aria-label="Mobile navigation"
+        >
+          <a href="index.html">Home</a>
+          <a href="about.html" aria-current="page">About</a>
+          <a href="projects.html">Projects</a>
+          <a href="index.html?play=1">Play</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </details>
+    </header>
+
+    <main id="main" class="rink-story interior-story route-story">
+      <div class="long-rink" aria-hidden="true">
+        <div class="rink-board rink-board--left"></div>
+        <div class="rink-board rink-board--right"></div>
+        <div class="rink-line rink-line--goal-top"></div>
+        <div class="rink-line rink-line--blue-top"></div>
+        <div class="rink-line rink-line--center"></div>
+        <div class="rink-line rink-line--blue-bottom"></div>
+        <div class="rink-line rink-line--goal-bottom"></div>
+        <div class="faceoff-circle faceoff-circle--center"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--one"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--two"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--three"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--four"><i></i></div>
+        <div class="goal-crease goal-crease--top"></div>
+        <div class="goal-crease goal-crease--bottom"></div>
+      </div>
+      <div class="reading-wash" aria-hidden="true"></div>
+
+      <svg
+        class="minimal-route"
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          class="minimal-route__guide"
+          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
+        ></path>
+        <path
+          id="route-path"
+          data-route-path
+          class="minimal-route__progress"
+          pathLength="100"
+          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
+        ></path>
+      </svg>
+      <div class="minimal-puck" aria-hidden="true"><span></span></div>
+
+      <div class="route">
+        <!-- <section class="route-intro reveal">
+          <p class="route-intro__eyebrow">About</p>
+          <h1>The route<br />here.</h1>
+          <p>
+            New Jersey to prediction markets was never a straight line — it
+            rarely is. Trace it, goal line to goal line.
+          </p>
+        </section> -->
+
+        <div class="route-line">
+          <h1><em>History</em></h1>
+          <div class="route-line__fill" aria-hidden="true"></div>
+
+          <div class="stop reveal">
+            <span class="stop__node" aria-hidden="true"></span>
+            <p class="stop__label">Faceoff</p>
+            <h2>New Jersey.</h2>
+            <p>
+              I grew up in Jersey playing every sport imaginable. My dad introduced me to 
+              hockey and I loved it. I couldn't get enough. I watched every game, and 
+              began reading everything I could get my hands on to better understand the game. 
+              <br> Soon enough, one of my favorite beat writers started talking about this 
+              new things called analytics...
+            </p>
+          </div>
+
+          <br>
+          <br>
+          <br>
+          <br>
+
+          <div class="stop reveal">
+            <span class="stop__node" aria-hidden="true"></span>
+            <p class="stop__label">High School</p>
+            <h2>Hockey Analytics</h2>
+            <p>
+              You know Moneyball? Hockey was going through its own analytics movement.
+              I broke into fantasy hockey with my numbers-based approach to quantifying
+              value and earned my own column at DobberHockey. After helping and learning 
+              from other people with their own analytics projects, I soon started my own.
+              I published my research across my own website and as a guest on many other
+              websites. I was even invited to present my work on special teams at the first
+              Seattle Hockey Analtics Conference.
+            </p>
+            <br>
+          </div>
+
+          <div class="stop reveal">
+            <span class="stop__node" aria-hidden="true"></span>
+            <p class="stop__label">College</p>
+            <h2>Stanford</h2>
+            <p>
+              I didn't have a specific end goal in mind when I first landed in Palo Alto, but 
+              there was no shortage of skills for me to add to my toolbox. All of the sports 
+              data collection introduced me to computer vision based automated methods. 
+              This led me to doing AI research under Itai Ashlagi and Fei-Fei Li as I studied 
+              both pure mathematical theory and low-level computer science. A math bachelors and
+              statistics master's later, I'd stopped just studying sports and started building 
+              tools I could aim anywhere.
+            </p>
+          </div>
+
+          <div class="stop reveal">
+            <span class="stop__node" aria-hidden="true"></span>
+            <p class="stop__label">NFL</p>
+            <h2>Working for a Team</h2>
+            <p>
+              Then football pulled me in. Every year the NFL opens up its player-tracking data 
+              through the Big Data Bowl. I used advanced machine-learning methods to dig into it, 
+              and the results got some buzz in the football-analytics world. Soon I was interning 
+              with the Arizona Cardinals — trading public data for a seat inside the building.
+            </p>
+          </div>
+
+          <br>
+          <br>
+          <br>
+
+          <div class="stop reveal">
+            <span class="stop__node" aria-hidden="true"></span>
+            <p class="stop__label">Sports Betting</p>
+            <h2>Pricing Player Props</h2>
+            <p>
+              I figured I'd spend my career inside those buildings. Then I got put in touch with 
+              Swish Analytics, and the ground shifted from advising teams to actually having action 
+              on the line. Betting let me open up heavier statistical machinery than any front 
+              office ever needed. For nearly two years I priced player props, where being right
+              has to survive contact with a price.
+            </p>
+          </div>
+
+          <div class="stop stop--here reveal">
+            <span class="stop__node" aria-hidden="true"></span>
+            <p class="stop__label">Current</p>
+            <h2>Prediction markets.</h2>
+            <p>
+              Same instinct, new arena. Ask me about it.
+            </p>
+            <footer class="story-footer">
+              <a href="projects.html">Projects</a>
+              <a href="contact.html">Contact</a>
+              <span>NYC</span>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

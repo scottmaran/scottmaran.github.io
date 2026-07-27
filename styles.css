@@ -1192,9 +1192,22 @@ body.is-playing .minimal-game {
 }
 
 .contact-methods {
+  position: relative;
+  z-index: 0;
   width: min(100%, 570px);
   margin-top: 48px;
   border-top: 1px solid rgba(16, 36, 43, 0.34);
+}
+
+.contact-page .contact-methods::before {
+  position: absolute;
+  z-index: -1;
+  inset: -18px -28px;
+  background: rgba(237, 246, 244, 0.96);
+  border-radius: 28px;
+  box-shadow: 0 0 48px 34px rgba(237, 246, 244, 0.9);
+  content: '';
+  pointer-events: none;
 }
 
 .contact-methods a {

@@ -22,9 +22,25 @@
       .route {
         position: relative;
         z-index: 10;
-        max-width: 760px;
-        margin: 0 auto;
+        max-width: 660px;
+        margin: 0;
         padding: 150px 32px 60px;
+        padding-left: clamp(120px, 10vw, 200px);
+      }
+
+      /* Option 3: text lives in the quiet left zone; the crisp rink (faceoff
+         circles, blue/red lines) breathes to the right. The reading-wash is
+         widened + strengthened so the left strip stays clean ice at any size,
+         then feathers back to the sharp rink just past the text column. */
+      .route-page .reading-wash {
+        width: min(94%, 940px);
+        background: linear-gradient(
+          90deg,
+          rgba(237, 246, 244, 0.98) 0%,
+          rgba(237, 246, 244, 0.98) 66%,
+          rgba(237, 246, 244, 0.35) 86%,
+          transparent 100%
+        );
       }
 
       .route-intro {
@@ -67,6 +83,21 @@
         padding: 0 0 0 56px;
         list-style: none;
       }
+
+      /* "History" — the timeline's opening title, aligned to the text column. */
+      .route-line h1 {
+        margin: 0 0 clamp(40px, 6vh, 72px);
+        color: var(--ink);
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(40px, 5vw, 62px);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+      }
+      .route-line h1 em {
+        font-style: italic;
+      }
+
       .route-line::before {
         content: '';
         position: absolute;
@@ -254,6 +285,7 @@
         </section> -->
 
         <div class="route-line">
+          <h1><em>History</em></h1>
           <div class="route-line__fill" aria-hidden="true"></div>
 
           <div class="stop reveal">

@@ -5,21 +5,21 @@
     {
       "id": "center_ice",
       "label": "About",
-      "destination": "/about.html",
+      "destination": "about.html",
       "rect": { "x": 1550, "y": 2725, "width": 800, "height": 600 },
       "labelStyle": { "color": "#1D4ED8", "background": "#FFFFFF" }
     },
     {
       "id": "penalty_box",
       "label": "Projects",
-      "destination": "/projects.html",
+      "destination": "projects.html",
       "rect": { "x": 2850, "y": 2480, "width": 700, "height": 1000 },
       "labelStyle": { "color": "#1D4ED8", "background": "#FFFFFF" }
     },
     {
       "id": "goal_crease",
       "label": "Contact",
-      "destination": "/contact.html",
+      "destination": "contact.html",
       "rect": { "x": 1650, "y": 800, "width": 600, "height": 900 },
       "labelStyle": { "color": "#1D4ED8", "background": "#FFFFFF" }
     }

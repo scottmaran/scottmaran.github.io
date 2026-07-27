@@ -3,136 +3,330 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Scott Maran personal site</title>
+    <meta
+      name="description"
+      content="Scott Maran's personal site—a place for thoughts, things, and an NHL '93-inspired game."
+    />
+    <title>Scott Maran | Home</title>
+    <link rel="icon" href="assets/general_puck.png" />
+    <link rel="stylesheet" href="game.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <a class="skip-link" href="#fallback-links">Skip to standard navigation</a>
-    <div class="site-frame">
-      <header class="site-header">
-        <div class="brand">PERSONAL BLOG</div>
-        <nav aria-label="Primary">
-          <ul>
-            <li><a href="/" aria-current="page">Home</a></li>
-            <li><a href="/about.html">About</a></li>
-            <!-- <li><a href="/projects.html">Projects</a></li> -->
-            <li><a href="/contact.html">Contact</a></li>
-          </ul>
-        </nav>
-      </header>
+  <body class="home-page">
+    <a class="skip-link" href="#main">Skip to content</a>
 
-      <main>
-        <p class="display-text">Welcome. A place of thoughts and things. <br>
-          Navigate the site by skating to the location on the rink.</p>
-        <section class="rink-wrapper">
-          <div class="rink-canvas-shell">
-            <details class="rink-legacy-note">
-              <summary>[ INSTRUCTIONS ]</summary>
-              <div class="details-body">
-                Click the rink to skate with the arrow keys.
-                Grab the puck at center ice with <kbd>Space</kbd> to activate
-                hotspots, then skate to different sections of the ice and press
-                <kbd>Enter</kbd> to visit that link. Tap <kbd>Space</kbd> again to
-                drop the puck or press <kbd>P</kbd> to fire it in the direction
-                you’re moving.
-                Press <kbd>Esc</kbd> to release the controls at any time.
-              </div>
-            </details>
-            <div class="rink-canvas-frame">
-              <canvas
-                id="rink-canvas"
-                width="1024"
-                height="480"
-                tabindex="0"
-                role="application"
-                aria-label="Interactive NHL '93 rink"
-                aria-describedby="canvas-instructions"
-              ></canvas>
-              <div class="canvas-status" role="status" aria-live="assertive">
-                [ LOADING RINK ASSETS ]
-              </div>
-              <div class="hud" aria-live="polite">
-                <div class="hud__prompt" hidden>
-                  <span class="hud__label"></span>
-                  <span class="hud__action">[ PRESS ENTER TO OPEN ]</span>
-                </div>
-                <div class="hud__beacons"></div>
-              </div>
-              <!-- <div class="instructions-overlay minimized" id="instructions-overlay" aria-live="polite">
-              <button class="instructions-overlay__close" type="button" aria-label="Hide instructions">
-                ×
-              </button>
-              <div id="canvas-instructions">
-                <p>
-                  Click the rink to skate with the arrow keys.
-                  Grab the puck at center ice with <kbd>Space</kbd> to activate
-                  hotspots, then skate to different sections of the ice and press
-                  <kbd>Enter</kbd> to visit that link. Tap <kbd>Space</kbd> again to
-                  drop the puck or press <kbd>P</kbd> to fire it in the direction
-                  you’re moving.
-                  Press <kbd>Esc</kbd> to release the controls at any time.
-                </p>
-                <p class="no-keyboard" hidden>
-                  Looks like you might be on touch or without a keyboard. Use the
-                  links below to explore the site.
-                </p>
-              </div>
-              </div> -->
+    <header class="site-header rink-header">
+      <a class="rink-brand" href="index.html" aria-label="Scott Maran, home">
+        <span class="rink-brand__disc">SM</span>
+        <span>Scott Maran</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <button
+          type="button"
+          data-open-game
+          aria-controls="home-game"
+          aria-pressed="false"
+        >
+          Play
+        </button>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="rink-status">
+        <span class="rink-status__light"></span>
+        Open ice · NYC
+      </div>
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <div
+          class="mobile-nav__panel"
+          role="navigation"
+          aria-label="Mobile navigation"
+        >
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="about.html">About</a>
+          <a href="projects.html">Projects</a>
+          <button
+            type="button"
+            data-open-game
+            aria-controls="home-game"
+            aria-pressed="false"
+          >
+            Play
+          </button>
+          <a href="contact.html">Contact</a>
+        </div>
+      </details>
+    </header>
+
+    <main id="main" class="rink-story home-story">
+      <div class="long-rink" aria-hidden="true">
+        <div class="rink-board rink-board--left"></div>
+        <div class="rink-board rink-board--right"></div>
+        <div class="rink-line rink-line--goal-top"></div>
+        <div class="rink-line rink-line--blue-top"></div>
+        <div class="rink-line rink-line--center"></div>
+        <div class="rink-line rink-line--blue-bottom"></div>
+        <div class="rink-line rink-line--goal-bottom"></div>
+        <div class="faceoff-circle faceoff-circle--center"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--one"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--two"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--three"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--four"><i></i></div>
+        <div class="goal-crease goal-crease--top"></div>
+        <div class="goal-crease goal-crease--bottom"></div>
+      </div>
+      <div class="reading-wash" aria-hidden="true"></div>
+
+      <svg
+        class="minimal-route"
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          class="minimal-route__guide"
+          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
+        ></path>
+        <path
+          id="route-path"
+          data-route-path
+          class="minimal-route__progress"
+          pathLength="100"
+          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
+        ></path>
+      </svg>
+      <div class="minimal-puck" aria-hidden="true"><span></span></div>
+
+      <section
+        id="home-game"
+        class="game-stage minimal-game"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="game-title"
+        hidden
+      >
+        <h2 id="game-title" class="visually-hidden">
+          NHL '93 interactive game
+        </h2>
+        <p id="canvas-instructions" class="visually-hidden">
+          Use the arrow keys or WASD to skate. Press Space to collect or drop
+          the puck, P to shoot, Enter to open a rink hotspot, and Escape to
+          release the controls.
+        </p>
+
+        <div class="rink-canvas-frame">
+          <canvas
+            id="rink-canvas"
+            width="1280"
+            height="960"
+            tabindex="0"
+            role="application"
+            aria-label="Interactive NHL '93 rink"
+            aria-describedby="canvas-instructions"
+          ></canvas>
+          <div class="canvas-status" role="status" aria-live="assertive">
+            [ LOADING RINK ASSETS ]
+          </div>
+          <div class="hud" aria-live="polite">
+            <div class="hud__prompt" hidden>
+              <span class="hud__label"></span>
+              <span class="hud__action">[ PRESS ENTER TO OPEN ]</span>
             </div>
-            <details class="rink-legacy-note">
-              <summary>[ Inspo ]</summary>
-              <div class="details-body">
-                playing NHL 93' with my dad on our old Sega Genesis every day when I was home from college.
-              </div>
-            </details>
+            <div class="hud__beacons"></div>
           </div>
-          <div class="rink-sidebar">
-            <details class="rink-controls">
-              <summary>[ CUSTOMIZE ]</summary>
-              <div class="rink-controls__content">
-                <label for="sprite-select">Player Sprite</label>
-                <select id="sprite-select" aria-label="Choose player sprite"></select>
 
-                <label for="npc-count">NPC Count</label>
-                <select id="npc-count" aria-label="Choose number of NPCs">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3" selected>3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                </select>
+          <section class="game-scoreboard" aria-label="Scoreboard">
+            <div class="game-scoreboard__title">Scoreboard</div>
+            <div class="game-scoreboard__scores" aria-live="polite">
+              <div>
+                <span>Player</span>
+                <strong id="score-player">0</strong>
+              </div>
+              <div>
+                <span>Opp</span>
+                <strong id="score-opponent">0</strong>
+              </div>
+            </div>
+          </section>
 
-                <label for="npc-sprite-select">NPC Sprite</label>
-                <select id="npc-sprite-select" aria-label="Choose NPC sprite"></select>
+          <div class="game-toolbar" aria-label="Game options">
+            <details class="game-menu" name="game-menu">
+              <summary>How to play</summary>
+              <div class="game-menu__panel">
+                <p>
+                  Click the rink, then skate with the arrow keys or
+                  <kbd>WASD</kbd>.
+                </p>
+                <ol class="game-instructions">
+                  <li>Grab the puck at center ice with <kbd>Space</kbd>.</li>
+                  <li>Skate to a labeled hotspot.</li>
+                  <li>Press <kbd>Enter</kbd> to open that section.</li>
+                  <li>Press <kbd>P</kbd> to shoot toward the net.</li>
+                </ol>
+                <p>Press <kbd>Esc</kbd> to release the controls.</p>
+                <p class="no-keyboard" hidden>
+                  The game works best with a keyboard. The site navigation
+                  remains available above.
+                </p>
+                <div class="game-menu__note">
+                  <strong>Inspiration</strong>
+                  Playing NHL '93 with my dad on our old Sega Genesis every day
+                  when I was home from college.
+                </div>
               </div>
             </details>
-            <details class="scoreboard-panel" open>
-              <summary>[ SCOREBOARD ]</summary>
-              <div class="scoreboard" aria-live="polite">
-                <div>Player Goals: <span id="score-player">0</span></div>
-                <div>Opp Goals: <span id="score-opponent">0</span></div>
+
+            <details class="game-menu" name="game-menu">
+              <summary>Customize</summary>
+              <div class="game-menu__panel game-menu__panel--compact">
+                <div class="rink-controls__content">
+                  <label for="sprite-select">Player sprite</label>
+                  <select
+                    id="sprite-select"
+                    aria-label="Choose player sprite"
+                  ></select>
+                  <label for="npc-count">NPC count</label>
+                  <select id="npc-count" aria-label="Choose NPC count">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                  <label for="npc-sprite-select">NPC sprite</label>
+                  <select
+                    id="npc-sprite-select"
+                    aria-label="Choose NPC sprite"
+                  ></select>
+                </div>
               </div>
             </details>
+
+            <button
+              id="fullscreen-toggle"
+              class="game-toolbar__button"
+              type="button"
+              aria-pressed="false"
+            >
+              Fullscreen
+            </button>
+            <button id="close-game" class="game-toolbar__button" type="button">
+              Close
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="story-track">
+        <section id="opening" class="story-chapter story-chapter--opening">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>00</span> Home ice</p>
+            <p class="chapter-eyebrow">Analyst · Builder · Hockey obsessive</p>
+            <!-- <h1>
+              Welcome.
+            </h1> -->
+            <br>
+            <h2>
+              <em>Scott Maran's personal website.</em>
+            </h2>
+            <br>
+            <p class="chapter-deck">
+              A record of some projects, thoughts, 
+              <br> and everything else on the ice.
+            </p>
+            <a class="scroll-cue" href="#about">
+              <span>Scroll goal line to goal line</span>
+              <i aria-hidden="true"></i>
+            </a>
           </div>
         </section>
-        <section id="fallback-links" class="fallback-links" aria-label="Standard navigation">
-          <h2>FALLBACK NAVIGATION</h2>
-          <ul>
-            <li><a href="/about.html">About</a></li>
-            <!-- <li><a href="/projects.html">Projects</a></li> -->
-            <li><a href="/contact.html">Contact</a></li>
-          </ul>
+
+        <section id="about" class="story-chapter">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>01</span> About</p>
+            <h2>Whereabouts</h2>
+            <p>I grew up in Jersey. Went to school in California. Currently in NYC. </p>
+            <a class="chapter-link" href="about.html">
+              More about me
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </section>
-      </main>
-    </div>
+
+        <section id="projects" class="story-chapter">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>02</span> Projects</p>
+            <h2>What I do</h2>
+            <p>I build things.</p>
+            <a class="chapter-link" href="projects.html">
+              View all projects
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- <section id="play" class="story-chapter">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>03</span> Interactive shift</p>
+            <h2>Take the ice.</h2>
+            <p>
+              Inspired by playing NHL '93 with my dad on our old Sega Genesis
+              every day when I was home from college.
+            </p>
+            <div class="chapter-actions">
+              <button
+                id="play-game"
+                class="play-button"
+                type="button"
+                data-open-game
+                aria-controls="home-game"
+                aria-pressed="false"
+              >
+                <span id="play-label">Enter game mode</span>
+                <span aria-hidden="true">↗</span>
+              </button>
+              <p class="game-state" aria-live="polite">
+                <span></span>
+                <strong id="game-state-label">Rink ready</strong>
+              </p>
+            </div>
+          </div>
+        </section> -->
+
+        <section id="contact" class="story-chapter story-chapter--contact">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>03</span> Final whistle</p>
+            <h2>Get in touch.</h2>
+            <p>
+              Love to connect with people, reach out and say hi!
+              <br>
+              Especially if you are thinking about ai, markets,
+              <br> sports, data, or anything interesting.
+            </p>
+            <a class="contact-link" href="mailto:scttedward2430@gmail.com">
+              scttedward2430@gmail.com
+              <span aria-hidden="true">↗</span>
+            </a>
+            <footer class="story-footer">
+              <a href="https://github.com/scottmaran">GitHub</a>
+              <a href="https://x.com/realallinhockey">X / Twitter</a>
+              <span>NYC</span>
+            </footer>
+          </div>
+        </section>
+      </div>
+    </main>
 
     <script type="module" src="main.js"></script>
   </body>

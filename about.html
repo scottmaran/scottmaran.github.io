@@ -3,65 +3,132 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Scott Maran About</title>
+    <meta
+      name="description"
+      content="About Scott Maran—where he has been, what he likes, and what he does not."
+    />
+    <title>Scott Maran | About</title>
+    <link rel="icon" href="assets/general_puck.png" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="interior-page">
     <a class="skip-link" href="#main">Skip to content</a>
-    <div class="site-frame">
-      <header class="site-header">
-        <div class="brand">PERSONAL BLOG</div>
-        <nav aria-label="Primary">
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about.html" aria-current="page">About</a></li>
-            <!-- <li><a href="/projects.html">Projects</a></li> -->
-            <li><a href="/contact.html">Contact</a></li>
-          </ul>
-        </nav>
-      </header>
 
-      <main id="main" class="about-page">
-        <section class="about-card">
-          <div class="card-body">
-            <p>
-              NJ -> Stanford -> NYC
-            </p>
-            <p>
-              sports analytics -> sports betting -> TBD
-            </p>
+    <header class="site-header rink-header">
+      <a class="rink-brand" href="index.html" aria-label="Scott Maran, home">
+        <span class="rink-brand__disc">SM</span>
+        <span>Scott Maran</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="index.html?play=1">Play</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="rink-status">
+        <span class="rink-status__light"></span>
+        Open ice · NYC
+      </div>
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <div
+          class="mobile-nav__panel"
+          role="navigation"
+          aria-label="Mobile navigation"
+        >
+          <a href="index.html">Home</a>
+          <a href="about.html" aria-current="page">About</a>
+          <a href="projects.html">Projects</a>
+          <a href="index.html?play=1">Play</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </details>
+    </header>
+
+    <main id="main" class="rink-story interior-story">
+      <div class="long-rink" aria-hidden="true">
+        <div class="rink-board rink-board--left"></div>
+        <div class="rink-board rink-board--right"></div>
+        <div class="rink-line rink-line--goal-top"></div>
+        <div class="rink-line rink-line--blue-top"></div>
+        <div class="rink-line rink-line--center"></div>
+        <div class="rink-line rink-line--blue-bottom"></div>
+        <div class="rink-line rink-line--goal-bottom"></div>
+        <div class="faceoff-circle faceoff-circle--center"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--one"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--two"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--three"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--four"><i></i></div>
+        <div class="goal-crease goal-crease--top"></div>
+        <div class="goal-crease goal-crease--bottom"></div>
+      </div>
+      <div class="reading-wash" aria-hidden="true"></div>
+
+      <svg
+        class="minimal-route"
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          class="minimal-route__guide"
+          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
+        ></path>
+        <path
+          id="route-path"
+          data-route-path
+          class="minimal-route__progress"
+          pathLength="100"
+          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
+        ></path>
+      </svg>
+      <div class="minimal-puck" aria-hidden="true"><span></span></div>
+
+      <div class="story-track">
+        <section id="about" class="story-chapter story-chapter--opening">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>00</span> About</p>
+            <h1>NJ → Stanford → NYC.</h1>
+            <p class="chapter-deck">sports analytics → sports betting → TBD</p>
+            <a class="scroll-cue" href="#likes">
+              <span>Keep scrolling</span>
+              <i aria-hidden="true"></i>
+            </a>
           </div>
         </section>
 
-        <section class="preferences">
-          <!-- <div class="preferences__intro-card">
-          </div> -->
-
-          <div class="preferences__grid">
-            <article class="preference-column preference-column--likes">
-              <div class="preference-column__title">Likes</div>
-              <div class="preference-column__list">
-                <ul>
-                  <li>Sports</li>
-                  <li>Prince Street Pizza</li>
-                  <li>A good beach day</li>
-                </ul>
-              </div>
-            </article>
-
-            <article class="preference-column preference-column--dislikes">
-              <div class="preference-column__title">Dislikes</div>
-              <div class="preference-column__list">
-                <ul>
-                  <li>Over-explanatory dialogue in film</li>
-                  <li>Disproportionate amount of cream cheese on a bagel</li>
-                  <li>Sand on a wet bathing suit</li>
-                </ul>
-              </div>
-            </article>
+        <section id="likes" class="story-chapter">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>01</span> Likes</p>
+            <h2>Likes.</h2>
+            <ul class="preference-list">
+              <li>Sports</li>
+              <li>Prince Street Pizza</li>
+              <li>A good beach day</li>
+            </ul>
           </div>
         </section>
-      </main>
-    </div>
+
+        <section id="dislikes" class="story-chapter story-chapter--contact">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>02</span> Dislikes</p>
+            <h2>Dislikes.</h2>
+            <ul class="preference-list">
+              <li>Over-explanatory dialogue in film</li>
+              <li>Disproportionate amount of cream cheese on a bagel</li>
+              <li>Sand on a wet bathing suit</li>
+            </ul>
+            <footer class="story-footer">
+              <a href="projects.html">Projects</a>
+              <a href="contact.html">Contact</a>
+              <span>NYC</span>
+            </footer>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="main.js"></script>
   </body>
 </html>

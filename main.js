@@ -9,8 +9,6 @@ const reduceMotion = window.matchMedia(
   '(prefers-reduced-motion: reduce)'
 ).matches;
 
-let lastScroll = window.scrollY;
-let puckRotation = 0;
 let routeTicking = false;
 
 function updateRoute() {
@@ -26,15 +24,11 @@ function updateRoute() {
   const bounds = routeSvg.getBoundingClientRect();
   const x = bounds.left + (point.x / 1000) * bounds.width;
   const y = bounds.top + (point.y / 1000) * bounds.height;
-  const scrollDelta = window.scrollY - lastScroll;
 
-  puckRotation += scrollDelta * 0.45;
   root.style.setProperty('--route-progress', `${progress * 100}`);
   root.style.setProperty('--puck-x', `${x}px`);
   root.style.setProperty('--puck-y', `${y}px`);
-  root.style.setProperty('--puck-rotation', `${puckRotation}deg`);
 
-  lastScroll = window.scrollY;
   routeTicking = false;
 }
 

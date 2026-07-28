@@ -436,15 +436,15 @@ body.is-playing .rink-story::after {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 18px;
-  height: 9px;
-  background: #0b1518;
-  border: 2px solid rgba(255, 255, 255, 0.72);
+  width: 20px;
+  height: 15px;
+  background: linear-gradient(180deg, #172327 0 34%, #071013 42% 100%);
+  border: 1px solid rgba(255, 255, 255, 0.64);
   border-radius: 50%;
   box-shadow:
-    0 6px 8px rgba(12, 28, 32, 0.24),
-    0 0 0 5px rgba(16, 36, 43, 0.08);
-  transform: translate(-50%, -50%) rotate(var(--puck-rotation, 0deg));
+    0 4px 7px rgba(12, 28, 32, 0.25),
+    0 0 0 4px rgba(16, 36, 43, 0.08);
+  transform: translate(-50%, -50%);
 }
 
 .story-track {

@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="About Scott Maran — following every obsession down the stack, from the surface to the math underneath."
+    />
+    <title>Scott Maran | About (Down the Stack)</title>
+    <link rel="icon" href="assets/general_puck.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* ---- Direction 1: Down the Stack ---------------------------------- */
+      .stack-page .minimal-route,
+      .stack-page .minimal-puck {
+        display: none; /* hide the ambient puck; the descent has its own motion */
+      }
+
+      .stack {
+        position: relative;
+        z-index: 10;
+      }
+
+      .stack-intro {
+        display: flex;
+        min-height: 92svh;
+        flex-direction: column;
+        justify-content: center;
+        padding: 150px max(48px, calc((100vw - 900px) / 2)) 90px;
+      }
+
+      .stack-intro__eyebrow {
+        margin: 0 0 22px;
+        color: var(--muted);
+        font: 800 8px/1 var(--sans);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .stack-intro h1 {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(56px, 8vw, 104px);
+        line-height: 0.92;
+        letter-spacing: -0.06em;
+      }
+
+      .stack-intro p {
+        max-width: 520px;
+        margin: 32px 0 0;
+        color: #40585d;
+        font-size: clamp(15px, 1.3vw, 18px);
+        line-height: 1.7;
+      }
+
+      .stratum {
+        display: flex;
+        min-height: 78svh;
+        align-items: center;
+        padding: 90px max(48px, calc((100vw - 900px) / 2));
+      }
+
+      .stratum__inner {
+        display: grid;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        grid-template-columns: 200px 1fr;
+        gap: clamp(24px, 5vw, 72px);
+        align-items: start;
+      }
+
+      .stratum__label {
+        font: 800 8px/1.7 var(--sans);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        opacity: 0.72;
+      }
+
+      .stratum__depth {
+        display: block;
+        margin-top: 6px;
+        font-size: 8px;
+        opacity: 0.6;
+      }
+
+      .stratum h2 {
+        margin: 0;
+        font-family: var(--serif);
+        font-weight: 400;
+        font-size: clamp(40px, 5vw, 72px);
+        line-height: 0.95;
+        letter-spacing: -0.05em;
+      }
+
+      .stratum p {
+        max-width: 48ch;
+        margin: 22px 0 0;
+        font-size: clamp(15px, 1.2vw, 17px);
+        line-height: 1.72;
+      }
+
+      /* Depth tints — ice at the surface, ink at the bedrock. */
+      .stratum--1 { background: #edf6f4; color: var(--ink); }
+      .stratum--2 { background: #d3e4e4; color: var(--ink); }
+      .stratum--3 { background: #7ba7ad; color: #08191d; }
+      .stratum--4 { background: #2f5c63; color: #eaf3f2; }
+      .stratum--5 { background: #10242b; color: #eaf3f2; }
+      .stratum--1 p,
+      .stratum--2 p { color: #40585d; }
+      .stratum--3 p { color: #0b2228; }
+      .stratum--4 p,
+      .stratum--5 p { color: rgba(234, 243, 242, 0.82); }
+      .stratum--5 .stratum__here { color: var(--red); }
+
+      /* Fixed depth gauge that descends with scroll progress. */
+      .depth-gauge {
+        position: fixed;
+        z-index: 60;
+        top: 120px;
+        bottom: 120px;
+        left: 22px;
+        width: 2px;
+        background: rgba(16, 36, 43, 0.16);
+      }
+      .depth-gauge__dot {
+        position: absolute;
+        left: 50%;
+        top: calc(var(--route-progress, 0) * 1%);
+        width: 9px;
+        height: 9px;
+        margin: -4px 0 0 -4px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 0 4px rgba(237, 79, 82, 0.18);
+      }
+      .depth-gauge b {
+        position: absolute;
+        left: 10px;
+        color: var(--muted);
+        font: 800 7px/1 var(--sans);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .depth-gauge b.is-top { top: -2px; }
+      .depth-gauge b.is-bot { bottom: -2px; }
+
+      @media (max-width: 760px) {
+        .stratum__inner { grid-template-columns: 1fr; gap: 14px; }
+        .depth-gauge { display: none; }
+      }
+    </style>
+  </head>
+  <body class="interior-page stack-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header rink-header">
+      <a class="rink-brand" href="index.html" aria-label="Scott Maran, home">
+        <span class="rink-brand__disc">SM</span>
+        <span>Scott Maran</span>
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="index.html?play=1">Play</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="rink-status">
+        <span class="rink-status__light"></span>
+        NYC
+      </div>
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <div
+          class="mobile-nav__panel"
+          role="navigation"
+          aria-label="Mobile navigation"
+        >
+          <a href="index.html">Home</a>
+          <a href="about.html" aria-current="page">About</a>
+          <a href="projects.html">Projects</a>
+          <a href="index.html?play=1">Play</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </details>
+    </header>
+
+    <main id="main" class="rink-story interior-story stack-story">
+      <div class="long-rink" aria-hidden="true">
+        <div class="rink-board rink-board--left"></div>
+        <div class="rink-board rink-board--right"></div>
+        <div class="rink-line rink-line--goal-top"></div>
+        <div class="rink-line rink-line--blue-top"></div>
+        <div class="rink-line rink-line--center"></div>
+        <div class="rink-line rink-line--blue-bottom"></div>
+        <div class="rink-line rink-line--goal-bottom"></div>
+        <div class="faceoff-circle faceoff-circle--center"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--one"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--two"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--three"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--four"><i></i></div>
+        <div class="goal-crease goal-crease--top"></div>
+        <div class="goal-crease goal-crease--bottom"></div>
+      </div>
+      <div class="reading-wash" aria-hidden="true"></div>
+
+      <svg
+        class="minimal-route"
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          class="minimal-route__guide"
+          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
+        ></path>
+        <path
+          id="route-path"
+          data-route-path
+          class="minimal-route__progress"
+          pathLength="100"
+          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
+        ></path>
+      </svg>
+      <div class="minimal-puck" aria-hidden="true"><span></span></div>
+
+      <div class="depth-gauge" aria-hidden="true">
+        <b class="is-top">Surface</b>
+        <span class="depth-gauge__dot"></span>
+        <b class="is-bot">Bedrock</b>
+      </div>
+
+      <div class="stack">
+        <section class="stack-intro reveal">
+          <p class="stack-intro__eyebrow">About</p>
+          <h1>I follow things<br />all the way down.</h1>
+          <p>
+            Every obsession I've had started at the surface and kept pulling me
+            deeper — until I hit the math holding it up. This is the descent.
+          </p>
+          <a class="scroll-cue" href="#surface">
+            <span>Down the stack</span>
+            <i aria-hidden="true"></i>
+          </a>
+        </section>
+
+        <section id="surface" class="stratum stratum--1 reveal">
+          <div class="stratum__inner">
+            <p class="stratum__label">
+              01 · Surface
+              <span class="stratum__depth">the fan</span>
+            </p>
+            <div>
+              <h2>Hockey.</h2>
+              <p>
+                It started as fandom — and a hunch that nobody was keeping the
+                numbers I wanted. That turned into a fantasy-hockey column,
+                writing on the Rangers, my own public analytics, and a talk at a
+                hockey-analytics conference at 19. The questions only got harder.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="stratum stratum--2 reveal">
+          <div class="stratum__inner">
+            <p class="stratum__label">
+              02 · Deeper
+              <span class="stratum__depth">the data</span>
+            </p>
+            <div>
+              <h2>Film &amp; vision.</h2>
+              <p>
+                To answer them I needed better data than existed, so I spent
+                freshman year hand-charting game film — then taught a computer to
+                watch it for me. The first real rabbit hole: how do you turn
+                footage into numbers?
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="stratum stratum--3 reveal">
+          <div class="stratum__inner">
+            <p class="stratum__label">
+              03 · Deeper
+              <span class="stratum__depth">the models</span>
+            </p>
+            <div>
+              <h2>Machine learning.</h2>
+              <p>
+                Computer vision was really machine learning wearing a jersey. The
+                models under the stats quietly became the thing I actually wanted
+                to understand.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="stratum stratum--4 reveal">
+          <div class="stratum__inner">
+            <p class="stratum__label">
+              04 · Deeper
+              <span class="stratum__depth">the foundation</span>
+            </p>
+            <div>
+              <h2>Math.</h2>
+              <p>
+                And the models rest on math — so I majored in it. I showed up
+                without much of a foundation, in rooms full of people who'd been
+                at it since they were kids. It was the hardest thing I've done. I
+                stayed until it was mine, then added a master's in statistics.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="stratum stratum--5 reveal">
+          <div class="stratum__inner">
+            <p class="stratum__label">
+              05 · Bedrock
+              <span class="stratum__depth">now</span>
+            </p>
+            <div>
+              <h2 class="stratum__here">Same dig, new surface.</h2>
+              <p>
+                Sports → betting → prediction markets. The surface keeps
+                changing; the move never does. I still start at the top and dig
+                until I hit something true.
+              </p>
+              <footer class="story-footer">
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
+                <span>NYC</span>
+              </footer>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

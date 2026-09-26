@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Scott Maran — sports analytics, markets, and stories hidden inside data."
+    />
+    <title>Scott Maran — The Long Shift</title>
+    <link rel="icon" href="../../assets/general_puck.png" />
+    <link rel="stylesheet" href="../shared/concept-dock.css" />
+    <link rel="stylesheet" href="rink.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="rink-header">
+      <a class="rink-brand" href="#faceoff">
+        <span class="rink-brand__disc">SM</span>
+        <span>Scott Maran</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#route">Route</a>
+        <a href="#work">Work</a>
+        <a href="#notes">Notes</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="rink-status">
+        <span class="rink-status__light"></span>
+        Open ice · NYC
+      </div>
+    </header>
+
+    <aside class="scorebug" aria-live="polite">
+      <div>
+        <span>Zone</span>
+        <strong id="zone-label">Faceoff</strong>
+      </div>
+      <div>
+        <span>Shift</span>
+        <strong id="shift-clock">00:00</strong>
+      </div>
+      <div class="scorebug__period">
+        <span>Period</span>
+        <strong id="period-label">01</strong>
+      </div>
+    </aside>
+
+    <svg
+      class="skate-route"
+      viewBox="0 0 1000 1000"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        class="skate-route__guide"
+        d="M500 30 C770 115 790 230 520 305 C245 382 220 510 510 565 C820 625 760 770 490 795 C250 820 300 915 520 970"
+      ></path>
+      <path
+        id="route-path"
+        class="skate-route__progress"
+        pathLength="100"
+        d="M500 30 C770 115 790 230 520 305 C245 382 220 510 510 565 C820 625 760 770 490 795 C250 820 300 915 520 970"
+      ></path>
+    </svg>
+    <div class="puck-progress" aria-hidden="true">
+      <span></span>
+    </div>
+
+    <main id="main" class="rink-main">
+      <div class="rink-surface" aria-hidden="true">
+        <div class="rink-board rink-board--left">
+          <span>MAKE THE NEXT READ</span>
+          <span>MAKE THE NEXT READ</span>
+          <span>MAKE THE NEXT READ</span>
+          <span>MAKE THE NEXT READ</span>
+        </div>
+        <div class="rink-board rink-board--right">
+          <span>SCOTT MARAN · NEW YORK</span>
+          <span>SCOTT MARAN · NEW YORK</span>
+          <span>SCOTT MARAN · NEW YORK</span>
+          <span>SCOTT MARAN · NEW YORK</span>
+        </div>
+        <div class="rink-line rink-line--goal-top"></div>
+        <div class="rink-line rink-line--blue-top"></div>
+        <div class="rink-line rink-line--center"></div>
+        <div class="rink-line rink-line--blue-bottom"></div>
+        <div class="rink-line rink-line--goal-bottom"></div>
+        <div class="center-faceoff">
+          <span></span>
+        </div>
+        <div class="faceoff faceoff--one"><span></span></div>
+        <div class="faceoff faceoff--two"><span></span></div>
+        <div class="faceoff faceoff--three"><span></span></div>
+        <div class="faceoff faceoff--four"><span></span></div>
+        <div class="crease crease--top"></div>
+        <div class="crease crease--bottom"></div>
+      </div>
+
+      <section
+        id="faceoff"
+        class="rink-stage rink-stage--hero"
+        data-zone="Faceoff"
+        data-period="01"
+      >
+        <div class="rink-stage__label reveal">
+          <span>00</span>
+          <span>Welcome to the rink</span>
+        </div>
+        <div class="hero-lockup">
+          <p class="hero-lockup__kicker reveal">
+            Analyst <i></i> Builder <i></i> Hockey obsessive
+          </p>
+          <h1 class="reveal">
+            Scott<br />
+            <em>Maran.</em>
+          </h1>
+        </div>
+        <div class="hero-card reveal">
+          <p>
+            Exploring sports, markets, and the stories hidden inside data—from
+            New Jersey to Stanford to New York.
+          </p>
+          <a href="#route">
+            Start the shift
+            <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+        <div class="hero-scroll" aria-hidden="true">
+          <span>Scroll goal line to goal line</span>
+          <i></i>
+        </div>
+      </section>
+
+      <section
+        id="route"
+        class="rink-stage rink-stage--route"
+        data-zone="Neutral"
+        data-period="01"
+      >
+        <div class="rink-stage__label reveal">
+          <span>01</span>
+          <span>The route</span>
+        </div>
+        <article class="rink-panel route-panel reveal">
+          <p class="rink-panel__eyebrow">Three stops · One throughline</p>
+          <h2>Follow the curiosity.</h2>
+          <p class="route-panel__intro">
+            I like problems with incomplete information, strong opinions, and a
+            chance to see something other people missed.
+          </p>
+          <ol class="route-list">
+            <li>
+              <span class="route-list__marker"></span>
+              <div>
+                <small>Origin</small>
+                <strong>New Jersey</strong>
+                <p>Where the hockey habit started.</p>
+              </div>
+            </li>
+            <li>
+              <span class="route-list__marker"></span>
+              <div>
+                <small>Formation</small>
+                <strong>Stanford</strong>
+                <p>Where analytical instincts became a toolkit.</p>
+              </div>
+            </li>
+            <li>
+              <span class="route-list__marker"></span>
+              <div>
+                <small>Current ice</small>
+                <strong>New York City</strong>
+                <p>Where sports, markets, and ideas collide.</p>
+              </div>
+            </li>
+          </ol>
+        </article>
+        <p class="zone-callout reveal">Keep your head up.</p>
+      </section>
+
+      <section
+        id="work"
+        class="rink-stage rink-stage--work"
+        data-zone="Attack"
+        data-period="02"
+      >
+        <div class="rink-stage__label reveal">
+          <span>02</span>
+          <span>Selected work</span>
+        </div>
+        <div class="work-heading reveal">
+          <p class="rink-panel__eyebrow">Plays worth replaying</p>
+          <h2>Work that<br />moves the puck.</h2>
+        </div>
+        <div class="rink-projects">
+          <a
+            class="rink-project rink-project--feature reveal"
+            href="https://github.com/scottmaran/big_data_bowl_2024/blob/main/pay-attention-to-tackles-an-ai-approach.ipynb"
+          >
+            <div class="rink-project__meta">
+              <span>01 / Analysis</span>
+              <span>2024 ↗</span>
+            </div>
+            <div class="rink-project__diagram" aria-hidden="true">
+              <span class="diagram-player diagram-player--one"></span>
+              <span class="diagram-player diagram-player--two"></span>
+              <span class="diagram-player diagram-player--three"></span>
+              <svg viewBox="0 0 300 160">
+                <path d="M20 130 C90 128 68 48 155 50 S220 104 282 20"></path>
+              </svg>
+            </div>
+            <h3>Pay Attention<br />to Tackles</h3>
+            <p>
+              An AI approach to understanding the movements behind missed
+              tackles for the NFL Big Data Bowl.
+            </p>
+          </a>
+          <article class="rink-project reveal">
+            <div class="rink-project__meta">
+              <span>02 / Notebook</span>
+              <span>Ongoing</span>
+            </div>
+            <span class="rink-project__big-number">93</span>
+            <h3>The Ice Report</h3>
+            <p>
+              Small observations about hockey systems, spacing, and the play
+              beyond the box score.
+            </p>
+          </article>
+          <article class="rink-project rink-project--blue reveal">
+            <div class="rink-project__meta">
+              <span>03 / Field notes</span>
+              <span>Ongoing</span>
+            </div>
+            <span class="rink-project__odds">+150</span>
+            <h3>Reading the Market</h3>
+            <p>
+              Notes on prices, incentives, uncertainty, and decisions made in
+              real time.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section
+        id="notes"
+        class="rink-stage rink-stage--notes"
+        data-zone="Corner"
+        data-period="03"
+      >
+        <div class="rink-stage__label reveal">
+          <span>03</span>
+          <span>Latest notes</span>
+        </div>
+        <div class="notes-board reveal">
+          <header>
+            <p class="rink-panel__eyebrow">Bench notes</p>
+            <h2>Three things<br />on my mind.</h2>
+          </header>
+          <div class="notes-board__list">
+            <a href="#contact">
+              <span>01</span>
+              <strong>The player leaving the frame</strong>
+              <small>Hockey · 4 min</small>
+              <i aria-hidden="true">↗</i>
+            </a>
+            <a href="#contact">
+              <span>02</span>
+              <strong>Forecasts need exit ramps</strong>
+              <small>Markets · 5 min</small>
+              <i aria-hidden="true">↗</i>
+            </a>
+            <a href="#contact">
+              <span>03</span>
+              <strong>A rigorous pizza ranking</strong>
+              <small>Life · 3 min</small>
+              <i aria-hidden="true">↗</i>
+            </a>
+          </div>
+        </div>
+        <blockquote class="rink-quote reveal">
+          “The best view of a play is often one step ahead of it.”
+        </blockquote>
+      </section>
+
+      <section
+        id="contact"
+        class="rink-stage rink-stage--contact"
+        data-zone="The net"
+        data-period="OT"
+      >
+        <div class="rink-stage__label reveal">
+          <span>04</span>
+          <span>Final horn</span>
+        </div>
+        <div class="contact-lockup">
+          <p class="rink-panel__eyebrow reveal">Open for a good conversation</p>
+          <h2 class="reveal">Let’s draw up<br />the next play.</h2>
+          <a
+            class="contact-lockup__email reveal"
+            href="mailto:scttedward2430@gmail.com"
+          >
+            scttedward2430@gmail.com
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <footer class="rink-footer reveal">
+          <div>
+            <a href="https://github.com/scottmaran">GitHub</a>
+            <a href="https://x.com/realallinhockey">X / Twitter</a>
+          </div>
+          <p>Scott Maran © 2026 · New York</p>
+          <a href="#faceoff">New shift ↑</a>
+        </footer>
+      </section>
+    </main>
+
+    <nav class="concept-dock" aria-label="Switch design concept">
+      <a class="concept-dock__gallery" href="../index.html">
+        <span>All concepts</span>
+      </a>
+      <span class="concept-dock__divider" aria-hidden="true"></span>
+      <a href="../lake/index.html" aria-label="Concept 1">01</a>
+      <a href="index.html" aria-current="page" aria-label="Concept 2">02</a>
+      <a href="../arena/index.html" aria-label="Concept 3">03</a>
+      <a href="../rink-minimal/index.html" aria-label="Concept 4">04</a>
+      <a href="../open-ice/index.html" aria-label="Concept 5">05</a>
+    </nav>
+
+    <script src="rink.js"></script>
+  </body>
+</html>

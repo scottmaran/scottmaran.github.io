@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="../../" />
+    <meta
+      name="description"
+      content="Scott Maran — sports analytics, markets, and stories hidden inside data."
+    />
+    <title>Scott Maran — Open Ice</title>
+    <link rel="icon" href="assets/general_puck.png" />
+    <link rel="stylesheet" href="concepts/shared/concept-dock.css" />
+    <link rel="stylesheet" href="concepts/lake/lake.css" />
+    <link rel="stylesheet" href="concepts/shared/embedded-game.css" />
+    <link rel="stylesheet" href="concepts/open-ice/open-ice.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <canvas id="ice-canvas" aria-hidden="true"></canvas>
+    <div class="ice-light" aria-hidden="true"></div>
+    <div class="lake-grain" aria-hidden="true"></div>
+
+    <header class="lake-header">
+      <a class="lake-brand" href="#top" aria-label="Scott Maran, home">
+        <span class="lake-brand__monogram">SM</span>
+        <span>
+          Scott Maran
+          <small>New York City</small>
+        </span>
+      </a>
+      <nav class="lake-nav" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#notes">Notes</a>
+      </nav>
+      <a class="lake-contact" href="#contact">
+        Start a conversation
+        <span aria-hidden="true">↗</span>
+      </a>
+    </header>
+
+    <main id="main">
+      <section id="top" class="lake-hero">
+        <div class="lake-hero__coordinate" aria-hidden="true">
+          <span>40.7128° N</span>
+          <span>74.0060° W</span>
+        </div>
+
+        <div class="lake-hero__content">
+          <p class="eyebrow reveal">Analyst · Builder · Hockey obsessive</p>
+          <h1 class="reveal">
+            Find the signal
+            <em>beneath the surface.</em>
+          </h1>
+          <div class="lake-hero__summary reveal">
+            <p>
+              I’m Scott—an endlessly curious analyst exploring sports, markets,
+              and the stories hidden inside data.
+            </p>
+            <a href="#work">
+              Explore selected work
+              <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </div>
+
+        <aside class="field-note reveal" aria-label="Current field note">
+          <div class="field-note__top">
+            <span>Field note</span>
+            <span>№ 08</span>
+          </div>
+          <div class="field-note__orbit" aria-hidden="true">
+            <span class="field-note__puck"></span>
+          </div>
+          <p>
+            The interesting part is rarely the obvious event. It’s the movement
+            that made the event inevitable.
+          </p>
+          <div class="field-note__meta">
+            <span>Observation</span>
+            <span>02:14</span>
+          </div>
+        </aside>
+
+        <div class="lake-hero__foot">
+          <div class="soundings">
+            <span>Surface depth</span>
+            <div aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <strong>14 in</strong>
+          </div>
+          <button id="open-lake-game" class="lake-game-entry" type="button">
+            <span>Play game mode</span>
+            <span aria-hidden="true">↗</span>
+          </button>
+          <p>Scroll to go below</p>
+        </div>
+      </section>
+
+      <section id="about" class="lake-about">
+        <div class="section-index reveal">
+          <span>01</span>
+          <span>The short version</span>
+        </div>
+        <div class="lake-about__statement reveal">
+          <p class="eyebrow">A route, not a résumé</p>
+          <h2>
+            New Jersey raised.<br />
+            Stanford shaped.<br />
+            <em>New York sharpened.</em>
+          </h2>
+        </div>
+        <div class="lake-about__details reveal">
+          <p>
+            My work lives where pattern recognition meets human behavior. I’ve
+            followed that curiosity through sports analytics, sports betting,
+            machine learning, and the occasional very deep hockey rabbit hole.
+          </p>
+          <p>
+            This is a home for the useful things I make and the unfinished ideas
+            I can’t stop thinking about.
+          </p>
+          <dl>
+            <div>
+              <dt>Based</dt>
+              <dd>New York, NY</dd>
+            </div>
+            <div>
+              <dt>Thinking about</dt>
+              <dd>Decision-making under pressure</dd>
+            </div>
+            <div>
+              <dt>Always watching</dt>
+              <dd>The play away from the puck</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section id="work" class="subsurface">
+        <div class="subsurface__header">
+          <div class="section-index section-index--light reveal">
+            <span>02</span>
+            <span>Selected work</span>
+          </div>
+          <p class="subsurface__intro reveal">
+            A selection of analysis, experiments, and open questions. Built to
+            make complex systems a little easier to see.
+          </p>
+        </div>
+
+        <div class="work-list">
+          <a
+            class="work-row reveal"
+            href="https://github.com/scottmaran/big_data_bowl_2024/blob/main/pay-attention-to-tackles-an-ai-approach.ipynb"
+          >
+            <span class="work-row__number">01</span>
+            <span class="work-row__title">
+              Pay Attention to Tackles
+              <small>AI analysis of missed tackles</small>
+            </span>
+            <span class="work-row__type">NFL Big Data Bowl · 2024</span>
+            <span class="work-row__arrow" aria-hidden="true">↗</span>
+          </a>
+          <article class="work-row reveal">
+            <span class="work-row__number">02</span>
+            <span class="work-row__title">
+              The Ice Report
+              <small>Patterns beyond the box score</small>
+            </span>
+            <span class="work-row__type">Ongoing notebook · Sample</span>
+            <span class="work-row__arrow" aria-hidden="true">→</span>
+          </article>
+          <article class="work-row reveal">
+            <span class="work-row__number">03</span>
+            <span class="work-row__title">
+              Reading the Market
+              <small>Notes on odds, incentives, and uncertainty</small>
+            </span>
+            <span class="work-row__type">Field notes · Sample</span>
+            <span class="work-row__arrow" aria-hidden="true">→</span>
+          </article>
+        </div>
+
+        <div class="subsurface__quote reveal">
+          <span aria-hidden="true">“</span>
+          <blockquote>
+            Data is most useful when it changes what you notice next.
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="notes" class="lake-notes">
+        <div class="lake-notes__heading">
+          <div class="section-index reveal">
+            <span>03</span>
+            <span>Recent observations</span>
+          </div>
+          <h2 class="reveal">Notes from<br /><em>the edge.</em></h2>
+        </div>
+        <div class="notes-grid">
+          <article class="note-card reveal">
+            <div class="note-card__meta">
+              <span>Hockey</span>
+              <time datetime="2026-06-12">Jun 12</time>
+            </div>
+            <h3>The most important player may be the one leaving the frame.</h3>
+            <p>
+              A short observation on spacing, attention, and the geometry that
+              happens before a scoring chance.
+            </p>
+            <a href="#contact"
+              >Read the note <span aria-hidden="true">↗</span></a
+            >
+          </article>
+          <article class="note-card reveal">
+            <div class="note-card__meta">
+              <span>Markets</span>
+              <time datetime="2026-05-28">May 28</time>
+            </div>
+            <h3>Good forecasts are clear about what would change them.</h3>
+            <p>
+              Conviction is useful. A visible exit ramp is better. Some thoughts
+              on beliefs that can move.
+            </p>
+            <a href="#contact"
+              >Read the note <span aria-hidden="true">↗</span></a
+            >
+          </article>
+          <article class="note-card note-card--dark reveal">
+            <div class="note-card__meta">
+              <span>Life</span>
+              <time datetime="2026-04-03">Apr 03</time>
+            </div>
+            <h3>A very serious ranking of post-skate pizza.</h3>
+            <p>
+              Prince Street has the lead. The methodology is rigorous and the
+              sample size continues to grow.
+            </p>
+            <a href="#contact"
+              >Read the note <span aria-hidden="true">↗</span></a
+            >
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="lake-ending">
+        <p class="eyebrow reveal">The lake is open</p>
+        <h2 class="reveal">
+          Have an interesting<br />
+          problem to <em>unpack?</em>
+        </h2>
+        <div class="lake-ending__actions reveal">
+          <a
+            class="lake-ending__primary"
+            href="mailto:scttedward2430@gmail.com"
+          >
+            Send an email <span aria-hidden="true">↗</span>
+          </a>
+          <div>
+            <a href="https://github.com/scottmaran">GitHub</a>
+            <a href="https://x.com/realallinhockey">X / Twitter</a>
+          </div>
+        </div>
+        <footer>
+          <span>Scott Maran © 2026</span>
+          <span>Made in New York · Inspired by cold places</span>
+          <a href="#top">Back to the surface ↑</a>
+        </footer>
+      </section>
+    </main>
+
+    <dialog id="lake-game-dialog" class="lake-game-dialog">
+      <div class="lake-game-window">
+        <header class="lake-game-window__header">
+          <div>
+            <span class="lake-game-window__status"></span>
+            <strong>Open ice / Game mode</strong>
+          </div>
+          <p>Scott Maran · NHL '93</p>
+        </header>
+
+        <section
+          class="game-stage lake-game-stage"
+          aria-labelledby="lake-game-title"
+        >
+          <h2 id="lake-game-title" class="visually-hidden">
+            NHL '93 interactive game
+          </h2>
+          <p id="canvas-instructions" class="visually-hidden">
+            Use the arrow keys or WASD to skate. Press Space to collect or drop
+            the puck, P to shoot, Enter to open a rink hotspot, and Escape to
+            release the controls.
+          </p>
+
+          <div class="rink-canvas-frame">
+            <canvas
+              id="rink-canvas"
+              width="1280"
+              height="960"
+              tabindex="0"
+              role="application"
+              aria-label="Interactive NHL '93 rink"
+              aria-describedby="canvas-instructions"
+            ></canvas>
+            <div class="canvas-status" role="status" aria-live="assertive">
+              [ LOADING RINK ASSETS ]
+            </div>
+            <div class="hud" aria-live="polite">
+              <div class="hud__prompt" hidden>
+                <span class="hud__label"></span>
+                <span class="hud__action">[ PRESS ENTER TO OPEN ]</span>
+              </div>
+              <div class="hud__beacons"></div>
+            </div>
+
+            <section class="game-scoreboard" aria-label="Scoreboard">
+              <div class="game-scoreboard__title">Scoreboard</div>
+              <div class="game-scoreboard__scores" aria-live="polite">
+                <div>
+                  <span>Player</span>
+                  <strong id="score-player">0</strong>
+                </div>
+                <div>
+                  <span>Opp</span>
+                  <strong id="score-opponent">0</strong>
+                </div>
+              </div>
+            </section>
+
+            <div class="game-toolbar" aria-label="Game options">
+              <details class="game-menu" name="game-menu">
+                <summary>How to play</summary>
+                <div class="game-menu__panel">
+                  <p>
+                    Click the rink, then skate with the arrow keys or
+                    <kbd>WASD</kbd>.
+                  </p>
+                  <ol class="game-instructions">
+                    <li>Grab the puck at center ice with <kbd>Space</kbd>.</li>
+                    <li>Press <kbd>P</kbd> to shoot toward the net.</li>
+                    <li>Body-check the computer players at speed.</li>
+                    <li>Press <kbd>Esc</kbd> to release the controls.</li>
+                  </ol>
+                  <p class="no-keyboard" hidden>
+                    Game mode works best with a keyboard.
+                  </p>
+                  <div class="game-menu__note">
+                    <strong>Inspiration</strong>
+                    Playing NHL '93 with my dad on our old Sega Genesis every
+                    day when I was home from college.
+                  </div>
+                </div>
+              </details>
+
+              <details class="game-menu" name="game-menu">
+                <summary>Customize</summary>
+                <div class="game-menu__panel game-menu__panel--compact">
+                  <div class="rink-controls__content">
+                    <label for="sprite-select">Player sprite</label>
+                    <select
+                      id="sprite-select"
+                      aria-label="Choose player sprite"
+                    ></select>
+                    <label for="npc-count">NPC count</label>
+                    <select id="npc-count" aria-label="Choose NPC count">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3" selected>3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+                    <label for="npc-sprite-select">NPC sprite</label>
+                    <select
+                      id="npc-sprite-select"
+                      aria-label="Choose NPC sprite"
+                    ></select>
+                  </div>
+                </div>
+              </details>
+
+              <button
+                id="fullscreen-toggle"
+                class="game-toolbar__button"
+                type="button"
+                aria-pressed="false"
+              >
+                Fullscreen
+              </button>
+              <button
+                id="close-lake-game"
+                class="game-toolbar__button"
+                type="button"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </dialog>
+
+    <nav class="concept-dock" aria-label="Switch design concept">
+      <a class="concept-dock__gallery" href="concepts/index.html">
+        <span>All concepts</span>
+      </a>
+      <span class="concept-dock__divider" aria-hidden="true"></span>
+      <a href="concepts/lake/index.html" aria-label="Concept 1">01</a>
+      <a href="concepts/rink/index.html" aria-label="Concept 2">02</a>
+      <a href="concepts/arena/index.html" aria-label="Concept 3">03</a>
+      <a href="concepts/rink-minimal/index.html" aria-label="Concept 4">04</a>
+      <a
+        href="concepts/open-ice/index.html"
+        aria-current="page"
+        aria-label="Concept 5"
+        >05</a
+      >
+    </nav>
+
+    <script src="concepts/lake/lake.js"></script>
+    <script type="module" src="concepts/open-ice/open-ice.js"></script>
+  </body>
+</html>

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="../../" />
+    <meta
+      name="description"
+      content="Scott Maran — a restrained personal site that scrolls goal line to goal line."
+    />
+    <title>Scott Maran — Open Lane</title>
+    <link rel="icon" href="assets/general_puck.png" />
+    <link rel="stylesheet" href="concepts/shared/concept-dock.css" />
+    <link rel="stylesheet" href="concepts/shared/embedded-game.css" />
+    <link rel="stylesheet" href="concepts/rink-minimal/rink-minimal.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="rink-header">
+      <a class="rink-brand" href="#opening" aria-label="Scott Maran, home">
+        <span class="rink-brand__disc">SM</span>
+        <span>Scott Maran</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <button
+          id="header-play"
+          type="button"
+          aria-controls="minimal-game"
+          aria-pressed="false"
+        >
+          Play
+        </button>
+        <a href="mailto:scttedward2430@gmail.com">Contact</a>
+      </nav>
+      <div class="rink-status">
+        <span class="rink-status__light"></span>
+        Open ice · NYC
+      </div>
+    </header>
+
+    <main id="main" class="rink-story">
+      <div class="long-rink" aria-hidden="true">
+        <div class="rink-board rink-board--left"></div>
+        <div class="rink-board rink-board--right"></div>
+        <div class="rink-line rink-line--goal-top"></div>
+        <div class="rink-line rink-line--blue-top"></div>
+        <div class="rink-line rink-line--center"></div>
+        <div class="rink-line rink-line--blue-bottom"></div>
+        <div class="rink-line rink-line--goal-bottom"></div>
+        <div class="faceoff-circle faceoff-circle--center"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--one"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--two"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--three"><i></i></div>
+        <div class="faceoff-circle faceoff-circle--four"><i></i></div>
+        <div class="goal-crease goal-crease--top"></div>
+        <div class="goal-crease goal-crease--bottom"></div>
+      </div>
+      <div class="reading-wash" aria-hidden="true"></div>
+
+      <svg
+        class="minimal-route"
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path
+          class="minimal-route__guide"
+          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
+        ></path>
+        <path
+          id="minimal-route-path"
+          class="minimal-route__progress"
+          pathLength="100"
+          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
+        ></path>
+      </svg>
+      <div class="minimal-puck" aria-hidden="true"><span></span></div>
+
+      <section
+        id="minimal-game"
+        class="game-stage minimal-game"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="game-title"
+        hidden
+      >
+        <h2 id="game-title" class="visually-hidden">
+          NHL '93 interactive game
+        </h2>
+        <p id="canvas-instructions" class="visually-hidden">
+          Use the arrow keys or WASD to skate. Press Space to collect or drop
+          the puck, P to shoot, Enter to open a rink hotspot, and Escape to
+          release the controls.
+        </p>
+
+        <div class="rink-canvas-frame">
+          <canvas
+            id="rink-canvas"
+            width="1280"
+            height="960"
+            tabindex="0"
+            role="application"
+            aria-label="Interactive NHL '93 rink"
+            aria-describedby="canvas-instructions"
+          ></canvas>
+          <div class="canvas-status" role="status" aria-live="assertive">
+            [ LOADING RINK ASSETS ]
+          </div>
+          <div class="hud" aria-live="polite">
+            <div class="hud__prompt" hidden>
+              <span class="hud__label"></span>
+              <span class="hud__action">[ PRESS ENTER TO OPEN ]</span>
+            </div>
+            <div class="hud__beacons"></div>
+          </div>
+
+          <section class="game-scoreboard" aria-label="Scoreboard">
+            <div class="game-scoreboard__title">Scoreboard</div>
+            <div class="game-scoreboard__scores" aria-live="polite">
+              <div>
+                <span>Player</span>
+                <strong id="score-player">0</strong>
+              </div>
+              <div>
+                <span>Opp</span>
+                <strong id="score-opponent">0</strong>
+              </div>
+            </div>
+          </section>
+
+          <div class="game-toolbar" aria-label="Game options">
+            <details class="game-menu" name="game-menu">
+              <summary>How to play</summary>
+              <div class="game-menu__panel">
+                <p>
+                  Click the rink, then skate with the arrow keys or
+                  <kbd>WASD</kbd>.
+                </p>
+                <ol class="game-instructions">
+                  <li>Grab the puck at center ice with <kbd>Space</kbd>.</li>
+                  <li>Press <kbd>P</kbd> to shoot toward the net.</li>
+                  <li>Body-check the computer players at speed.</li>
+                  <li>Press <kbd>Esc</kbd> to release the controls.</li>
+                </ol>
+                <p class="no-keyboard" hidden>
+                  Game mode works best with a keyboard.
+                </p>
+              </div>
+            </details>
+
+            <details class="game-menu" name="game-menu">
+              <summary>Customize</summary>
+              <div class="game-menu__panel game-menu__panel--compact">
+                <div class="rink-controls__content">
+                  <label for="sprite-select">Player sprite</label>
+                  <select
+                    id="sprite-select"
+                    aria-label="Choose player sprite"
+                  ></select>
+                  <label for="npc-count">NPC count</label>
+                  <select id="npc-count" aria-label="Choose NPC count">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                  <label for="npc-sprite-select">NPC sprite</label>
+                  <select
+                    id="npc-sprite-select"
+                    aria-label="Choose NPC sprite"
+                  ></select>
+                </div>
+              </div>
+            </details>
+
+            <button
+              id="fullscreen-toggle"
+              class="game-toolbar__button"
+              type="button"
+              aria-pressed="false"
+            >
+              Fullscreen
+            </button>
+            <button
+              id="close-minimal-game"
+              class="game-toolbar__button"
+              type="button"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="story-track">
+        <section id="opening" class="story-chapter story-chapter--opening">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>00</span> Opening shift</p>
+            <p class="chapter-eyebrow">Analyst · Builder · Hockey obsessive</p>
+            <h1>
+              Thoughts, things,
+              <em>and a little open ice.</em>
+            </h1>
+            <p class="chapter-deck">
+              Sports analytics, markets, and the questions hiding between the
+              obvious answers.
+            </p>
+            <a class="scroll-cue" href="#about">
+              <span>Scroll goal line to goal line</span>
+              <i aria-hidden="true"></i>
+            </a>
+          </div>
+        </section>
+
+        <section id="about" class="story-chapter">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>01</span> The throughline</p>
+            <h2>I follow the question.</h2>
+            <p>
+              From New Jersey rinks to Stanford classrooms to New York City,
+              curiosity has been the constant: find the signal, test the read,
+              and stay open to being surprised.
+            </p>
+            <p class="chapter-note">
+              The subject changes. The habit of looking closer does not.
+            </p>
+          </div>
+        </section>
+
+        <section id="thinking" class="story-chapter">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>02</span> What I notice</p>
+            <h2>The play before the play.</h2>
+            <p>
+              I’m drawn to movement before the outcome, incentives beneath the
+              market, and the small decisions that turn uncertainty into an
+              edge.
+            </p>
+            <p class="chapter-topics">
+              Sports analytics <i></i> Markets <i></i> Systems
+            </p>
+          </div>
+        </section>
+
+        <section id="play" class="story-chapter">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>03</span> Interactive shift</p>
+            <h2>Take the ice.</h2>
+            <p>
+              A playable detour inspired by NHL ’93. Grab the puck, find a lane,
+              and see what is waiting around the rink.
+            </p>
+            <div class="chapter-actions">
+              <button
+                id="play-game"
+                class="play-button"
+                type="button"
+                aria-controls="minimal-game"
+                aria-pressed="false"
+              >
+                <span id="play-label">Enter game mode</span>
+                <span aria-hidden="true">↗</span>
+              </button>
+              <p class="game-state" aria-live="polite">
+                <span></span>
+                <strong id="game-state-label">Rink ready</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" class="story-chapter story-chapter--contact">
+          <div class="story-copy reveal">
+            <p class="chapter-marker"><span>04</span> Final horn</p>
+            <h2>A good question is enough.</h2>
+            <p>
+              If you’re thinking about sports, data, markets, or something that
+              does not fit neatly into a category, I’d like to hear it.
+            </p>
+            <a class="contact-link" href="mailto:scttedward2430@gmail.com">
+              scttedward2430@gmail.com
+              <span aria-hidden="true">↗</span>
+            </a>
+            <footer class="story-footer">
+              <a href="https://github.com/scottmaran">GitHub</a>
+              <a href="https://x.com/realallinhockey">X / Twitter</a>
+              <span>NYC · 2026</span>
+            </footer>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <nav class="concept-dock" aria-label="Switch design concept">
+      <a class="concept-dock__gallery" href="concepts/index.html">
+        <span>All concepts</span>
+      </a>
+      <span class="concept-dock__divider" aria-hidden="true"></span>
+      <a href="concepts/lake/index.html" aria-label="Concept 1">01</a>
+      <a href="concepts/rink/index.html" aria-label="Concept 2">02</a>
+      <a href="concepts/arena/index.html" aria-label="Concept 3">03</a>
+      <a
+        href="concepts/rink-minimal/index.html"
+        aria-current="page"
+        aria-label="Concept 4"
+        >04</a
+      >
+      <a href="concepts/open-ice/index.html" aria-label="Concept 5">05</a>
+    </nav>
+
+    <script type="module" src="concepts/rink-minimal/rink-minimal.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1656 @@
+@font-face {
+  font-family: 'NHL Score';
+  src: url('../../assets/NHL%20%2794.ttf') format('truetype');
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  --black: #080b0c;
+  --panel: #111719;
+  --paper: #f2f1e9;
+  --red: #ff4c32;
+  --ice: #92ecff;
+  --lime: #d8ff55;
+  --muted: #899497;
+  --line: rgba(255, 255, 255, 0.14);
+  --sans:
+    Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  --condensed: 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--paper);
+  background: var(--black);
+  font-family: var(--sans);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 2000;
+  top: 12px;
+  left: 12px;
+  padding: 10px 14px;
+  color: var(--black);
+  background: var(--lime);
+  border-radius: 3px;
+  font-size: 12px;
+  transform: translateY(-170%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.arena-noise {
+  position: fixed;
+  z-index: 900;
+  inset: 0;
+  opacity: 0.12;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.36'/%3E%3C/svg%3E");
+  mix-blend-mode: soft-light;
+}
+
+.arena-cursor {
+  position: fixed;
+  z-index: 0;
+  width: 36vw;
+  height: 36vw;
+  background: radial-gradient(
+    circle,
+    rgba(146, 236, 255, 0.09),
+    transparent 68%
+  );
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none;
+  transform: translate(
+    calc(var(--arena-x, 50vw) - 50%),
+    calc(var(--arena-y, 25vh) - 50%)
+  );
+  transition: opacity 300ms ease;
+}
+
+.arena-header {
+  position: absolute;
+  z-index: 80;
+  top: 0;
+  left: 50%;
+  display: grid;
+  width: min(100% - 48px, 1500px);
+  min-height: 86px;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  transform: translateX(-50%);
+}
+
+.arena-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.15;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.arena-brand small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 7px;
+  letter-spacing: 0.16em;
+}
+
+.arena-brand__shield {
+  display: grid;
+  width: 36px;
+  height: 40px;
+  place-items: center;
+  color: var(--black);
+  background: var(--paper);
+  clip-path: polygon(50% 0, 94% 18%, 84% 75%, 50% 100%, 16% 75%, 6% 18%);
+  font-family: 'NHL Score', var(--sans);
+  font-size: 10px;
+}
+
+.arena-header nav {
+  display: flex;
+  gap: clamp(22px, 3.5vw, 54px);
+}
+
+.arena-header nav a {
+  display: flex;
+  gap: 8px;
+  color: #c1c7c7;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.arena-header nav a span {
+  color: var(--red);
+  font-size: 7px;
+}
+
+.arena-header nav a:hover,
+.arena-header nav a:focus-visible {
+  color: var(--paper);
+}
+
+.arena-header__contact {
+  display: flex;
+  min-width: 118px;
+  align-items: center;
+  justify-content: space-between;
+  justify-self: end;
+  padding: 11px 13px;
+  color: var(--black);
+  background: var(--paper);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    color 180ms ease,
+    background 180ms ease;
+}
+
+.arena-header__contact:hover,
+.arena-header__contact:focus-visible {
+  color: var(--paper);
+  background: var(--red);
+}
+
+.arena-hero {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  min-height: 100svh;
+  grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.55fr);
+  grid-template-rows: auto 1fr auto;
+  gap: 28px clamp(30px, 5vw, 90px);
+  align-items: center;
+  padding: 116px max(24px, calc((100vw - 1500px) / 2)) 74px;
+  background:
+    radial-gradient(circle at 55% 8%, rgba(87, 132, 143, 0.2), transparent 30%),
+    linear-gradient(
+      120deg,
+      transparent 48%,
+      rgba(255, 255, 255, 0.025) 48% 49%,
+      transparent 49%
+    ),
+    var(--black);
+  overflow: hidden;
+}
+
+.arena-hero::after {
+  position: absolute;
+  z-index: -1;
+  right: 16%;
+  bottom: 4%;
+  width: 38vw;
+  height: 38vw;
+  border: 1px solid rgba(146, 236, 255, 0.08);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 5vw rgba(146, 236, 255, 0.02),
+    0 0 0 10vw rgba(146, 236, 255, 0.014);
+  content: '';
+}
+
+.arena-hero__lights {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  opacity: 0.6;
+}
+
+.arena-hero__lights i {
+  width: 7vw;
+  height: 3px;
+  background: #fff;
+  box-shadow:
+    0 0 10px #fff,
+    0 18px 50px 20px rgba(196, 236, 246, 0.18),
+    0 80px 100px 46px rgba(196, 236, 246, 0.04);
+  transform: perspective(300px) rotateX(55deg);
+}
+
+.arena-hero__grid {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.23;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: linear-gradient(transparent, #000 28%, transparent 92%);
+  mask-image: linear-gradient(transparent, #000 28%, transparent 92%);
+}
+
+.broadcast-id {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  gap: 18px;
+  color: var(--muted);
+  font-family: 'NHL Score', var(--sans);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.broadcast-id span + span {
+  padding-left: 18px;
+  border-left: 1px solid var(--line);
+}
+
+.broadcast-id__live {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--paper);
+}
+
+.broadcast-id__live i {
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--red);
+  animation: live-pulse 1.8s ease-in-out infinite;
+}
+
+.arena-hero__copy {
+  align-self: center;
+}
+
+.arena-eyebrow {
+  margin: 0 0 26px;
+  color: #aeb6b7;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.arena-hero h1 {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--condensed);
+  font-size: clamp(100px, 14.5vw, 230px);
+  font-stretch: condensed;
+  font-weight: 950;
+  letter-spacing: -0.105em;
+  line-height: 0.62;
+  text-transform: uppercase;
+}
+
+.arena-hero h1 span {
+  display: block;
+  margin-left: 0.34em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--paper);
+}
+
+.arena-hero__tagline {
+  display: grid;
+  max-width: 850px;
+  grid-template-columns: 0.75fr 1fr;
+  gap: 40px;
+  align-items: end;
+  margin-top: clamp(58px, 8vw, 105px);
+}
+
+.arena-hero__tagline strong {
+  color: var(--ice);
+  font-family: var(--condensed);
+  font-size: clamp(32px, 4vw, 58px);
+  letter-spacing: -0.055em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.arena-hero__tagline p {
+  max-width: 440px;
+  margin: 0;
+  color: #abb3b4;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.player-card {
+  position: relative;
+  align-self: center;
+  padding: 14px;
+  background: rgba(21, 29, 31, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 35px 90px rgba(0, 0, 0, 0.46),
+    0 0 0 1px rgba(0, 0, 0, 0.6) inset;
+  transform: perspective(900px) rotateY(var(--card-rotate-y, -4deg))
+    rotateX(var(--card-rotate-x, 2deg));
+  transition: transform 180ms ease-out;
+}
+
+.player-card::before,
+.player-card::after {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--ice);
+  content: '';
+}
+
+.player-card::before {
+  top: 6px;
+  left: 6px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.player-card::after {
+  right: 6px;
+  bottom: 6px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+
+.player-card__top {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 4px 13px;
+  color: var(--muted);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.player-card__top span:last-child {
+  color: var(--lime);
+}
+
+.player-card__visual {
+  position: relative;
+  min-height: 340px;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(146, 236, 255, 0.18),
+      transparent 37%
+    ),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.05), transparent 55%), #0a1012;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.player-card__visual::after {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 3px,
+    rgba(255, 255, 255, 0.025) 3px 4px
+  );
+  content: '';
+}
+
+.player-card__number {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  color: var(--red);
+  font-family: 'NHL Score', var(--condensed);
+  font-size: clamp(66px, 8vw, 112px);
+  line-height: 1;
+}
+
+.player-card__rings {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  border: 1px solid rgba(146, 236, 255, 0.24);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rings-spin 16s linear infinite;
+}
+
+.player-card__rings i {
+  position: absolute;
+  inset: 14%;
+  border: 1px dashed rgba(146, 236, 255, 0.2);
+  border-radius: 50%;
+}
+
+.player-card__rings i:nth-child(2) {
+  inset: 30%;
+}
+
+.player-card__rings i:nth-child(3) {
+  top: 50%;
+  right: -12%;
+  bottom: auto;
+  left: -12%;
+  border: 0;
+  border-top: 1px solid rgba(146, 236, 255, 0.22);
+  border-radius: 0;
+}
+
+.player-card__silhouette {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 78%;
+}
+
+.silhouette__head {
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  width: 82px;
+  height: 90px;
+  background: linear-gradient(145deg, #314044, #131a1c);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 44% 44% 48% 48%;
+  box-shadow: 16px 8px 30px rgba(0, 0, 0, 0.6);
+  transform: translateX(-50%);
+}
+
+.silhouette__head::before {
+  position: absolute;
+  top: 20%;
+  right: -12%;
+  left: -12%;
+  height: 32%;
+  background: rgba(146, 236, 255, 0.12);
+  border: 1px solid rgba(146, 236, 255, 0.22);
+  content: '';
+  transform: skewY(-5deg);
+}
+
+.silhouette__body {
+  position: absolute;
+  right: 11%;
+  bottom: -25%;
+  left: 11%;
+  height: 78%;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 48%,
+      rgba(255, 255, 255, 0.04) 49% 51%,
+      transparent 52%
+    ),
+    linear-gradient(145deg, #273438, #0b1012 70%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  clip-path: polygon(25% 0, 75% 0, 100% 18%, 88% 100%, 12% 100%, 0 18%);
+}
+
+.silhouette__body::after {
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  color: rgba(255, 255, 255, 0.22);
+  font-family: 'NHL Score', var(--condensed);
+  font-size: 52px;
+  content: '93';
+  transform: translateX(-50%);
+}
+
+.player-card__name {
+  display: grid;
+  grid-template-columns: 0.5fr 1.5fr;
+  gap: 16px;
+  align-items: start;
+  padding: 20px 5px;
+  border-bottom: 1px solid var(--line);
+}
+
+.player-card__name span,
+.player-card__stats span {
+  color: var(--muted);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.player-card__name strong {
+  font-family: var(--condensed);
+  font-size: 28px;
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+
+.player-card__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.player-card__stats div {
+  padding: 15px 5px 5px;
+}
+
+.player-card__stats div:first-child {
+  border-right: 1px solid var(--line);
+}
+
+.player-card__stats span,
+.player-card__stats strong {
+  display: block;
+}
+
+.player-card__stats strong {
+  margin-top: 7px;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.arena-hero__cta {
+  display: flex;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-right: 4px;
+}
+
+.arena-hero__cta > a {
+  display: flex;
+  min-width: 240px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  color: var(--black);
+  background: var(--lime);
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 180ms ease;
+}
+
+.arena-hero__cta > a:hover,
+.arena-hero__cta > a:focus-visible {
+  background: var(--ice);
+}
+
+.arena-hero__cta p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 7px;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.broadcast-ticker {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 38px;
+  color: var(--black);
+  background: var(--red);
+  overflow: hidden;
+}
+
+.broadcast-ticker__track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  align-items: center;
+  gap: 32px;
+  padding-left: 32px;
+  animation: ticker 28s linear infinite;
+}
+
+.broadcast-ticker span {
+  font-family: var(--condensed);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.broadcast-ticker i {
+  font-size: 7px;
+  font-style: normal;
+}
+
+.arena-profile {
+  position: relative;
+  z-index: 2;
+  padding: clamp(100px, 12vw, 190px) max(24px, calc((100vw - 1500px) / 2));
+  color: var(--black);
+  background: var(--paper);
+}
+
+.arena-section-heading {
+  display: grid;
+  grid-template-columns: 0.4fr 1.6fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: clamp(70px, 10vw, 140px);
+}
+
+.arena-section-heading__index {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 12px;
+}
+
+.arena-section-heading__index span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  color: var(--paper);
+  background: var(--black);
+  border-radius: 50%;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.arena-section-heading__index p {
+  margin: 0;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.arena-section-heading h2 {
+  margin: 0;
+  font-family: var(--condensed);
+  font-size: clamp(70px, 10vw, 158px);
+  font-weight: 950;
+  letter-spacing: -0.095em;
+  line-height: 0.69;
+  text-transform: uppercase;
+}
+
+.arena-section-heading h2 em {
+  color: transparent;
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--black);
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.6fr 0.6fr;
+  gap: 10px;
+}
+
+.profile-grid article {
+  min-height: 330px;
+  padding: clamp(24px, 3.4vw, 48px);
+}
+
+.profile-intro {
+  grid-row: span 2;
+  background: #dce9e7;
+}
+
+.profile-intro .arena-eyebrow {
+  color: rgba(8, 11, 12, 0.55);
+}
+
+.profile-intro__lead {
+  margin: clamp(55px, 7vw, 100px) 0 30px;
+  font-family: var(--condensed);
+  font-size: clamp(38px, 4.5vw, 67px);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 0.93;
+  text-transform: uppercase;
+}
+
+.profile-intro > p:last-of-type {
+  max-width: 600px;
+  color: rgba(8, 11, 12, 0.7);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.profile-intro a {
+  display: flex;
+  max-width: 300px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 54px;
+  padding-top: 13px;
+  border-top: 1px solid var(--black);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.profile-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-stat--red {
+  color: var(--paper);
+  background: var(--red);
+}
+
+.profile-stat--ice {
+  background: var(--ice);
+}
+
+.profile-stat__label {
+  font-size: 7px;
+  font-weight: 850;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.profile-stat strong {
+  margin: auto 0 20px;
+  font-family: var(--condensed);
+  font-size: clamp(70px, 7vw, 110px);
+  font-weight: 950;
+  letter-spacing: -0.09em;
+  line-height: 0.75;
+}
+
+.profile-stat p {
+  margin: 0;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.profile-quote {
+  display: flex;
+  grid-column: 2 / -1;
+  min-height: 300px !important;
+  flex-direction: column;
+  color: var(--paper);
+  background: var(--black);
+}
+
+.profile-quote blockquote {
+  max-width: 700px;
+  margin: auto 0;
+  font-family: var(--condensed);
+  font-size: clamp(32px, 4vw, 58px);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.profile-quote > div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.profile-quote > div span {
+  margin-right: 8px;
+}
+
+.profile-quote > div i {
+  width: 32px;
+  height: 4px;
+  background: var(--lime);
+}
+
+.profile-quote > div i:last-child {
+  background: #263033;
+}
+
+.arena-work {
+  position: relative;
+  z-index: 2;
+  padding: clamp(100px, 12vw, 190px) max(24px, calc((100vw - 1500px) / 2));
+  background:
+    linear-gradient(
+      135deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.02) 40% 41%,
+      transparent 41%
+    ),
+    #0c1113;
+}
+
+.arena-section-heading--work h2 em {
+  -webkit-text-stroke-color: var(--paper);
+}
+
+.arena-section-heading--work .arena-section-heading__index span {
+  color: var(--black);
+  background: var(--red);
+}
+
+.feature-story {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  min-height: 630px;
+  color: var(--paper);
+  border: 1px solid var(--line);
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.feature-story__visual {
+  min-height: 520px;
+  padding: clamp(20px, 4vw, 60px);
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(146, 236, 255, 0.12),
+      transparent 48%
+    ),
+    #070a0b;
+}
+
+.tracking-field {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 460px;
+  background:
+    linear-gradient(rgba(146, 236, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(146, 236, 255, 0.07) 1px, transparent 1px);
+  background-size: 10% 12.5%;
+  border: 1px solid rgba(146, 236, 255, 0.24);
+  overflow: hidden;
+}
+
+.tracking-field::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--red);
+  content: '';
+  opacity: 0.65;
+}
+
+.tracking-field svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.tracking-field path {
+  fill: none;
+  stroke: rgba(146, 236, 255, 0.68);
+  stroke-dasharray: 7 8;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.tracking-field path:last-child {
+  stroke: rgba(255, 76, 50, 0.64);
+}
+
+.tracking-player {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  color: var(--black);
+  background: var(--ice);
+  border: 4px solid var(--black);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--ice);
+  font-family: 'NHL Score', var(--sans);
+  font-size: 7px;
+}
+
+.tracking-player--one {
+  top: 75%;
+  left: 7%;
+}
+
+.tracking-player--two {
+  top: 22%;
+  left: 43%;
+  color: var(--paper);
+  background: var(--red);
+  box-shadow: 0 0 0 1px var(--red);
+}
+
+.tracking-player--three {
+  top: 55%;
+  left: 64%;
+}
+
+.tracking-player--four {
+  top: 9%;
+  right: 5%;
+  color: var(--black);
+  background: var(--lime);
+  box-shadow: 0 0 0 1px var(--lime);
+}
+
+.tracking-field__axis {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: 'NHL Score', var(--sans);
+  font-size: 7px;
+}
+
+.feature-story__content {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(32px, 5vw, 74px);
+  background: var(--red);
+}
+
+.feature-story__meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.feature-story h3 {
+  margin: auto 0 30px;
+  font-family: var(--condensed);
+  font-size: clamp(58px, 7vw, 108px);
+  font-weight: 950;
+  letter-spacing: -0.08em;
+  line-height: 0.75;
+  text-transform: uppercase;
+}
+
+.feature-story p {
+  margin: 0 0 48px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.feature-story__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.55);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.feature-story__link i {
+  font-size: 18px;
+  font-style: normal;
+}
+
+.work-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.work-card {
+  display: flex;
+  min-height: 560px;
+  flex-direction: column;
+  padding: clamp(26px, 4vw, 58px);
+  background: #171e20;
+  border: 1px solid var(--line);
+}
+
+.work-card--signal {
+  color: var(--black);
+  background: var(--ice);
+}
+
+.work-card__top {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.work-card--signal .work-card__top {
+  color: rgba(8, 11, 12, 0.55);
+}
+
+.work-card__graphic {
+  position: relative;
+  height: 170px;
+  margin: 60px 0 40px;
+}
+
+.work-card__graphic--rink {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+.work-card__graphic--rink::before,
+.work-card__graphic--rink::after {
+  position: absolute;
+  content: '';
+}
+
+.work-card__graphic--rink::before {
+  top: 50%;
+  right: -10%;
+  left: -10%;
+  border-top: 1px solid var(--red);
+}
+
+.work-card__graphic--rink::after {
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--ice);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.work-card__graphic--rink i {
+  position: absolute;
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  background: var(--paper);
+  border-radius: 50%;
+}
+
+.work-card__graphic--rink i:nth-child(1) {
+  top: 23%;
+  left: 16%;
+}
+
+.work-card__graphic--rink i:nth-child(2) {
+  top: 58%;
+  left: 54%;
+  background: var(--red);
+}
+
+.work-card__graphic--rink i:nth-child(3) {
+  top: 18%;
+  right: 10%;
+  background: var(--lime);
+}
+
+.signal-chart {
+  display: flex;
+  height: 180px;
+  align-items: end;
+  gap: 8px;
+  margin: 50px 0 40px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(8, 11, 12, 0.4);
+}
+
+.signal-chart span {
+  width: 100%;
+  height: var(--bar);
+  background: var(--black);
+  transform-origin: bottom;
+  transition: transform 500ms ease;
+}
+
+.work-card--signal:hover .signal-chart span {
+  transform: scaleY(0.82);
+}
+
+.work-card h3 {
+  margin: auto 0 20px;
+  font-family: var(--condensed);
+  font-size: clamp(44px, 5vw, 76px);
+  font-weight: 950;
+  letter-spacing: -0.065em;
+  line-height: 0.82;
+  text-transform: uppercase;
+}
+
+.work-card p {
+  max-width: 540px;
+  margin: 0 0 44px;
+  color: #abb4b5;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.work-card--signal p {
+  color: rgba(8, 11, 12, 0.68);
+}
+
+.work-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+  border-top: 1px solid currentColor;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.work-card__footer i {
+  font-size: 18px;
+  font-style: normal;
+}
+
+.arena-feed {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr;
+  gap: clamp(40px, 7vw, 110px);
+  padding: clamp(100px, 12vw, 190px) max(24px, calc((100vw - 1500px) / 2));
+  color: var(--black);
+  background: var(--paper);
+}
+
+.feed-aside {
+  position: sticky;
+  top: 50px;
+  align-self: start;
+}
+
+.feed-aside .arena-eyebrow {
+  color: rgba(8, 11, 12, 0.55);
+}
+
+.feed-aside h2 {
+  margin: 0 0 40px;
+  font-family: var(--condensed);
+  font-size: clamp(60px, 7.5vw, 115px);
+  font-weight: 950;
+  letter-spacing: -0.08em;
+  line-height: 0.75;
+  text-transform: uppercase;
+}
+
+.feed-aside > p:last-child {
+  max-width: 370px;
+  color: rgba(8, 11, 12, 0.68);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.feed-list {
+  border-top: 1px solid rgba(8, 11, 12, 0.28);
+}
+
+.feed-item {
+  display: grid;
+  min-height: 180px;
+  grid-template-columns: 80px 90px 1fr 60px 28px;
+  gap: 18px;
+  align-items: center;
+  padding: 28px 10px;
+  border-bottom: 1px solid rgba(8, 11, 12, 0.28);
+  text-decoration: none;
+  transition:
+    color 220ms ease,
+    background 220ms ease,
+    padding 220ms ease;
+}
+
+.feed-item:hover,
+.feed-item:focus-visible {
+  padding-inline: 22px;
+  color: var(--paper);
+  background: var(--black);
+  outline: none;
+}
+
+.feed-item time,
+.feed-item__tag,
+.feed-item__duration {
+  color: #667174;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.feed-item:hover time,
+.feed-item:hover .feed-item__tag,
+.feed-item:hover .feed-item__duration,
+.feed-item:focus-visible time,
+.feed-item:focus-visible .feed-item__tag,
+.feed-item:focus-visible .feed-item__duration {
+  color: var(--ice);
+}
+
+.feed-item h3 {
+  margin: 0;
+  font-family: var(--condensed);
+  font-size: clamp(26px, 3vw, 44px);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+
+.feed-item i {
+  font-size: 20px;
+  font-style: normal;
+}
+
+.arena-contact {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  padding: clamp(110px, 14vw, 210px) max(24px, calc((100vw - 1500px) / 2)) 80px;
+  background:
+    linear-gradient(
+      135deg,
+      transparent 48%,
+      rgba(255, 255, 255, 0.035) 48% 48.5%,
+      transparent 48.5%
+    ),
+    var(--black);
+  overflow: hidden;
+}
+
+.arena-contact__lights {
+  position: absolute;
+  z-index: -1;
+  top: -20%;
+  left: 50%;
+  width: 80vw;
+  height: 70vw;
+  background: conic-gradient(
+    from 230deg at 50% 0%,
+    transparent 0 13%,
+    rgba(146, 236, 255, 0.08) 16%,
+    transparent 20% 34%,
+    rgba(255, 76, 50, 0.09) 38%,
+    transparent 42%
+  );
+  transform: translateX(-50%);
+}
+
+.arena-contact h2 {
+  margin: 0;
+  font-family: var(--condensed);
+  font-size: clamp(94px, 15vw, 230px);
+  font-weight: 950;
+  letter-spacing: -0.105em;
+  line-height: 0.65;
+  text-transform: uppercase;
+}
+
+.arena-contact h2 span {
+  color: var(--red);
+}
+
+.arena-contact__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin: clamp(70px, 10vw, 140px) 0 170px;
+}
+
+.arena-contact__primary {
+  display: flex;
+  width: min(420px, 100%);
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px;
+  color: var(--black);
+  background: var(--lime);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background 180ms ease;
+}
+
+.arena-contact__primary:hover,
+.arena-contact__primary:focus-visible {
+  background: var(--ice);
+}
+
+.arena-contact__actions > div {
+  display: flex;
+  gap: 28px;
+}
+
+.arena-contact__actions > div a {
+  color: #abb3b4;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.arena-contact footer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.arena-contact footer a {
+  justify-self: end;
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity 650ms ease,
+    transform 750ms cubic-bezier(0.18, 0.72, 0.2, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes live-pulse {
+  50% {
+    opacity: 0.4;
+    transform: scale(0.72);
+  }
+}
+
+@keyframes rings-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1050px) {
+  .arena-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .arena-header nav {
+    display: none;
+  }
+
+  .arena-hero {
+    grid-template-columns: 1fr 320px;
+  }
+
+  .player-card__visual {
+    min-height: 280px;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .profile-intro {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .profile-quote {
+    grid-column: 1 / -1;
+  }
+
+  .feature-story {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-story__visual {
+    min-height: 480px;
+  }
+}
+
+@media (max-width: 760px) {
+  .arena-header {
+    width: calc(100% - 32px);
+    min-height: 72px;
+  }
+
+  .arena-brand small {
+    display: none;
+  }
+
+  .arena-header__contact {
+    min-width: 90px;
+  }
+
+  .arena-hero {
+    display: flex;
+    min-height: auto;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 110px 16px 90px;
+  }
+
+  .broadcast-id {
+    order: 0;
+  }
+
+  .arena-hero__copy {
+    order: 1;
+    margin: 70px 0 30px;
+  }
+
+  .arena-hero h1 {
+    font-size: clamp(78px, 22vw, 104px);
+    letter-spacing: -0.115em;
+  }
+
+  .arena-hero h1 span {
+    margin-left: 0;
+  }
+
+  .arena-hero__tagline {
+    grid-template-columns: 1fr;
+  }
+
+  .player-card {
+    order: 2;
+    width: 100%;
+    max-width: 480px;
+    margin: 30px auto;
+    transform: none !important;
+  }
+
+  .player-card__visual {
+    min-height: 380px;
+  }
+
+  .arena-hero__cta {
+    order: 3;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+
+  .arena-section-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .arena-section-heading h2 {
+    font-size: clamp(70px, 22vw, 108px);
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-intro,
+  .profile-quote {
+    grid-column: auto;
+  }
+
+  .profile-grid article {
+    min-height: 300px;
+  }
+
+  .feature-story__visual {
+    min-height: 360px;
+    padding: 16px;
+  }
+
+  .tracking-field {
+    min-height: 330px;
+  }
+
+  .feature-story h3 {
+    font-size: clamp(58px, 18vw, 82px);
+  }
+
+  .work-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .work-card {
+    min-height: 520px;
+  }
+
+  .arena-feed {
+    grid-template-columns: 1fr;
+    padding-inline: 16px;
+  }
+
+  .feed-aside {
+    position: static;
+  }
+
+  .feed-item {
+    grid-template-columns: 62px 1fr 24px;
+    gap: 12px;
+  }
+
+  .feed-item__tag,
+  .feed-item__duration {
+    display: none;
+  }
+
+  .arena-contact {
+    padding-inline: 16px;
+  }
+
+  .arena-contact h2 {
+    font-size: clamp(88px, 28vw, 138px);
+  }
+
+  .arena-contact__actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .arena-contact__actions > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .arena-contact footer {
+    grid-template-columns: 1fr auto;
+  }
+
+  .arena-contact footer span:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .broadcast-id__live i,
+  .player-card__rings,
+  .broadcast-ticker__track {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

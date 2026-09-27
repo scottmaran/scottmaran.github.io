@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pay Attention to Tackles — Scott Maran</title>
+    <meta name="description" content="An attention model for estimating tackle probabilities and evaluating NFL defenders in the context of their opportunities." />
+    <meta name="theme-color" content="#f8f7f3" />
+    <link rel="canonical" href="https://scottmaran.github.io/work/pay-attention-to-tackles.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Pay Attention to Tackles — Scott Maran" />
+    <meta property="og:description" content="An attention model for estimating tackle probabilities and evaluating NFL defenders in the context of their opportunities." />
+    <meta property="og:url" content="https://scottmaran.github.io/work/pay-attention-to-tackles.html" />
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body class="page-tackles">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="site-name" href="../index.html">Scott Maran<span class="name-dot" aria-hidden="true">.</span></a>
+        <nav class="site-nav" aria-label="Main navigation"><a href="../projects.html" aria-current="true">Work</a>
+<a href="../writing.html">Writing</a>
+<a href="../about.html">About</a></nav>
+      </header>
+      <main id="main" tabindex="-1"><article>
+  <header class="article-intro">
+    <a class="back-link" href="../projects.html"
+      ><span aria-hidden="true">←</span> All work</a
+    >
+    <div class="article-meta">
+      <span>Sports analytics · NFL Big Data Bowl</span><span>2024</span>
+    </div>
+    <h1 class="long-title">
+      Pay Attention<br class="desktop-break" />
+      to Tackles<span class="title-dot">.</span>
+    </h1>
+    <p class="page-deck">
+      Measuring tackling in the context of the opportunity.
+    </p>
+    <p class="project-summary">
+      A tackle count tells you who finished the play. This project asks who we
+      should have expected to finish it, given where everyone was and how the
+      play developed.
+    </p>
+    <div class="project-links">
+      <a
+        href="https://github.com/scottmaran/big_data_bowl_2024/blob/main/pay-attention-to-tackles-an-ai-approach.ipynb"
+        >Read the submission <span aria-hidden="true">↗</span></a
+      ><a href="https://github.com/scottmaran/big_data_bowl_2024"
+        >View source <span aria-hidden="true">↗</span></a
+      >
+    </div>
+  </header>
+  <figure class="project-figure hero-figure">
+    <video
+      controls
+      playsinline
+      preload="metadata"
+      poster="../assets/projects/bdb-poster.png"
+      width="874"
+      height="384"
+      aria-label="Silent animation of a football play with changing tackle probabilities for each defender"
+      aria-describedby="tackles-demo-caption"
+    >
+      <source src="../assets/projects/bdb-demo.mp4" type="video/mp4" />
+      <a href="../assets/projects/bdb-demo.mp4"
+        >Download the tackling demonstration</a
+      >.
+    </video>
+    <figcaption id="tackles-demo-caption">
+      <span class="figure-number">01 / The play</span> Each defender’s tackle
+      probability updates as the play develops. Silent demonstration.
+    </figcaption>
+  </figure>
+  <div class="prose reading-width">
+    <h2>The question</h2>
+    <p>
+      Some tackles are much harder to make than others. A defender’s total
+      depends on both their ability and the opportunities they get: positioning,
+      teammates, blockers, and the ball carrier all matter.
+    </p>
+    <p>
+      For the 2024 NFL Big Data Bowl, I used player-tracking data to estimate
+      the probability that each defender would make the tackle. That creates a
+      basis for comparing what happened with what the situation suggested should
+      happen.
+    </p>
+    <h2>Modeling the whole field</h2>
+    <p>
+      The model uses attention across all 23 field entities: the players and the
+      ball. That lets it account for relationships across the field without
+      imposing an arbitrary order on the players.
+    </p>
+    <p>
+      Learned positional embeddings add information about player roles. A
+      transformer encoder combines that information with player inputs to
+      produce tackle probabilities.
+    </p>
+  </div>
+  <figure class="project-figure light-figure">
+    <a
+      class="figure-link"
+      href="../assets/projects/bdb-architecture.png"
+      aria-label="Open the tackle probability model diagram at full size"
+      ><img
+        src="../assets/projects/bdb-architecture.png"
+        alt="Player inputs and positional embeddings feed a transformer encoder with multi-head attention. Its outputs pass through a softmax to produce tackle probabilities."
+        loading="lazy"
+        decoding="async"
+        width="3350"
+        height="1423"
+    /></a>
+    <figcaption>
+      <span class="figure-number">02 / The model</span> Attention over the full
+      field, enriched with learned positional embeddings. Select the diagram to
+      view it at full size.
+    </figcaption>
+  </figure>
+  <div class="prose reading-width">
+    <h2>From probability to performance</h2>
+    <p>
+      Those probabilities become the baseline for Tackles over Expected:
+      comparing actual tackles with the opportunities the model assigns to a
+      defender. This puts performance in the context of the play.
+    </p>
+    <p>
+      The project also explores the structure learned by the model. The player
+      embeddings reveal similarities in how players behave, with football’s
+      positional relationships emerging from the data.
+    </p>
+  </div>
+  <figure class="project-figure light-figure">
+    <a
+      class="figure-link"
+      href="../assets/projects/bdb-embeddings.png"
+      aria-label="Open the player embeddings visualization at full size"
+      ><img
+        src="../assets/projects/bdb-embeddings.png"
+        alt="Visualization of learned player embeddings, showing clusters and relationships between football positions."
+        loading="lazy"
+        decoding="async"
+        width="663"
+        height="543"
+    /></a>
+    <figcaption>
+      <span class="figure-number">03 / Player relationships</span> Structure in
+      the learned embeddings reflects similarities between players and
+      positions.
+    </figcaption>
+  </figure>
+  <div class="prose reading-width">
+    <h2>Explore the research</h2>
+    <p>
+      The
+      <a
+        href="https://github.com/scottmaran/big_data_bowl_2024/blob/main/pay-attention-to-tackles-an-ai-approach.ipynb"
+        >full submission</a
+      >
+      includes the method, analysis, and context-adjusted rankings. The
+      <a href="https://github.com/scottmaran/big_data_bowl_2024">repository</a>
+      contains the code.
+    </p>
+  </div>
+  <nav class="project-next" aria-label="Next project">
+    <span class="eyebrow">Another project</span
+    ><a href="lux.html">Lux <span aria-hidden="true">→</span></a>
+  </nav>
+</article>
+</main>
+      <footer class="site-footer" id="contact">
+    <div class="footer-top"><div><p class="footer-heading">Always happy to compare notes.</p><a class="email-link" href="mailto:scttedward2430@gmail.com">scttedward2430@gmail.com <span aria-hidden="true">↗</span></a></div>
+    <nav class="elsewhere" aria-label="Elsewhere"><a href="https://github.com/scottmaran">GitHub <span aria-hidden="true">↗</span></a><a href="https://linkedin.com/in/scott-maran-a5036a178">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://x.com/realallinhockey">X <span aria-hidden="true">↗</span></a></nav></div>
+    <div class="footer-bottom"><a href="../index.html">Scott Maran</a><span>New York City</span></div>
+  </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,134 @@
+<article>
+  <header class="article-intro">
+    <a class="back-link" href="{{base}}projects.html"
+      ><span aria-hidden="true">←</span> All work</a
+    >
+    <div class="article-meta">
+      <span>AI infrastructure · Open source</span><span>2026</span>
+    </div>
+    <h1>Lux<span class="title-dot">.</span></h1>
+    <p class="page-deck">A black box for AI agents.</p>
+    <p class="project-summary">
+      What did the agent actually do? Lux captures the commands it runs, the
+      files it changes, and the connections it makes, then brings that evidence
+      into one timeline.
+    </p>
+    <div class="project-links">
+      <a href="https://github.com/scottmaran/lux"
+        >View source <span aria-hidden="true">↗</span></a
+      ><a href="https://github.com/scottmaran/lux/tree/main/docs"
+        >Documentation <span aria-hidden="true">↗</span></a
+      >
+    </div>
+  </header>
+  <figure class="project-figure hero-figure">
+    <video
+      controls
+      playsinline
+      preload="metadata"
+      poster="{{base}}assets/projects/lux-poster.png"
+      width="960"
+      height="540"
+      aria-label="Silent demonstration of Lux showing AI agent activity in an event timeline"
+      aria-describedby="lux-demo-caption"
+    >
+      <source src="{{base}}assets/projects/lux-demo.mp4" type="video/mp4" />
+      <a href="{{base}}assets/projects/lux-demo.mp4"
+        >Download the Lux demonstration</a
+      >.
+    </video>
+    <figcaption id="lux-demo-caption">
+      <span class="figure-number">01 / Demo</span> Agent activity becomes a
+      timeline of processes, file changes, and network connections. Silent
+      demonstration.
+    </figcaption>
+  </figure>
+  <div class="prose reading-width">
+    <h2>The question</h2>
+    <p>
+      An AI agent can explain what it intended to do. To understand what
+      happened on the machine, you also need a record of its actions: the
+      processes it started, the files it touched, and the services it contacted.
+    </p>
+    <p>Lux is built around that question: what did the agent actually do?</p>
+    <h2>Observing from outside the agent</h2>
+    <p>
+      The system observes activity at the operating-system level using auditd
+      and eBPF. A harness launches the agent; the observation layer collects
+      evidence below the conversation transcript and stores it outside the
+      agent’s control.
+    </p>
+    <p>
+      Events are attributed to a run and brought together in a review interface.
+      The aim is to make a session inspectable, from individual commands to
+      changes across the filesystem and network.
+    </p>
+  </div>
+  <figure class="project-figure system-figure">
+    <ol class="system-flow" aria-label="How Lux records agent activity">
+      <li>
+        <span class="flow-number">01</span><strong>Launch</strong
+        ><span>A harness starts the agent</span>
+      </li>
+      <li>
+        <span class="flow-number">02</span><strong>Observe</strong
+        ><span>auditd + eBPF record activity</span>
+      </li>
+      <li>
+        <span class="flow-number">03</span><strong>Store</strong
+        ><span>Evidence is attributed to a run</span>
+      </li>
+      <li>
+        <span class="flow-number">04</span><strong>Review</strong
+        ><span>Events appear in one timeline</span>
+      </li>
+    </ol>
+    <figcaption>
+      <span class="figure-number">02 / System</span> Observation and evidence
+      storage sit outside the agent.
+    </figcaption>
+  </figure>
+  <div class="prose reading-width">
+    <h2>What it produces</h2>
+    <p>
+      The result is a timeline of process execution, file changes, and network
+      activity, organized by session. It gives the reviewer a way to move from a
+      summary of a run to the events behind it.
+    </p>
+  </div>
+  <figure class="project-figure">
+    <a
+      class="figure-link"
+      href="{{base}}assets/projects/lux-evidence.png"
+      aria-label="Open the Lux event timeline image at full size"
+      ><img
+        src="{{base}}assets/projects/lux-evidence.png"
+        alt="Lux review interface with process, file change, and network call counts above a session-attributed event timeline and a list of agent runs."
+        loading="lazy"
+        decoding="async"
+        width="960"
+        height="540"
+    /></a>
+    <figcaption>
+      <span class="figure-number">03 / Evidence</span> A single place to review
+      what ran, what changed, and what connected. Select the image to view it at
+      full size.
+    </figcaption>
+  </figure>
+  <div class="prose reading-width">
+    <h2>Explore the project</h2>
+    <p>
+      The <a href="https://github.com/scottmaran/lux">source code</a> and
+      <a href="https://github.com/scottmaran/lux/tree/main/docs"
+        >documentation</a
+      >
+      go into the implementation and observation model.
+    </p>
+  </div>
+  <nav class="project-next" aria-label="Next project">
+    <span class="eyebrow">Next project</span
+    ><a href="pay-attention-to-tackles.html"
+      >Pay Attention to Tackles <span aria-hidden="true">→</span></a
+    >
+  </nav>
+</article>

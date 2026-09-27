@@ -1,12 +1,13 @@
 {
   "name": "scottmaran.github.io",
   "version": "1.0.0",
-  "description": "my personal webpage",
-  "main": "index.js",
+  "description": "Scott Maran — selected work, writing, and background",
   "scripts": {
-    "dev": "python3 -m http.server 4173",
-    "lint": "eslint --max-warnings=0 . --ext .js",
-    "format": "prettier --write ."
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check",
+    "dev": "python3 -m http.server 4187 --bind 127.0.0.1",
+    "lint": "eslint --max-warnings=0 scripts/ eslint.config.js",
+    "format": "prettier --write styles.css content/ scripts/ eslint.config.js README.md package.json && npm run build"
   },
   "repository": {
     "type": "git",

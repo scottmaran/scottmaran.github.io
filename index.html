@@ -3,340 +3,101 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Scott Maran's personal site—a place for thoughts, things, and an NHL '93-inspired game."
-    />
-    <title>Scott Maran | Home</title>
-    <link rel="icon" href="assets/general_puck.png" />
-    <link rel="stylesheet" href="game.css" />
+    <title>Scott Maran — Work &amp; writing</title>
+    <meta name="description" content="Scott Maran. Work and thinking on prediction markets, AI, statistics, and sports." />
+    <meta name="theme-color" content="#f8f7f3" />
+    <link rel="canonical" href="https://scottmaran.github.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Scott Maran — Work &amp; writing" />
+    <meta property="og:description" content="Scott Maran. Work and thinking on prediction markets, AI, statistics, and sports." />
+    <meta property="og:url" content="https://scottmaran.github.io/" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="home-page">
+  <body class="page-home">
     <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="site-name" href="index.html" aria-current="page">Scott Maran<span class="name-dot" aria-hidden="true">.</span></a>
+        <nav class="site-nav" aria-label="Main navigation"><a href="projects.html">Projects</a>
+        <!-- <a href="writing.html">Writing</a> -->
+        <a href="about.html">About</a></nav>
+      </header>
+      <main id="main" tabindex="-1">
+        
+<section class="home-intro" aria-labelledby="intro-title">
+  <h2 id="intro-title"> <strong>Currently:</strong> <br> training AI models @ SumerSports<span class="title-dot">.</span></h2>
+  <!-- <br> -->
+   <!-- <p class="eyebrow">
+    &emsp;
+    <span class="small-rule" aria-hidden="true"></span> Based in: NYC
+  </p>-->
+  <!-- <p class="intro-text">
+    Interested in: AI, statistics, sports, and the things you learn by building.
+  </p> -->
+  <a class="text-link" href="about.html"
+    >A little more about me <span aria-hidden="true">↗</span></a
+  >
+</section>
 
-    <header class="site-header rink-header">
-      <a class="rink-brand" href="index.html" aria-label="Scott Maran, home">
-        <span class="rink-brand__disc">SM</span>
-        <span>Scott Maran</span>
-      </a>
-      <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="index.html" aria-current="page">Home</a>
-        <a href="about.html">About</a>
-        <a href="projects.html">Projects</a>
-        <button
-          type="button"
-          data-open-game
-          aria-controls="home-game"
-          aria-pressed="false"
-        >
-          Play
-        </button>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <div class="rink-status">
-        <span class="rink-status__light"></span>
-        NYC
-      </div>
-      <details class="mobile-nav">
-        <summary>Menu</summary>
-        <div
-          class="mobile-nav__panel"
-          role="navigation"
-          aria-label="Mobile navigation"
-        >
-          <a href="index.html" aria-current="page">Home</a>
-          <a href="about.html">About</a>
-          <a href="projects.html">Projects</a>
-          <button
-            type="button"
-            data-open-game
-            aria-controls="home-game"
-            aria-pressed="false"
-          >
-            Play
-          </button>
-          <a href="contact.html">Contact</a>
-        </div>
-      </details>
-    </header>
+<section class="home-section" aria-labelledby="work-heading" id="work">
+  <div class="section-label">
+    <h2 id="work-heading">Selected projects</h2>
+    <!-- <span class="section-index" aria-hidden="true">01 — 02</span> -->
+  </div>
+  <div class="section-content"><div class="work-list">
+    <article class="work-entry" id="project-lux">
+      <div class="entry-heading"><h3><a href="work/lux.html">Lux <span aria-hidden="true">↗</span></a></h3><span class="entry-year">2026</span></div>
+      <p>A black box for AI agents. Captures the commands they run, the files they change, and the connections they make, then puts it all in a timeline you can inspect.</p>
+      <span class="entry-category">AI infrastructure · Open source</span>
+    </article>
+    <article class="work-entry" id="project-bdb">
+      <div class="entry-heading"><h3><a href="work/pay-attention-to-tackles.html">Pay Attention to Tackles <span aria-hidden="true">↗</span></a></h3><span class="entry-year">2024</span></div>
+      <p>Who should have made the tackle? An attention model that uses player-tracking data to put tackling performance in the context of the opportunity.</p>
+      <span class="entry-category">Sports analytics · NFL Big Data Bowl</span>
+    </article></div></div>
+</section>
 
-    <main id="main" class="rink-story home-story">
-      <div class="long-rink" aria-hidden="true">
-        <div class="rink-board rink-board--left"></div>
-        <div class="rink-board rink-board--right"></div>
-        <div class="rink-line rink-line--goal-top"></div>
-        <div class="rink-line rink-line--blue-top"></div>
-        <div class="rink-line rink-line--center"></div>
-        <div class="rink-line rink-line--blue-bottom"></div>
-        <div class="rink-line rink-line--goal-bottom"></div>
-        <div class="faceoff-circle faceoff-circle--center"><i></i></div>
-        <div class="faceoff-circle faceoff-circle--one"><i></i></div>
-        <div class="faceoff-circle faceoff-circle--two"><i></i></div>
-        <div class="faceoff-circle faceoff-circle--three"><i></i></div>
-        <div class="faceoff-circle faceoff-circle--four"><i></i></div>
-        <div class="goal-crease goal-crease--top"></div>
-        <div class="goal-crease goal-crease--bottom"></div>
-      </div>
-      <div class="reading-wash" aria-hidden="true"></div>
+<!-- <section class="home-section" aria-labelledby="writing-heading">
+  <div class="section-label">
+    <h2 id="writing-heading"><a href="writing.html">Writing</a></h2>
+    <span class="section-note">An open notebook.</span>
+  </div>
+  <div class="section-content"><div class="writing-list">
+    <article class="writing-entry">
+      <div class="entry-heading"><h3><a href="writing/first-note.html">A first note <span aria-hidden="true">↗</span></a></h3><span class="status">Placeholder</span></div>
+      <p>A space for an essay, an experiment, or something worth thinking through.</p>
+    </article></div></div>
+</section> -->
 
-      <svg
-        class="minimal-route"
-        viewBox="0 0 1000 1000"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path
-          class="minimal-route__guide"
-          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
-        ></path>
-        <path
-          id="route-path"
-          data-route-path
-          class="minimal-route__progress"
-          pathLength="100"
-          d="M865 55 C945 125 800 205 872 295 C945 380 798 455 878 535 C950 620 800 700 880 775 C940 835 812 875 872 910"
-        ></path>
-      </svg>
-      <div class="minimal-puck" aria-hidden="true"><span></span></div>
-
-      <section
-        id="home-game"
-        class="game-stage minimal-game"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="game-title"
-        hidden
-      >
-        <h2 id="game-title" class="visually-hidden">
-          NHL '93 interactive game
-        </h2>
-        <p id="canvas-instructions" class="visually-hidden">
-          Use the arrow keys or WASD to skate. Press Space to collect or drop
-          the puck, P to shoot, Enter to open a rink hotspot, and Escape to
-          release the controls.
-        </p>
-
-        <div class="rink-canvas-frame">
-          <canvas
-            id="rink-canvas"
-            width="1280"
-            height="960"
-            tabindex="0"
-            role="application"
-            aria-label="Interactive NHL '93 rink"
-            aria-describedby="canvas-instructions"
-          ></canvas>
-          <div class="canvas-status" role="status" aria-live="assertive">
-            [ LOADING RINK ASSETS ]
-          </div>
-          <div class="hud" aria-live="polite">
-            <div class="hud__prompt" hidden>
-              <span class="hud__label"></span>
-              <span class="hud__action">[ PRESS ENTER TO OPEN ]</span>
-            </div>
-            <div class="hud__beacons"></div>
-          </div>
-
-          <section class="game-scoreboard" aria-label="Scoreboard">
-            <div class="game-scoreboard__title">Scoreboard</div>
-            <div class="game-scoreboard__scores" aria-live="polite">
-              <div>
-                <span>Player</span>
-                <strong id="score-player">0</strong>
-              </div>
-              <div>
-                <span>Opp</span>
-                <strong id="score-opponent">0</strong>
-              </div>
-            </div>
-          </section>
-
-          <div class="game-toolbar" aria-label="Game options">
-            <details class="game-menu" name="game-menu">
-              <summary>How to play</summary>
-              <div class="game-menu__panel">
-                <p>
-                  Click the rink, then skate with the arrow keys or
-                  <kbd>WASD</kbd>.
-                </p>
-                <ol class="game-instructions">
-                  <li>Grab the puck at center ice with <kbd>Space</kbd>.</li>
-                  <li>Skate to a labeled hotspot.</li>
-                  <li>Press <kbd>Enter</kbd> to open that section.</li>
-                  <li>Press <kbd>P</kbd> to shoot toward the net.</li>
-                </ol>
-                <p>Press <kbd>Esc</kbd> to release the controls.</p>
-                <p class="no-keyboard" hidden>
-                  The game works best with a keyboard. The site navigation
-                  remains available above.
-                </p>
-                <div class="game-menu__note">
-                  <strong>Inspiration</strong>
-                  Playing NHL '93 with my dad on our old Sega Genesis
-                  when I was home from college.
-                </div>
-              </div>
-            </details>
-
-            <details class="game-menu" name="game-menu">
-              <summary>Customize</summary>
-              <div class="game-menu__panel game-menu__panel--compact">
-                <div class="rink-controls__content">
-                  <label for="sprite-select">Player sprite</label>
-                  <select
-                    id="sprite-select"
-                    aria-label="Choose player sprite"
-                  ></select>
-                  <label for="npc-count">NPC count</label>
-                  <select id="npc-count" aria-label="Choose NPC count">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3" selected>3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                  </select>
-                  <label for="npc-sprite-select">NPC sprite</label>
-                  <select
-                    id="npc-sprite-select"
-                    aria-label="Choose NPC sprite"
-                  ></select>
-                </div>
-              </div>
-            </details>
-
-            <button
-              id="fullscreen-toggle"
-              class="game-toolbar__button"
-              type="button"
-              aria-pressed="false"
-            >
-              Fullscreen
-            </button>
-            <button id="close-game" class="game-toolbar__button" type="button">
-              Close
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <div class="story-track">
-        <section id="opening" class="story-chapter story-chapter--opening">
-          <div class="story-copy reveal">
-            <!-- <p class="chapter-marker"><span>00</span> Home ice</p> -->
-            <p class="chapter-eyebrow">Analyst · Curious · Builder</p>
-            <!-- <h1>
-              Welcome.
-            </h1> -->
-            <br>
-            <h2>
-              Personal <br> website.
-              <em></em>
-            </h2>
-            <br>
-            <p class="chapter-deck">
-              <em>A record of projects, thoughts, 
-              <br> and everything else on the ice.</em>
-            </p>
-            <a class="scroll-cue" href="about.html">
-              <span>About Me</span>
-              <i aria-hidden="true"></i>
-            </a>
-            <a class="scroll-cue" href="projects.html">
-              <span>Projects</span>
-              <i aria-hidden="true"></i>
-            </a>
-            <a class="scroll-cue" href="#contact">
-              <span>Contact</span>
-              <i aria-hidden="true"></i>
-            </a>
-          </div>
-        </section>
-
-        <section id="about" class="story-chapter">
-          <div class="story-copy reveal">
-            <p class="chapter-marker"><span>01</span> Reading the ice</p>
-            <h2>The edge.</h2>
-            <p>
-              <em>I find value. Usually in the places people overlook.</em>
-            </p>
-          </div>
-        </section>
-
-        <section id="projects" class="story-chapter">
-          <div class="story-copy reveal">
-            <p class="chapter-marker"><span>02</span> In the corners</p>
-            <h2>The execution.</h2>
-            <p>
-              <em>Dig to the bottom of the stack. <br>
-                Follow the rabbit hole all the way down.</em>
-            </p>
-          </div>
-        </section>
-
-        <!-- <section id="play" class="story-chapter">
-          <div class="story-copy reveal">
-            <p class="chapter-marker"><span>03</span> Interactive shift</p>
-            <h2>Take the ice.</h2>
-            <p>
-              Inspired by playing NHL '93 with my dad on our old Sega Genesis
-              every day when I was home from college.
-            </p>
-            <div class="chapter-actions">
-              <button
-                id="play-game"
-                class="play-button"
-                type="button"
-                data-open-game
-                aria-controls="home-game"
-                aria-pressed="false"
-              >
-                <span id="play-label">Enter game mode</span>
-                <span aria-hidden="true">↗</span>
-              </button>
-              <p class="game-state" aria-live="polite">
-                <span></span>
-                <strong id="game-state-label">Rink ready</strong>
-              </p>
-            </div>
-          </div>
-        </section> -->
-
-        <section id="contact" class="story-chapter story-chapter--contact">
-          <div class="story-copy reveal">
-            <p class="chapter-marker"><span>03</span> Final whistle</p>
-            <h2>Get in touch.</h2>
-            <p>
-              <em>
-              Reach out and say hi!
-              <br>
-              Especially if you are thinking about ai,
-              <br> markets, sports, data, or anything interesting.
-              </em>
-            </p>
-            <a class="contact-link" href="mailto:scttedward2430@gmail.com">
-              scttedward2430[at]gmail.com
-              <span aria-hidden="true">↗</span>
-            </a>
-            <footer class="story-footer">
-              <a href="https://github.com/scottmaran">GitHub</a>
-              <a href="https://x.com/realallinhockey">X / Twitter</a>
-              <a href="https://linkedin.com/in/scott-maran-a5036a178">LinkedIn</a>
-              <span>NYC</span>
-            </footer>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <script type="module" src="main.js"></script>
+<!-- <section
+  class="home-section background-section"
+  aria-labelledby="background-heading"
+>
+  <div class="section-label">
+    <h2 id="background-heading">A little background</h2>
+  </div>
+  <div class="section-content">
+    <p>
+      I got into data through hockey. That took me from writing about the sport
+      in high school to studying math and statistics at Stanford, working with
+      the Arizona Cardinals, and pricing player props at Swish Analytics.
+    </p>
+    <p>
+      These days, I’m thinking about prediction markets and building tools to
+      explore questions that interest me.
+    </p>
+    <a class="text-link" href="about.html"
+      >More about me <span aria-hidden="true">↗</span></a
+    >
+  </div>
+</section> -->
+</main>
+      <footer class="site-footer" id="contact">
+    <div class="footer-top"><div><p class="footer-heading">Always happy to compare notes.</p><a class="email-link" href="mailto:scttedward2430@gmail.com">scttedward2430@gmail.com <span aria-hidden="true">↗</span></a></div>
+    <nav class="elsewhere" aria-label="Elsewhere"><a href="https://github.com/scottmaran">GitHub <span aria-hidden="true">↗</span></a><a href="https://linkedin.com/in/scott-maran-a5036a178">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://x.com/realallinhockey">X <span aria-hidden="true">↗</span></a></nav></div>
+    <div class="footer-bottom"><a href="index.html">Scott Maran</a><span>New York City</span></div>
+  </footer>
+    </div>
   </body>
 </html>

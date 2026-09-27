@@ -1,0 +1,99 @@
+{
+  "email": "scttedward2430@gmail.com",
+  "github": "https://github.com/scottmaran",
+  "linkedin": "https://linkedin.com/in/scott-maran-a5036a178",
+  "twitter": "https://x.com/realallinhockey",
+  "work": [
+    {
+      "id": "project-lux",
+      "title": "Lux",
+      "url": "work/lux.html",
+      "year": "2026",
+      "category": "AI infrastructure · Open source",
+      "description": "A black box for AI agents. Captures the commands they run, the files they change, and the connections they make, then puts it all in a timeline you can inspect."
+    },
+    {
+      "id": "project-bdb",
+      "title": "Pay Attention to Tackles",
+      "url": "work/pay-attention-to-tackles.html",
+      "year": "2024",
+      "category": "Sports analytics · NFL Big Data Bowl",
+      "description": "Who should have made the tackle? An attention model that uses player-tracking data to put tackling performance in the context of the opportunity."
+    }
+  ],
+  "writing": [
+    {
+      "title": "A first note",
+      "url": "writing/first-note.html",
+      "status": "Placeholder",
+      "description": "A space for an essay, an experiment, or something worth thinking through."
+    }
+  ],
+  "pages": [
+    {
+      "key": "home",
+      "url": "index.html",
+      "title": "Home",
+      "description": "Scott Maran. Work and thinking on prediction markets, AI, statistics, and sports."
+    },
+    {
+      "key": "work",
+      "url": "projects.html",
+      "title": "Work",
+      "section": "work",
+      "description": "Selected projects by Scott Maran: AI agent observability with Lux and tackling research for the NFL Big Data Bowl."
+    },
+    {
+      "key": "writing",
+      "url": "writing.html",
+      "title": "Writing",
+      "section": "writing",
+      "description": "A place for Scott Maran’s essays, experiments, and notes. The first piece is still to come."
+    },
+    {
+      "key": "about",
+      "url": "about.html",
+      "title": "About",
+      "section": "about",
+      "description": "From hockey analytics to Stanford, the Arizona Cardinals, sports betting, and prediction markets. A little about Scott Maran."
+    },
+    {
+      "key": "lux",
+      "url": "work/lux.html",
+      "title": "Lux",
+      "section": "work",
+      "article": true,
+      "description": "An OS-level black box for AI agents. A project by Scott Maran to make agent activity visible and reviewable."
+    },
+    {
+      "key": "tackles",
+      "url": "work/pay-attention-to-tackles.html",
+      "title": "Pay Attention to Tackles",
+      "section": "work",
+      "article": true,
+      "description": "An attention model for estimating tackle probabilities and evaluating NFL defenders in the context of their opportunities."
+    },
+    {
+      "key": "first-note",
+      "url": "writing/first-note.html",
+      "title": "A first note",
+      "section": "writing",
+      "article": true,
+      "noindex": true,
+      "description": "A temporary placeholder for future writing by Scott Maran."
+    },
+    {
+      "key": "contact",
+      "url": "contact.html",
+      "title": "Contact",
+      "description": "Get in touch with Scott Maran about AI, markets, sports, statistics, or something interesting."
+    },
+    {
+      "key": "not-found",
+      "url": "404.html",
+      "title": "Page not found",
+      "noindex": true,
+      "description": "This page could not be found. Explore Scott Maran’s work and writing."
+    }
+  ]
+}

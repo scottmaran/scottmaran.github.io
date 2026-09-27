@@ -315,6 +315,15 @@ h1 {
 .page-home .site-footer {
   margin-top: 0;
 }
+.page-home #intro-title {
+  font-family: var(--serif); /* try var(--sans) */
+  font-size: 36px;           /* change this as you experiment */
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  color: var(--ink);
+  max-width: 760px;
+}
 .footer-top {
   display: flex;
   align-items: flex-start;
